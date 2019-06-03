@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">UtilOne</string>
+    <!--format-->
+    <string name="earlyLateDiffer" formatted="true">%1$s秒</string>
+</resources>
