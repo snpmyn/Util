@@ -65,7 +65,7 @@ public class SnackbarUtils {
      */
     public static Snackbar snackbarCreateByResIdWithActionByResId(
             View view, int createResId, boolean lengthLong,
-            CharSequence actionResId, SnackbarOnClickListener snackbarOnClickListener) {
+            int actionResId, SnackbarOnClickListener snackbarOnClickListener) {
         Snackbar snackbar = snackbarCreateByResId(view, createResId, lengthLong);
         snackbar.setAction(actionResId, v -> snackbarOnClickListener.snackbarOnClickListener(v, snackbar));
         return snackbar;

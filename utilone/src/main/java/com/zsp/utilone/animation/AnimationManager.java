@@ -1,4 +1,4 @@
-package com.zsp.utilone;
+package com.zsp.utilone.animation;
 
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
@@ -17,9 +17,9 @@ import android.view.animation.TranslateAnimation;
  * Created on 2017/11/15.
  *
  * @author 郑少鹏
- * @desc AnimationUtils
+ * @desc AnimationManager
  */
-public class AnimationUtils {
+public class AnimationManager {
     /**
      * 补间晃动
      *

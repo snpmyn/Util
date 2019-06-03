@@ -2,6 +2,8 @@ package com.zsp.utilone;
 
 import android.annotation.SuppressLint;
 
+import com.zsp.utilone.log.LogManager;
+
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -171,7 +173,7 @@ public class DateFormatUtils {
             }
             return outFmt.format(dt);
         } catch (Exception e) {
-            LogUtils.e(e.getMessage());
+            LogManager.e(e.getMessage());
         }
         return date;
     }

@@ -1,4 +1,4 @@
-package com.zsp.utilone;
+package com.zsp.utilone.net;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,15 +25,15 @@ import static android.content.Context.WIFI_SERVICE;
  * NetworkInfo: Describes the status of a network interface of a given type (currently either Mobile or Wi-Fi).
  *
  * @author 郑少鹏
- * @desc NetUtils
+ * @desc NetManager
  */
-public class NetUtils {
-    private static final String TAG = "NetUtils";
+public class NetManager {
+    private static final String TAG = "NetManager";
     private static final boolean D = true;
     private static NetConnChangedReceiver sNetConnChangedReceiver = new NetConnChangedReceiver();
     private static List<NetConnChangedListener> sNetConnChangedListeners = new ArrayList<>();
 
-    private NetUtils() {
+    private NetManager() {
         throw new IllegalStateException("No instance!");
     }
 

@@ -1,16 +1,18 @@
-package com.zsp.utilone;
+package com.zsp.utilone.app;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.zsp.utilone.log.LogManager;
+
 /**
  * Created on 2019/4/19.
  *
  * @author 郑少鹏
- * @desc AppUtils
+ * @desc AppManager
  */
-public class AppUtils {
+public class AppManager {
     /**
      * 版本号
      *
@@ -25,7 +27,7 @@ public class AppUtils {
             versionCode = info.versionCode;
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtils.e(e.getMessage());
+            LogManager.e(e.getMessage());
         }
         return versionCode;
     }
@@ -44,7 +46,7 @@ public class AppUtils {
             versionName = info.versionName;
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtils.e(e.getMessage());
+            LogManager.e(e.getMessage());
         }
         return versionName;
     }

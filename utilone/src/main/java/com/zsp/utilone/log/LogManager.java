@@ -1,4 +1,4 @@
-package com.zsp.utilone;
+package com.zsp.utilone.log;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,6 +11,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
 import com.zsp.application.UtilApplication;
+import com.zsp.utilone.ThreadUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,9 +45,9 @@ import javax.xml.transform.stream.StreamSource;
  * Created on 2017/12/28.
  *
  * @author 郑少鹏
- * @desc LogUtils
+ * @desc LogManager
  */
-public class LogUtils {
+public class LogManager {
     public static final int V = Log.VERBOSE;
     static final int D = Log.DEBUG;
     static final int I = Log.INFO;
@@ -132,7 +133,7 @@ public class LogUtils {
      */
     private static int sStackDeep = 1;
 
-    private LogUtils() {
+    private LogManager() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
