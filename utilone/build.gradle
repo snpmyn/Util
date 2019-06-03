@@ -35,5 +35,6 @@ dependencies {
     /*官方*/
     implementation 'org.apache.commons:commons-lang3:3.9'
     /*BasicThreadFactory*/
-    implementation project(path: ':application')
+    implementation 'org.litepal.android:java:3.0.0'
+    /*LitePal*/
 }
