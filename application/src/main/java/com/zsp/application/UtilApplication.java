@@ -1,4 +1,4 @@
-package application;
+package com.zsp.application;
 
 import android.app.Application;
 import android.content.ContentProvider;

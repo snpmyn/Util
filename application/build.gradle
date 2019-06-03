@@ -20,10 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
+
 }
 
 dependencies {
@@ -31,9 +28,6 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     /*自带*/
-    api 'com.github.bumptech.glide:glide:4.9.0'
-    /*官方*/
-    implementation 'org.apache.commons:commons-lang3:3.9'
-    /*BasicThreadFactory*/
-    implementation project(path: ':application')
+    api 'org.litepal.android:java:3.0.0'
+    /*LitePal*/
 }
