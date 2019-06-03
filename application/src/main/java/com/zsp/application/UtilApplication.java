@@ -4,13 +4,15 @@ import android.app.Application;
 import android.content.ContentProvider;
 import android.os.Build;
 
+import org.litepal.LitePalApplication;
+
 /**
  * Created on 2019/6/3.
  *
  * @author 郑少鹏
  * @desc UtilApplication
  */
-public class UtilApplication extends Application {
+public class UtilApplication extends LitePalApplication {
     /**
      * 实例
      */
