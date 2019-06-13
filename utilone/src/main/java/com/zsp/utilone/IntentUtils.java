@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 /**
@@ -58,5 +59,18 @@ public class IntentUtils {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
+    }
+
+    /**
+     * 打电话
+     *
+     * @param context         上下文
+     * @param cellPhoneNumber 手机号
+     */
+    public static void phone(Context context, String cellPhoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + cellPhoneNumber);
+        intent.setData(data);
+        context.startActivity(intent);
     }
 }
