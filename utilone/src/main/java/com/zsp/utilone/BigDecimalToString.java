@@ -26,11 +26,11 @@ class BigDecimalToString {
             return false;
         }
         boolean result = false;
-        BigDecimal absDB = bigDecimal.abs();
-        if ((absDB.compareTo(new BigDecimal(DECIMAL_MIN_VALUE_CHANGE_TO_EXPR)) <= 0) || (absDB.compareTo(new BigDecimal(INTEGER_MIN_VALUE_CHANGE_TO_EXPR)) >= 0)) {
+        BigDecimal bigDecimalAbs = bigDecimal.abs();
+        if ((bigDecimalAbs.compareTo(new BigDecimal(DECIMAL_MIN_VALUE_CHANGE_TO_EXPR)) <= 0) || (bigDecimalAbs.compareTo(new BigDecimal(INTEGER_MIN_VALUE_CHANGE_TO_EXPR)) >= 0)) {
             result = true;
         }
-        if (absDB.compareTo(new BigDecimal(0)) == 0) {
+        if (bigDecimalAbs.compareTo(new BigDecimal(0)) == 0) {
             result = false;
         }
         return result;

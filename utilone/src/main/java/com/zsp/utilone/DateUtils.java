@@ -62,10 +62,10 @@ public class DateUtils {
      */
     private static Date getCurrentDate(String format) {
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
-        String dateS = getCurrentTime(format);
+        String stringDate = getCurrentTime(format);
         Date date = null;
         try {
-            date = sdf.parse(dateS);
+            date = sdf.parse(stringDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -640,7 +640,10 @@ public class DateUtils {
             Date oldDate = sdf.parse(oldTime);
             Date newDate = sdf.parse(newTime);
             // 转秒
-            long between = (newDate.getTime() - oldDate.getTime()) / 1000;
+            long between = 0;
+            if (newDate != null && oldDate != null) {
+                between = (newDate.getTime() - oldDate.getTime()) / 1000;
+            }
             if (type == 1) {
                 // 小时
                 value = (int) (between % (24 * 36000) / 3600);
@@ -672,7 +675,9 @@ public class DateUtils {
         try {
             Date dt1 = df.parse(date1);
             Date dt2 = df.parse(date2);
-            return Long.compare(dt1.getTime(), dt2.getTime());
+            if (dt1 != null && dt2 != null) {
+                return Long.compare(dt1.getTime(), dt2.getTime());
+            }
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -833,7 +838,7 @@ public class DateUtils {
      * @return 时间
      */
     @SuppressLint("DefaultLocale")
-    public static String getFormatHMS(long time) {
+    public static String getFormatHms(long time) {
         time = time / 1000;
         int s = (int) (time % 60);
         int m = (int) (time / 60);

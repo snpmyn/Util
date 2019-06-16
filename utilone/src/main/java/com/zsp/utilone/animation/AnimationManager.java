@@ -40,11 +40,11 @@ public class AnimationManager {
      * @param view     视图
      * @param duration 时长
      */
-    public static void scaleXY(View view, long duration) {
-        ObjectAnimator animatorX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.0f, 1.0f);
-        ObjectAnimator animatorY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.0f, 1.0f);
+    public static void xyScale(View view, long duration) {
+        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.0f, 1.0f);
+        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.0f, 1.0f);
         AnimatorSet animSet = new AnimatorSet();
-        animSet.play(animatorX).with(animatorY);
+        animSet.play(xAnimator).with(yAnimator);
         animSet.setDuration(duration);
         animSet.start();
     }
@@ -55,11 +55,11 @@ public class AnimationManager {
      * @param view     视图
      * @param duration 时长
      */
-    public static void scaleXYGo(View view, long duration) {
-        ObjectAnimator animatorX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.0f);
-        ObjectAnimator animatorY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.0f);
+    public static void xyScaleGo(View view, long duration) {
+        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.0f);
+        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.0f);
         AnimatorSet animSet = new AnimatorSet();
-        animSet.play(animatorX).with(animatorY);
+        animSet.play(xAnimator).with(yAnimator);
         animSet.setDuration(duration);
         animSet.start();
     }
@@ -70,11 +70,11 @@ public class AnimationManager {
      * @param view     视图
      * @param duration 时长
      */
-    public static void scaleXYShow(View view, long duration) {
-        ObjectAnimator animatorX = ObjectAnimator.ofFloat(view, "scaleX", 0.0f, 1.0f);
-        ObjectAnimator animatorY = ObjectAnimator.ofFloat(view, "scaleY", 0.0f, 1.0f);
+    public static void xyScaleShow(View view, long duration) {
+        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(view, "scaleX", 0.0f, 1.0f);
+        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(view, "scaleY", 0.0f, 1.0f);
         AnimatorSet animSet = new AnimatorSet();
-        animSet.play(animatorX).with(animatorY);
+        animSet.play(xAnimator).with(yAnimator);
         animSet.setDuration(duration);
         animSet.start();
     }
@@ -88,7 +88,7 @@ public class AnimationManager {
      * @param duration     时长
      * @param interpolator interpolator
      */
-    public static void gradualX(final View v, int start, int end, long duration, int interpolator) {
+    public static void xGradual(final View v, int start, int end, long duration, int interpolator) {
         ValueAnimator va = ValueAnimator.ofInt(start, end);
         final ViewGroup.LayoutParams params = v.getLayoutParams();
         va.addUpdateListener(animation -> {
@@ -119,7 +119,7 @@ public class AnimationManager {
      * @param duration     时长
      * @param interpolator interpolator
      */
-    public static void gradualY(final View v, int start, int end, long duration, int interpolator) {
+    public static void yGradual(final View v, int start, int end, long duration, int interpolator) {
         ValueAnimator va = ValueAnimator.ofInt(start, end);
         final ViewGroup.LayoutParams params = v.getLayoutParams();
         va.addUpdateListener(animation -> {
@@ -151,7 +151,7 @@ public class AnimationManager {
      * @param interpolator interpolator
      * @return ValueAnimator
      */
-    public static ValueAnimator gradualYReturn(final View v, int start, int end, long duration, int interpolator) {
+    public static ValueAnimator yGradualReturn(final View v, int start, int end, long duration, int interpolator) {
         ValueAnimator va = ValueAnimator.ofInt(start, end);
         final ViewGroup.LayoutParams params = v.getLayoutParams();
         va.addUpdateListener(animation -> {
@@ -180,9 +180,9 @@ public class AnimationManager {
      * @param trEnd    trEnd
      * @param duration 时长
      */
-    public static void translationY(View v, float trEnd, long duration) {
-        float curTranslationY = v.getTranslationY();
-        ObjectAnimator oa = ObjectAnimator.ofFloat(v, "translationY", curTranslationY, trEnd);
+    public static void yTranslation(View v, float trEnd, long duration) {
+        float yCurTranslation = v.getTranslationY();
+        ObjectAnimator oa = ObjectAnimator.ofFloat(v, "translationY", yCurTranslation, trEnd);
         oa.setDuration(duration);
         oa.start();
     }
@@ -236,12 +236,12 @@ public class AnimationManager {
      * @param v        视图
      * @param duration 时长
      */
-    public static void scaleXYAlphaGone(View v, long duration) {
+    public static void xyScaleAlphaGone(View v, long duration) {
         ObjectAnimator oa = ObjectAnimator.ofFloat(v, "alpha", 1.0f, 0.0f);
-        ObjectAnimator animatorX = ObjectAnimator.ofFloat(v, "scaleX", 1.0f, 0.0f);
-        ObjectAnimator animatorY = ObjectAnimator.ofFloat(v, "scaleY", 1.0f, 0.0f);
+        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(v, "scaleX", 1.0f, 0.0f);
+        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(v, "scaleY", 1.0f, 0.0f);
         AnimatorSet animSet = new AnimatorSet();
-        animSet.play(oa).with(animatorX).with(animatorY);
+        animSet.play(oa).with(xAnimator).with(yAnimator);
         animSet.setDuration(duration);
         animSet.start();
     }
@@ -252,12 +252,12 @@ public class AnimationManager {
      * @param v        视图
      * @param duration duration
      */
-    public static void scaleXYAlphaShow(View v, long duration) {
+    public static void xyScaleAlphaShow(View v, long duration) {
         ObjectAnimator oa = ObjectAnimator.ofFloat(v, "alpha", 0.0f, 1.0f);
-        ObjectAnimator animatorX = ObjectAnimator.ofFloat(v, "scaleX", 0.0f, 1.0f);
-        ObjectAnimator animatorY = ObjectAnimator.ofFloat(v, "scaleY", 0.0f, 1.0f);
+        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(v, "scaleX", 0.0f, 1.0f);
+        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(v, "scaleY", 0.0f, 1.0f);
         AnimatorSet animSet = new AnimatorSet();
-        animSet.play(oa).with(animatorX).with(animatorY);
+        animSet.play(oa).with(xAnimator).with(yAnimator);
         animSet.setInterpolator(new BounceInterpolator());
         animSet.setDuration(duration);
         animSet.start();

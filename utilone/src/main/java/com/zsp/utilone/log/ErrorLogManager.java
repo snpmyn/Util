@@ -92,7 +92,7 @@ public class ErrorLogManager {
                 .append("(").append(fileName).append(":")
                 .append(element.getLineNumber())
                 .append(")");
-        String msgT = (TextUtils.isEmpty(msg) ? "" : (msg + " -> ")) + sb.toString();
-        Log.e(tag, msgT);
+        String content = (TextUtils.isEmpty(msg) ? "" : (msg + " -> ")) + sb.toString();
+        Log.e(tag, content);
     }
 }

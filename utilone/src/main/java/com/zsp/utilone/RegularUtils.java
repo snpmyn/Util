@@ -93,7 +93,7 @@ public class RegularUtils {
      * @param input 待验文本
      * @return true匹/false不匹
      */
-    public static boolean isIDCard15(CharSequence input) {
+    public static boolean isIdCard15(CharSequence input) {
         return isMatch(REGEX_ID_CARD15, input);
     }
 
@@ -103,7 +103,7 @@ public class RegularUtils {
      * @param input 待验文本
      * @return true匹/false不匹
      */
-    public static boolean isIDCard18(CharSequence input) {
+    public static boolean isIdCard18(CharSequence input) {
         return isMatch(REGEX_ID_CARD18, input);
     }
 
@@ -123,7 +123,7 @@ public class RegularUtils {
      * @param input 待验文本
      * @return true匹/false不匹
      */
-    public static boolean isURL(CharSequence input) {
+    public static boolean isUrl(CharSequence input) {
         return isMatch(REGEX_URL, input);
     }
 

@@ -53,7 +53,7 @@ public class ActivitySuperviseManager {
      * @param activity 活动
      */
     public static void finishActivity(Activity activity) {
-        if (ACTIVITIES == null || ACTIVITIES.isEmpty()) {
+        if (ACTIVITIES.isEmpty()) {
             return;
         }
         if (activity != null) {
@@ -69,9 +69,6 @@ public class ActivitySuperviseManager {
      * 结束所有Activity
      */
     private static void finishAllActivity() {
-        if (ACTIVITIES == null) {
-            return;
-        }
         for (Activity activity : ACTIVITIES) {
             activity.finish();
         }

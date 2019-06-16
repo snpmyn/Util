@@ -68,7 +68,7 @@ public class NetManager {
      * @param context 上下文
      * @return 2G true
      */
-    public static boolean is2GConnected(Context context) {
+    public static boolean is2gConnected(Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         NetworkInfo activeInfo = getActiveNetworkInfo(context);
         if (activeInfo == null || !activeInfo.isConnected()) {
@@ -94,7 +94,7 @@ public class NetManager {
      * @param context 上下文
      * @return 3G true
      */
-    public static boolean is3GConnected(Context context) {
+    public static boolean is3gConnected(Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         NetworkInfo activeInfo = getActiveNetworkInfo(context);
         if (activeInfo == null || !activeInfo.isConnected()) {
@@ -124,7 +124,7 @@ public class NetManager {
      * @param context 上下文
      * @return 4G true
      */
-    public static boolean is4GConnected(Context context) {
+    public static boolean is4gConnected(Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         NetworkInfo activeInfo = getActiveNetworkInfo(context);
         if (activeInfo == null || !activeInfo.isConnected()) {
@@ -192,7 +192,7 @@ public class NetManager {
      */
     public static void wifiConnect(Context context) {
         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getApplicationContext().getSystemService(WIFI_SERVICE);
-        if (!wifiManager.isWifiEnabled()) {
+        if (wifiManager != null && !wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
     }

@@ -2,9 +2,17 @@
   <dictionary name="MSI">
     <words>
       <w>bumptech</w>
+      <w>hmmss</w>
+      <w>keepattributes</w>
       <w>litepal</w>
+      <w>mddhhmmss</w>
+      <w>meizu</w>
+      <w>miui</w>
       <w>snackbar</w>
       <w>utilone</w>
+      <w>yyyymmddhhmmss</w>
+      <w>yyyymmhh</w>
+      <w>yyyymmss</w>
     </words>
   </dictionary>
 </component>
