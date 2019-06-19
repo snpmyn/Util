@@ -1,9 +1,11 @@
 package com.zsp.utilone.activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
@@ -48,6 +50,42 @@ public class ActivitySuperviseManager {
     }
 
     /**
+     * 当前Activity名
+     * info.topActivity.getShortClassName() Activity名
+     * info.topActivity.getClassName() 类名
+     * info.topActivity.getPackageName() 包名
+     * info.topActivity.getClass() 类实例
+     *
+     * @param context 上下文
+     * @return 当前Activity名
+     */
+    @TargetApi(Build.VERSION_CODES.Q)
+    public static String getCurrentRunningActivityName(Context context) {
+        ActivityManager manager = (ActivityManager) context.getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+        ActivityManager.RunningTaskInfo info = manager != null ? manager.getRunningTasks(1).get(0) : null;
+        String activityName = info != null ? info.topActivity.getShortClassName() : null;
+        ErrorLogManager.e("当前活动", activityName);
+        return activityName;
+    }
+
+    /**
+     * 栈顶Activity实例
+     *
+     * @return 栈顶Activity实例
+     */
+    static Activity getTopActivityInstance() {
+        Activity mBaseActivity;
+        synchronized (ACTIVITIES) {
+            final int size = ACTIVITIES.size() - 1;
+            if (size < 0) {
+                return null;
+            }
+            mBaseActivity = ACTIVITIES.get(size);
+        }
+        return mBaseActivity;
+    }
+
+    /**
      * 结束指定Activity
      *
      * @param activity 活动
@@ -84,23 +122,5 @@ public class ActivitySuperviseManager {
         } catch (Exception e) {
             ErrorLogManager.e(e.getMessage());
         }
-    }
-
-    /**
-     * 当前Activity名
-     * info.topActivity.getShortClassName() Activity名
-     * info.topActivity.getClassName() 类名
-     * info.topActivity.getPackageName() 包名
-     * info.topActivity.getClass() 类实例
-     *
-     * @param context 上下文
-     * @return 当前Activity名
-     */
-    public static String getCurrentRunningActivityName(Context context) {
-        ActivityManager manager = (ActivityManager) context.getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-        ActivityManager.RunningTaskInfo info = manager != null ? manager.getRunningTasks(1).get(0) : null;
-        String activityName = info != null ? info.topActivity.getShortClassName() : null;
-        ErrorLogManager.e("当前活动", activityName);
-        return activityName;
     }
 }
