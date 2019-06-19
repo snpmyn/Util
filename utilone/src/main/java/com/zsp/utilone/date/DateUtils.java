@@ -1,9 +1,12 @@
-package com.zsp.utilone;
+package com.zsp.utilone.date;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+
+import com.zsp.utilone.BigDecimalToString;
+import com.zsp.utilone.R;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -155,7 +158,7 @@ public class DateUtils {
      *
      * @return HashMap
      */
-    public static String getCurrentHM() {
+    public static String getCurrentHm() {
         Calendar calendar = Calendar.getInstance();
         return calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
     }

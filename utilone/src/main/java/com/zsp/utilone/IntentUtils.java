@@ -20,11 +20,11 @@ public class IntentUtils {
      * @param application Application
      */
     public static void restart(Application application) {
-        Intent intent1 = application.getPackageManager().getLaunchIntentForPackage(application.getPackageName());
-        if (intent1 != null) {
-            intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = application.getPackageManager().getLaunchIntentForPackage(application.getPackageName());
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         }
-        application.startActivity(intent1);
+        application.startActivity(intent);
     }
 
     /**

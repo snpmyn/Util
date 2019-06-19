@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
  * @author 郑少鹏
  * @desc BigDecimalToString
  */
-class BigDecimalToString {
+public class BigDecimalToString {
     private static final String EXPR_PATTERN = "0.##########E0";
     private static final String PATTERN = "0.##########";
     private static final String INTEGER_MIN_VALUE_CHANGE_TO_EXPR = "10000000";
@@ -42,7 +42,7 @@ class BigDecimalToString {
      * @param bigDecimal BigDecimal
      * @return String
      */
-    static String bigDecimalToString(BigDecimal bigDecimal) {
+    public static String bigDecimalToString(BigDecimal bigDecimal) {
         if (bigDecimal == null) {
             return null;
         }

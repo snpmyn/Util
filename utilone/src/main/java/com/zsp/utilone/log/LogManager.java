@@ -11,7 +11,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
 import com.zsp.application.UtilApplication;
-import com.zsp.utilone.ThreadUtils;
+import com.zsp.utilone.thread.ThreadManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -495,7 +495,7 @@ public class LogManager {
 
     private static boolean input2File(final String input, final String filePath) {
         if (scheduledExecutorService == null) {
-            scheduledExecutorService = ThreadUtils.stepScheduledExecutorService();
+            scheduledExecutorService = ThreadManager.stepScheduledExecutorService();
         }
         Future<Boolean> submit = scheduledExecutorService.submit(() -> {
             BufferedWriter bw = null;
