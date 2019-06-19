@@ -73,7 +73,7 @@ public class ActivitySuperviseManager {
      *
      * @return 栈顶Activity实例
      */
-    static Activity getTopActivityInstance() {
+    public static Activity getTopActivityInstance() {
         Activity mBaseActivity;
         synchronized (ACTIVITIES) {
             final int size = ACTIVITIES.size() - 1;
