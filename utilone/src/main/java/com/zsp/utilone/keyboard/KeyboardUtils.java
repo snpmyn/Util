@@ -27,6 +27,11 @@ public class KeyboardUtils {
      * @param editText 软键盘
      */
     public static void openKeyboardThree(Context context, EditText editText) {
+        // 获焦
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+        // 打开
         InputMethodManager imm = (InputMethodManager) context.getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
         if (imm != null) {
             imm.showSoftInput(editText, InputMethodManager.RESULT_SHOWN);
