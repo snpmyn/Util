@@ -1,4 +1,4 @@
-package com.zsp.utilone;
+package com.zsp.utilone.validate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * Created on 2018/4/11.
  *
  * @author 郑少鹏
- * @desc 正则工具类
+ * @desc RegularUtils
  */
 public class RegularUtils {
     /**

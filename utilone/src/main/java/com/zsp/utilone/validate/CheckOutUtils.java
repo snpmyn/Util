@@ -1,4 +1,4 @@
-package com.zsp.utilone;
+package com.zsp.utilone.validate;
 
 import android.text.TextUtils;
 
@@ -11,7 +11,7 @@ import value.UtilOneMagic;
  * Created on 2017/9/15.
  *
  * @author 郑少鹏
- * @desc data check
+ * @desc CheckOutUtils
  */
 public class CheckOutUtils {
     /**

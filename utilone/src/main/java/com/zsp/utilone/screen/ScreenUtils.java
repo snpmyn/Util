@@ -1,4 +1,4 @@
-package com.zsp.utilone;
+package com.zsp.utilone.screen;
 
 import android.app.Activity;
 import android.content.Context;
@@ -50,7 +50,7 @@ public class ScreenUtils {
      * @param context 上下文
      * @return 屏高（像素）
      */
-    private static int screenHeight(Context context) {
+    public static int screenHeight(Context context) {
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager(context).getDefaultDisplay().getMetrics(metric);
         return metric.heightPixels;

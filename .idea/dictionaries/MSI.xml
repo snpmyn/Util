@@ -2,12 +2,14 @@
   <dictionary name="MSI">
     <words>
       <w>bumptech</w>
+      <w>cpuinfo</w>
       <w>hmmss</w>
       <w>keepattributes</w>
       <w>litepal</w>
       <w>mddhhmmss</w>
       <w>meizu</w>
       <w>miui</w>
+      <w>proc</w>
       <w>snackbar</w>
       <w>utilone</w>
       <w>yyyymmddhhmmss</w>

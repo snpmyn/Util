@@ -1,4 +1,4 @@
-package com.zsp.utilone;
+package com.zsp.utilone.cache;
 
 import android.content.Context;
 import android.os.Environment;
@@ -7,12 +7,12 @@ import java.io.File;
 import java.math.BigDecimal;
 
 /**
- * 数据清理器
+ * 缓存管理器
  *
  * @author 郑少鹏
  * @date 2018/11/6
  */
-public class DataCleanManager {
+public class CacheManager {
     /**
      * 全缓存大小
      *
@@ -20,11 +20,11 @@ public class DataCleanManager {
      * @return 全缓存大小
      */
     public static String totalCacheSize(Context context) {
-        long cacheSize = getFolderSize(context.getApplicationContext().getCacheDir());
+        long cacheSize = folderSize(context.getApplicationContext().getCacheDir());
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            cacheSize += getFolderSize(context.getApplicationContext().getExternalCacheDir());
+            cacheSize += folderSize(context.getApplicationContext().getExternalCacheDir());
         }
-        return getFormatSize(cacheSize);
+        return formatSize(cacheSize);
     }
 
     /**
@@ -67,7 +67,7 @@ public class DataCleanManager {
      * @param file 文件
      * @return 目录大小
      */
-    private static long getFolderSize(File file) {
+    private static long folderSize(File file) {
         long size = 0;
         try {
             File[] fileList = file.listFiles();
@@ -75,7 +75,7 @@ public class DataCleanManager {
                 for (File aFileList : fileList) {
                     // 下面还有文件
                     if (aFileList.isDirectory()) {
-                        size = size + getFolderSize(aFileList);
+                        size = size + folderSize(aFileList);
                     } else {
                         size = size + aFileList.length();
                     }
@@ -93,7 +93,7 @@ public class DataCleanManager {
      * @param size 大小
      * @return 格式化大小
      */
-    private static String getFormatSize(double size) {
+    private static String formatSize(double size) {
         double kiloByte = size / 1024;
         if (kiloByte < 1) {
             return "0K";

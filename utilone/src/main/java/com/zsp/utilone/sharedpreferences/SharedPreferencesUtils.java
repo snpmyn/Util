@@ -1,4 +1,4 @@
-package com.zsp.utilone;
+package com.zsp.utilone.sharedpreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -20,16 +20,16 @@ import java.util.List;
  * 默应用包名
  *
  * @author 郑少鹏
- * @desc save smaller key sets
+ * @desc SharedPreferencesUtils
  */
-public class SharedPrefUtils {
+public class SharedPreferencesUtils {
     /**
      * 获SharedPreferences
      *
      * @param context 上下文
      * @return SharedPreferences
      */
-    private static SharedPreferences createSharedPreferences(Context context) {
+    public static SharedPreferences createSharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
     }
 
@@ -40,7 +40,7 @@ public class SharedPrefUtils {
      * @param key     key
      * @param value   value
      */
-    private static void saveInt(Context context, String key, int value) {
+    public static void saveInt(Context context, String key, int value) {
         SharedPreferences.Editor editor = createSharedPreferences(context).edit();
         editor.putInt(key, value);
         editor.apply();
@@ -79,7 +79,7 @@ public class SharedPrefUtils {
      * @param key     key
      * @param list    list
      */
-    private static void saveListString(Context context, String key, List<String> list) {
+    public static void saveListString(Context context, String key, List<String> list) {
         // 存前清已存数据保唯一性
         clearListString(context, key);
         int size = list.size();
@@ -96,7 +96,7 @@ public class SharedPrefUtils {
      * @param key     key
      * @return int
      */
-    private static int getInt(Context context, String key) {
+    public static int getInt(Context context, String key) {
         SharedPreferences sharedPreferences = createSharedPreferences(context);
         return sharedPreferences.getInt(key, 0);
     }
@@ -133,7 +133,7 @@ public class SharedPrefUtils {
      * @param key     key
      * @return list<String>
      */
-    private static List<String> getListString(Context context, String key) {
+    public static List<String> getListString(Context context, String key) {
         List<String> list = new ArrayList<>();
         int size = getInt(context, key + "size");
         for (int i = 0; i < size; i++) {
@@ -148,7 +148,7 @@ public class SharedPrefUtils {
      * @param context 上下文
      * @param key     key
      */
-    private static void clearListString(Context context, String key) {
+    public static void clearListString(Context context, String key) {
         int size = getInt(context, key + "size");
         if (0 == size) {
             return;
@@ -186,7 +186,7 @@ public class SharedPrefUtils {
      * @param context 上下文
      * @param key     key
      */
-    private static void clearValueByKey(Context context, String key) {
+    public static void clearValueByKey(Context context, String key) {
         SharedPreferences.Editor editor = createSharedPreferences(context).edit();
         editor.remove(key);
         editor.apply();
