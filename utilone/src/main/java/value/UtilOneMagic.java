@@ -20,4 +20,5 @@ public class UtilOneMagic {
      */
     public static String STRING_L = "0";
     public static String STRING_Y = "1";
+    public static String STRING_DOT = ".";
 }
