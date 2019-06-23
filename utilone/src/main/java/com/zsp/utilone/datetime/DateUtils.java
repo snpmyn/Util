@@ -1,9 +1,8 @@
 package com.zsp.utilone.datetime;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.zsp.utilone.R;
 import com.zsp.utilone.data.BigDecimalToString;
@@ -672,7 +671,6 @@ public class DateUtils {
      * @param format 待转格式
      * @return 结果
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static int compare(String date1, String date2, String format) {
         DateFormat df = DateFormatUtils.getFormat(format);
         try {
@@ -840,13 +838,12 @@ public class DateUtils {
      * @param time 时间
      * @return 时间
      */
-    @SuppressLint("DefaultLocale")
     public static String getFormatHms(long time) {
         time = time / 1000;
         int s = (int) (time % 60);
         int m = (int) (time / 60);
         int h = (int) (time / 3600);
-        return String.format("%02d:%02d:%02d", h, m, s);
+        return String.format(Locale.CHINA, "%02d:%02d:%02d", h, m, s);
     }
 
     /**
@@ -924,5 +921,30 @@ public class DateUtils {
         int min = time % 3600 / 60;
         int second = time % 60;
         return String.format(Locale.CHINA, "%02d:%02d:%02d", hour, min, second);
+    }
+
+    private static SimpleDateFormat simpleDateFormat = null;
+
+    /**
+     * 格式化UTC
+     *
+     * @param l          long
+     * @param strPattern String
+     * @return String
+     */
+    public static String formatUtc(long l, String strPattern) {
+        if (TextUtils.isEmpty(strPattern)) {
+            strPattern = "yyyy-MM-dd HH:mm:ss";
+        }
+        if (simpleDateFormat == null) {
+            try {
+                simpleDateFormat = new SimpleDateFormat(strPattern, Locale.CHINA);
+            } catch (Throwable e) {
+                Log.e("formatUtc", e.toString());
+            }
+        } else {
+            simpleDateFormat.applyPattern(strPattern);
+        }
+        return simpleDateFormat == null ? "NULL" : simpleDateFormat.format(l);
     }
 }

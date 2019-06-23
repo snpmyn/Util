@@ -1,12 +1,11 @@
 package com.zsp.utilone.datetime;
 
-import android.annotation.SuppressLint;
-
 import com.zsp.utilone.log.LogManager;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created on 2017/10/17.
@@ -119,7 +118,6 @@ public class DateFormatUtils {
         return sReturn;
     }
 
-    @SuppressLint("SimpleDateFormat")
     static String formatDate(String date, String format) {
         if (date == null || "".equals(date)) {
             return "";
@@ -142,19 +140,19 @@ public class DateFormatUtils {
         try {
             switch (date.trim().length()) {
                 case 14:
-                    inFmt = new SimpleDateFormat("yyyyMMddHHmmss");
+                    inFmt = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
                     break;
                 case 12:
-                    inFmt = new SimpleDateFormat("yyyyMMddHHmm");
+                    inFmt = new SimpleDateFormat("yyyyMMddHHmm", Locale.CHINA);
                     break;
                 case 10:
-                    inFmt = new SimpleDateFormat("yyyyMMddHH");
+                    inFmt = new SimpleDateFormat("yyyyMMddHH", Locale.CHINA);
                     break;
                 case 8:
-                    inFmt = new SimpleDateFormat("yyyyMMdd");
+                    inFmt = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
                     break;
                 case 6:
-                    inFmt = new SimpleDateFormat("yyyyMM");
+                    inFmt = new SimpleDateFormat("yyyyMM", Locale.CHINA);
                     break;
                 case 7:
                 case 9:
@@ -167,9 +165,9 @@ public class DateFormatUtils {
                 return date;
             }
             if ((format == null) || ("".equals(format.trim()))) {
-                outFmt = new SimpleDateFormat("yyyy年MM月dd日");
+                outFmt = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA);
             } else {
-                outFmt = new SimpleDateFormat(format);
+                outFmt = new SimpleDateFormat(format, Locale.CHINA);
             }
             return outFmt.format(dt);
         } catch (Exception e) {
@@ -215,11 +213,10 @@ public class DateFormatUtils {
      * @param format format
      * @return SimpleDateFormat
      */
-    @SuppressLint("SimpleDateFormat")
     static SimpleDateFormat getFormat(String format) {
         if (format == null || "".equals(format)) {
             format = DATE_FORMAT_FIVE;
         }
-        return new SimpleDateFormat(format);
+        return new SimpleDateFormat(format, Locale.CHINA);
     }
 }
