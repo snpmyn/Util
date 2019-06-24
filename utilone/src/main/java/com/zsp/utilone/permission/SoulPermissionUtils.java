@@ -9,9 +9,9 @@ import com.zsp.utilone.toast.ToastUtils;
  * Created on 2019/5/30.
  *
  * @author 郑少鹏
- * @desc SoulPermission
+ * @desc SoulPermissionUtils
  */
-public class SoulPermission {
+public class SoulPermissionUtils {
     /**
      * 单权限被拒
      *
