@@ -10,15 +10,15 @@ public class UtilOneMagic {
     /**
      * int
      */
-    public static int INT_TWO = 2;
-    public static int INT_THREE = 3;
-    public static int INT_TEN = 10;
-    public static int INT_FIFTEEN = 15;
-    public static int INT_EIGHTEEN = 18;
+    public static final int INT_TWO = 2;
+    public static final int INT_THREE = 3;
+    public static final int INT_TEN = 10;
+    public static final int INT_FIFTEEN = 15;
+    public static final int INT_EIGHTEEN = 18;
     /**
      * String
      */
-    public static String STRING_L = "0";
-    public static String STRING_Y = "1";
-    public static String STRING_DOT = ".";
+    public static final String STRING_L = "0";
+    public static final String STRING_Y = "1";
+    public static final String STRING_DOT = ".";
 }
