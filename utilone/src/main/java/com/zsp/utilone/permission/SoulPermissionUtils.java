@@ -22,7 +22,7 @@ public class SoulPermissionUtils {
      * Android 4.0+支持。
      * <p>
      * SoulPermission内自动初始。
-     * 项目用Tinker、腾讯乐固等替Application或致SoulPermission内初始失败时于{@link Application#onCreate()}调init即可。
+     * 用Tinker、腾讯乐固等替Application或致SoulPermission内初始失败于{@link Application#onCreate()}调init即可。
      * 设debug可看到错误日志打印和相关Toast。
      *
      * @param application 应用
