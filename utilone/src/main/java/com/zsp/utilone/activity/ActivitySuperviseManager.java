@@ -25,10 +25,8 @@ import static android.content.Context.ACTIVITY_SERVICE;
  * @author 郑少鹏
  * @desc ActivitySuperviseManager
  * Application：
- * 结合{@link Application#registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks)}。
  * {@link Application#registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks)}之onActivityCreated当{@link AppCompatActivity#onCreate(Bundle, PersistableBundle)}时执行，android:launchMode="singleTask"时不执行。
- * @link application.App#registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks)}onActivityDestroyed当{@link AppCompatActivity#finish()} (Bundle, PersistableBundle)}时执行，android:launchMode="singleTask"时不执行。
- * <p>
+ * {@link Application#registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks)}onActivityDestroyed当{@link AppCompatActivity#finish()} (Bundle, PersistableBundle)}时执行，android:launchMode="singleTask"时不执行。
  * 基类：
  * 基类之onCreate推当前Activity至Activity管理容器，需时遍历容器并finish所有Activity。
  */
