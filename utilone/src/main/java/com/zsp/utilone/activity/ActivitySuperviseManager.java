@@ -36,7 +36,7 @@ public class ActivitySuperviseManager {
     /**
      * 添Activity至堆栈
      *
-     * @param activity 活动
+     * @param activity Activity
      */
     public static void pushActivity(Activity activity) {
         ACTIVITIES.add(activity);
@@ -86,18 +86,32 @@ public class ActivitySuperviseManager {
     /**
      * 结束指定Activity
      *
-     * @param activity 活动
+     * @param activity Activity
      */
-    public static void finishActivity(Activity activity) {
+    private static void finishActivity(Activity activity) {
         if (ACTIVITIES.isEmpty()) {
             return;
         }
         if (activity != null) {
+            ErrorLogManager.e("结束：" + activity.getClass().getSimpleName());
             ACTIVITIES.remove(activity);
             activity.finish();
         }
-        if (activity != null) {
-            ErrorLogManager.e("结束：" + activity.getClass().getSimpleName());
+    }
+
+    /**
+     * 结束指定类名Activity
+     *
+     * @param cls Class<?>
+     */
+    public static void finishActivity(Class<?> cls) {
+        if (ACTIVITIES.isEmpty()) {
+            return;
+        }
+        for (Activity activity : ACTIVITIES) {
+            if (activity.getClass().equals(cls)) {
+                finishActivity(activity);
+            }
         }
     }
 
