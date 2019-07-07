@@ -78,7 +78,7 @@ public class SoulPermissionUtils {
         ToastUtils.shortShow(context, refusedPermissions[0].toString() + "\n is refused you can not do next things");
     }
 
-    interface SoulPermissionUtilsCallBack {
+    public interface SoulPermissionUtilsCallBack {
         /**
          * 去应用详情
          */
