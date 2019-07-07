@@ -16,6 +16,8 @@ import com.zsp.utilone.toast.ToastUtils;
  * @desc SoulPermissionUtils
  */
 public class SoulPermissionUtils {
+    private SoulPermissionUtilsCallBack soulPermissionUtilsCallBack;
+
     /**
      * 初始
      * <p>
@@ -60,7 +62,10 @@ public class SoulPermissionUtils {
             new MaterialAlertDialogBuilder(activity)
                     .setTitle("提示")
                     .setMessage(permissionName + "异常，请前往设置->权限管理，打开" + permissionName + "。")
-                    .setPositiveButton("去设置", (dialogInterface, i) -> SoulPermission.getInstance().goPermissionSettings()).show();
+                    .setPositiveButton("去设置", (dialogInterface, i) -> SoulPermission.getInstance().goApplicationSettings(data -> {
+                        // If you need to know when back from app detail.
+                        soulPermissionUtilsCallBack.goAppDetail();
+                    })).show();
         }
     }
 
@@ -71,5 +76,16 @@ public class SoulPermissionUtils {
      */
     public void multiPermissionsDenied(Context context, Permission[] refusedPermissions) {
         ToastUtils.shortShow(context, refusedPermissions[0].toString() + "\n is refused you can not do next things");
+    }
+
+    interface SoulPermissionUtilsCallBack {
+        /**
+         * 去应用详情
+         */
+        void goAppDetail();
+    }
+
+    public void setSoulPermissionUtilsCallBack(SoulPermissionUtilsCallBack soulPermissionUtilsCallBack) {
+        this.soulPermissionUtilsCallBack = soulPermissionUtilsCallBack;
     }
 }
