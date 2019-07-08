@@ -3,6 +3,8 @@ package com.zsp.utilone.app;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.zsp.utilone.log.LogManager;
 
@@ -49,5 +51,31 @@ public class AppManager {
             LogManager.e(e.getMessage());
         }
         return versionName;
+    }
+
+    /**
+     * 包信息
+     * <p>
+     * 据包名获。
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return 包信息
+     */
+    public static PackageInfo packageInfo(Context context, String packageName) {
+        if (null == context) {
+            return null;
+        }
+        if (TextUtils.isEmpty(packageName)) {
+            packageName = context.getPackageName();
+        }
+        PackageInfo packageInfo = null;
+        PackageManager manager = context.getPackageManager();
+        try {
+            packageInfo = manager.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("packageInfo", e.toString());
+        }
+        return packageInfo;
     }
 }

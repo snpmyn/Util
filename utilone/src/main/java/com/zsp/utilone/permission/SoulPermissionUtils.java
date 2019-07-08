@@ -10,6 +10,7 @@ import com.qw.soul.permission.bean.Permission;
 import com.qw.soul.permission.bean.Permissions;
 import com.qw.soul.permission.callbcak.CheckRequestPermissionListener;
 import com.qw.soul.permission.callbcak.CheckRequestPermissionsListener;
+import com.zsp.utilone.miui.MiuiUtils;
 import com.zsp.utilone.toast.ToastUtils;
 
 import java.util.ArrayList;
@@ -93,11 +94,19 @@ public class SoulPermissionUtils {
         String message = permissionNameDesc + "异常，前往设置->权限管理，打开" + permissionNameDesc + "。";
         if (permission.shouldRationale()) {
             ToastUtils.shortShow(context, message);
+            soulPermissionUtilsCallBack.onPermissionDenied();
         } else {
             Activity activity = SoulPermission.getInstance().getTopActivity();
             if (null == activity) {
                 return;
             }
+            // MIUI吐司提示
+            if (MiuiUtils.isMiUi()) {
+                ToastUtils.shortShow(context, message);
+                soulPermissionUtilsCallBack.onPermissionDenied();
+                return;
+            }
+            // 其它对话框提示
             new MaterialAlertDialogBuilder(activity)
                     .setTitle("提示")
                     .setMessage(message)
@@ -109,7 +118,9 @@ public class SoulPermissionUtils {
                         }
                         if (loopHint) {
                             singlePermissionDenied(context, permission, soulPermissionUtilsCallBack, true);
+                            return;
                         }
+                        soulPermissionUtilsCallBack.onPermissionDenied();
                     })).show();
         }
     }
@@ -163,19 +174,25 @@ public class SoulPermissionUtils {
     private void multiPermissionsDenied(SoulPermissionUtilsCallBack soulPermissionUtilsCallBack,
                                         boolean loopHint,
                                         Permission[] refusedPermissions) {
+        Activity activity = SoulPermission.getInstance().getTopActivity();
+        if (null == activity) {
+            return;
+        }
         String[] permissionNameDescriptions = permissionNameDescriptions(refusedPermissions);
         StringBuilder stringBuilder = new StringBuilder();
         for (String s : permissionNameDescriptions) {
             stringBuilder.append(s).append("\n");
         }
-        String message = "异常权限：\n" + stringBuilder + "前往设置->权限管理页面处理。";
-        Activity activity = SoulPermission.getInstance().getTopActivity();
-        if (null == activity) {
+        // MIUI吐司提示
+        if (MiuiUtils.isMiUi()) {
+            ToastUtils.shortShow(activity, "正常使用需授予以下权限：\n\n" + stringBuilder);
+            soulPermissionUtilsCallBack.onPermissionDenied();
             return;
         }
+        // 其它对话框提示
         new MaterialAlertDialogBuilder(activity)
                 .setTitle("提示")
-                .setMessage(message)
+                .setMessage("正常使用需授予以下权限：\n\n" + stringBuilder)
                 .setPositiveButton("去设置", (dialogInterface, i) -> SoulPermission.getInstance().goApplicationSettings(data -> {
                     // If you need to know when back from app detail.
                     if (checkPermissions(permissionNames(refusedPermissions))) {
@@ -184,7 +201,9 @@ public class SoulPermissionUtils {
                     }
                     if (loopHint) {
                         multiPermissionsDenied(soulPermissionUtilsCallBack, true, refusedPermissions(refusedPermissions));
+                        return;
                     }
+                    soulPermissionUtilsCallBack.onPermissionDenied();
                 })).show();
     }
 
@@ -197,10 +216,9 @@ public class SoulPermissionUtils {
     private String[] permissionNames(Permission[] permissions) {
         List<String> permissionNames = new ArrayList<>(permissions.length);
         for (Permission permission : permissions) {
-            if (permission.isGranted()) {
-                break;
+            if (!permission.isGranted()) {
+                permissionNames.add(permission.permissionName);
             }
-            permissionNames.add(permission.permissionName);
         }
         return permissionNames.toArray(new String[0]);
     }
@@ -214,9 +232,6 @@ public class SoulPermissionUtils {
     private String[] permissionNameDescriptions(Permission[] permissions) {
         List<String> permissionNameDescriptions = new ArrayList<>();
         for (Permission permission : permissions) {
-            if (permission.isGranted()) {
-                break;
-            }
             permissionNameDescriptions.add(permission.getPermissionNameDesc());
         }
         return permissionNameDescriptions.toArray(new String[0]);
@@ -231,10 +246,9 @@ public class SoulPermissionUtils {
     private Permission[] refusedPermissions(Permission[] refusedPermissions) {
         List<Permission> permissions = new ArrayList<>(refusedPermissions.length);
         for (Permission permission : refusedPermissions) {
-            if (checkSinglePermission(permission.permissionName)) {
-                break;
+            if (!checkSinglePermission(permission.permissionName)) {
+                permissions.add(permission);
             }
-            permissions.add(permission);
         }
         return permissions.toArray(new Permission[0]);
     }
@@ -261,5 +275,12 @@ public class SoulPermissionUtils {
          * 权限可以
          */
         void onPermissionOk();
+
+        /**
+         * 权限被拒
+         * <p>
+         * 循提场景，false有效。
+         */
+        void onPermissionDenied();
     }
 }
