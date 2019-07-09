@@ -2,7 +2,6 @@ package com.zsp.utilone.permission;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.qw.soul.permission.SoulPermission;
@@ -51,17 +50,15 @@ public class SoulPermissionUtils {
     /**
      * 检查并请求单权限
      *
-     * @param context                           上下文
      * @param permissionName                    权限名
      * @param soulPermissionUtils               SoulPermissionUtils
-     * @param checkAndRequestPermissionCallBack CheckAndRequestPermissionCallBack
      * @param loopHint                          循提
+     * @param checkAndRequestPermissionCallBack CheckAndRequestPermissionCallBack
      */
-    public void checkAndRequestPermission(Context context,
-                                          String permissionName,
+    public void checkAndRequestPermission(String permissionName,
                                           SoulPermissionUtils soulPermissionUtils,
-                                          CheckAndRequestPermissionCallBack checkAndRequestPermissionCallBack,
-                                          boolean loopHint) {
+                                          boolean loopHint,
+                                          CheckAndRequestPermissionCallBack checkAndRequestPermissionCallBack) {
         SoulPermission.getInstance().checkAndRequestPermission(permissionName,
                 // If you want do noting or no need all the callbacks, you may use SimplePermissionAdapter instead.
                 new CheckRequestPermissionListener() {
@@ -72,7 +69,7 @@ public class SoulPermissionUtils {
 
                     @Override
                     public void onPermissionDenied(Permission permission) {
-                        soulPermissionUtils.singlePermissionDenied(context, permission, checkAndRequestPermissionCallBack, loopHint);
+                        soulPermissionUtils.singlePermissionDenied(permission, loopHint, checkAndRequestPermissionCallBack);
                     }
                 });
     }
@@ -80,15 +77,13 @@ public class SoulPermissionUtils {
     /**
      * 单权限被拒
      *
-     * @param context                           上下文
      * @param permission                        权限
-     * @param checkAndRequestPermissionCallBack CheckAndRequestPermissionCallBack
      * @param loopHint                          循提
+     * @param checkAndRequestPermissionCallBack CheckAndRequestPermissionCallBack
      */
-    private void singlePermissionDenied(Context context,
-                                        com.qw.soul.permission.bean.Permission permission,
-                                        CheckAndRequestPermissionCallBack checkAndRequestPermissionCallBack,
-                                        boolean loopHint) {
+    private void singlePermissionDenied(com.qw.soul.permission.bean.Permission permission,
+                                        boolean loopHint,
+                                        CheckAndRequestPermissionCallBack checkAndRequestPermissionCallBack) {
         String permissionNameDesc = permission.getPermissionNameDesc();
         String message = permissionNameDesc + "异常，前往设置->权限管理，打开" + permissionNameDesc + "。";
         if (permission.shouldRationale()) {
@@ -98,7 +93,7 @@ public class SoulPermissionUtils {
             if (null == activity) {
                 return;
             }
-            // MIUI吐司提示
+            // MIUI避跳设置页设权限返应用重启
             if (MiuiUtils.isMiUi()) {
                 checkAndRequestPermissionCallBack.onPermissionDenied(false, message);
                 return;
@@ -114,7 +109,7 @@ public class SoulPermissionUtils {
                             return;
                         }
                         if (loopHint) {
-                            singlePermissionDenied(context, permission, checkAndRequestPermissionCallBack, true);
+                            singlePermissionDenied(permission, true, checkAndRequestPermissionCallBack);
                             return;
                         }
                         checkAndRequestPermissionCallBack.onPermissionDenied(false, message);
@@ -137,13 +132,13 @@ public class SoulPermissionUtils {
      * 检查并请求多权限
      *
      * @param soulPermissionUtils                SoulPermissionUtils
-     * @param checkAndRequestPermissionsCallBack CheckAndRequestPermissionsCallBack
      * @param loopHint                           循提
+     * @param checkAndRequestPermissionsCallBack CheckAndRequestPermissionsCallBack
      * @param permissionNames                    权限名
      */
     public void checkAndRequestPermissions(SoulPermissionUtils soulPermissionUtils,
-                                           CheckAndRequestPermissionsCallBack checkAndRequestPermissionsCallBack,
                                            boolean loopHint,
+                                           CheckAndRequestPermissionsCallBack checkAndRequestPermissionsCallBack,
                                            String... permissionNames) {
         SoulPermission.getInstance().checkAndRequestPermissions(
                 Permissions.build(permissionNames),
@@ -156,7 +151,7 @@ public class SoulPermissionUtils {
 
                     @Override
                     public void onPermissionDenied(Permission[] refusedPermissions) {
-                        soulPermissionUtils.multiPermissionsDenied(checkAndRequestPermissionsCallBack, loopHint, refusedPermissions);
+                        soulPermissionUtils.multiPermissionsDenied(loopHint, checkAndRequestPermissionsCallBack, refusedPermissions);
                     }
                 });
     }
@@ -164,12 +159,12 @@ public class SoulPermissionUtils {
     /**
      * 多权限被拒
      *
-     * @param checkAndRequestPermissionsCallBack CheckAndRequestPermissionsCallBack
      * @param loopHint                           循提
+     * @param checkAndRequestPermissionsCallBack CheckAndRequestPermissionsCallBack
      * @param refusedPermissions                 被拒权限
      */
-    private void multiPermissionsDenied(CheckAndRequestPermissionsCallBack checkAndRequestPermissionsCallBack,
-                                        boolean loopHint,
+    private void multiPermissionsDenied(boolean loopHint,
+                                        CheckAndRequestPermissionsCallBack checkAndRequestPermissionsCallBack,
                                         Permission[] refusedPermissions) {
         Activity activity = SoulPermission.getInstance().getTopActivity();
         if (null == activity) {
@@ -181,7 +176,7 @@ public class SoulPermissionUtils {
             stringBuilder.append(s).append("\n");
         }
         String message = "正常使用需授予以下权限：\n\n" + stringBuilder;
-        // MIUI吐司提示
+        // MIUI避跳设置页设权限返应用重启
         if (MiuiUtils.isMiUi()) {
             checkAndRequestPermissionsCallBack.onPermissionDenied(message);
             return;
@@ -197,7 +192,7 @@ public class SoulPermissionUtils {
                         return;
                     }
                     if (loopHint) {
-                        multiPermissionsDenied(checkAndRequestPermissionsCallBack, true, refusedPermissions(refusedPermissions));
+                        multiPermissionsDenied(true, checkAndRequestPermissionsCallBack, refusedPermissions(refusedPermissions));
                         return;
                     }
                     checkAndRequestPermissionsCallBack.onPermissionDenied(message);
