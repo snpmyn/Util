@@ -2,6 +2,7 @@ package com.zsp.utilone.permission;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.qw.soul.permission.SoulPermission;
@@ -10,6 +11,7 @@ import com.qw.soul.permission.bean.Permissions;
 import com.qw.soul.permission.callbcak.CheckRequestPermissionListener;
 import com.qw.soul.permission.callbcak.CheckRequestPermissionsListener;
 import com.zsp.utilone.miui.MiuiUtils;
+import com.zsp.utilone.toast.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +52,14 @@ public class SoulPermissionUtils {
     /**
      * 检查并请求单权限
      *
+     * @param context                           上下文
      * @param permissionName                    权限名
      * @param soulPermissionUtils               SoulPermissionUtils
      * @param loopHint                          循提
      * @param checkAndRequestPermissionCallBack CheckAndRequestPermissionCallBack
      */
-    public void checkAndRequestPermission(String permissionName,
+    public void checkAndRequestPermission(Context context,
+                                          String permissionName,
                                           SoulPermissionUtils soulPermissionUtils,
                                           boolean loopHint,
                                           CheckAndRequestPermissionCallBack checkAndRequestPermissionCallBack) {
@@ -69,7 +73,7 @@ public class SoulPermissionUtils {
 
                     @Override
                     public void onPermissionDenied(Permission permission) {
-                        soulPermissionUtils.singlePermissionDenied(permission, loopHint, checkAndRequestPermissionCallBack);
+                        soulPermissionUtils.singlePermissionDenied(context, permission, loopHint, checkAndRequestPermissionCallBack);
                     }
                 });
     }
@@ -77,25 +81,27 @@ public class SoulPermissionUtils {
     /**
      * 单权限被拒
      *
+     * @param context                           上下文
      * @param permission                        权限
      * @param loopHint                          循提
      * @param checkAndRequestPermissionCallBack CheckAndRequestPermissionCallBack
      */
-    private void singlePermissionDenied(com.qw.soul.permission.bean.Permission permission,
+    private void singlePermissionDenied(Context context,
+                                        com.qw.soul.permission.bean.Permission permission,
                                         boolean loopHint,
                                         CheckAndRequestPermissionCallBack checkAndRequestPermissionCallBack) {
         String permissionNameDesc = permission.getPermissionNameDesc();
         String message = permissionNameDesc + "异常，前往设置->权限管理，打开" + permissionNameDesc + "。";
         if (permission.shouldRationale()) {
-            checkAndRequestPermissionCallBack.onPermissionDenied(true, message);
+            ToastUtils.shortShow(context, message);
         } else {
             Activity activity = SoulPermission.getInstance().getTopActivity();
             if (null == activity) {
                 return;
             }
-            // MIUI避跳设置页设权限返应用重启
+            // MIUI避跳详情页设权限返应用重启
             if (MiuiUtils.isMiUi()) {
-                checkAndRequestPermissionCallBack.onPermissionDenied(false, message);
+                checkAndRequestPermissionCallBack.onPermissionDeniedInMiUi(message);
                 return;
             }
             // 其它对话框提示
@@ -109,11 +115,11 @@ public class SoulPermissionUtils {
                             return;
                         }
                         if (loopHint) {
-                            singlePermissionDenied(permission, true, checkAndRequestPermissionCallBack);
+                            singlePermissionDenied(context, permission, true, checkAndRequestPermissionCallBack);
                             return;
                         }
-                        checkAndRequestPermissionCallBack.onPermissionDenied(false, message);
-                    })).show();
+                        checkAndRequestPermissionCallBack.onPermissionDeniedWithoutLoopHint(message);
+                    })).setCancelable(false).show();
         }
     }
 
@@ -176,9 +182,9 @@ public class SoulPermissionUtils {
             stringBuilder.append(s).append("\n");
         }
         String message = "正常使用需授予以下权限：\n\n" + stringBuilder;
-        // MIUI避跳设置页设权限返应用重启
+        // MIUI避跳详情页设权限返应用重启
         if (MiuiUtils.isMiUi()) {
-            checkAndRequestPermissionsCallBack.onPermissionDenied(message);
+            checkAndRequestPermissionsCallBack.onPermissionDeniedInMiUi(message);
             return;
         }
         // 其它对话框提示
@@ -195,8 +201,8 @@ public class SoulPermissionUtils {
                         multiPermissionsDenied(true, checkAndRequestPermissionsCallBack, refusedPermissions(refusedPermissions));
                         return;
                     }
-                    checkAndRequestPermissionsCallBack.onPermissionDenied(message);
-                })).show();
+                    checkAndRequestPermissionsCallBack.onPermissionDeniedWithoutLoopHint(message);
+                })).setCancelable(false).show();
     }
 
     /**
@@ -269,14 +275,20 @@ public class SoulPermissionUtils {
         void onPermissionOk();
 
         /**
-         * 权限被拒
-         * <p>
-         * 循提场景，false有效。
+         * MIUI权限被拒
          *
-         * @param shouldRationale 应基本原理
-         * @param hint            提示
+         * @param hint 提示
          */
-        void onPermissionDenied(boolean shouldRationale, String hint);
+        void onPermissionDeniedInMiUi(String hint);
+
+        /**
+         * 无循提权限被拒
+         * <p>
+         * 循提false有效。
+         *
+         * @param hint 提示
+         */
+        void onPermissionDeniedWithoutLoopHint(String hint);
     }
 
     public interface CheckAndRequestPermissionsCallBack {
@@ -286,12 +298,19 @@ public class SoulPermissionUtils {
         void onAllPermissionOk();
 
         /**
-         * 权限被拒
-         * <p>
-         * 循提场景，false有效。
+         * MIUI权限被拒
          *
          * @param hint 提示
          */
-        void onPermissionDenied(String hint);
+        void onPermissionDeniedInMiUi(String hint);
+
+        /**
+         * 无循提权限被拒
+         * <p>
+         * 循提false有效。
+         *
+         * @param hint 提示
+         */
+        void onPermissionDeniedWithoutLoopHint(String hint);
     }
 }
