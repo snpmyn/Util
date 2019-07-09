@@ -11,7 +11,6 @@ import com.qw.soul.permission.bean.Permissions;
 import com.qw.soul.permission.callbcak.CheckRequestPermissionListener;
 import com.qw.soul.permission.callbcak.CheckRequestPermissionsListener;
 import com.zsp.utilone.miui.MiuiUtils;
-import com.zsp.utilone.toast.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,8 +92,7 @@ public class SoulPermissionUtils {
         String permissionNameDesc = permission.getPermissionNameDesc();
         String message = permissionNameDesc + "异常，前往设置->权限管理，打开" + permissionNameDesc + "。";
         if (permission.shouldRationale()) {
-            ToastUtils.shortShow(context, message);
-            soulPermissionUtilsCallBack.onPermissionDenied();
+            soulPermissionUtilsCallBack.onSinglePermissionDenied(true, message);
         } else {
             Activity activity = SoulPermission.getInstance().getTopActivity();
             if (null == activity) {
@@ -102,8 +100,7 @@ public class SoulPermissionUtils {
             }
             // MIUI吐司提示
             if (MiuiUtils.isMiUi()) {
-                ToastUtils.shortShow(context, message);
-                soulPermissionUtilsCallBack.onPermissionDenied();
+                soulPermissionUtilsCallBack.onSinglePermissionDenied(false, message);
                 return;
             }
             // 其它对话框提示
@@ -120,7 +117,7 @@ public class SoulPermissionUtils {
                             singlePermissionDenied(context, permission, soulPermissionUtilsCallBack, true);
                             return;
                         }
-                        soulPermissionUtilsCallBack.onPermissionDenied();
+                        soulPermissionUtilsCallBack.onSinglePermissionDenied(false, message);
                     })).show();
         }
     }
@@ -154,7 +151,7 @@ public class SoulPermissionUtils {
                 new CheckRequestPermissionsListener() {
                     @Override
                     public void onAllPermissionOk(Permission[] allPermissions) {
-                        soulPermissionUtilsCallBack.onPermissionOk();
+                        soulPermissionUtilsCallBack.onAllPermissionOk();
                     }
 
                     @Override
@@ -183,27 +180,27 @@ public class SoulPermissionUtils {
         for (String s : permissionNameDescriptions) {
             stringBuilder.append(s).append("\n");
         }
+        String message = "正常使用需授予以下权限：\n\n" + stringBuilder;
         // MIUI吐司提示
         if (MiuiUtils.isMiUi()) {
-            ToastUtils.shortShow(activity, "正常使用需授予以下权限：\n\n" + stringBuilder);
-            soulPermissionUtilsCallBack.onPermissionDenied();
+            soulPermissionUtilsCallBack.onMultiPermissionDenied(message);
             return;
         }
         // 其它对话框提示
         new MaterialAlertDialogBuilder(activity)
                 .setTitle("提示")
-                .setMessage("正常使用需授予以下权限：\n\n" + stringBuilder)
+                .setMessage(message)
                 .setPositiveButton("去设置", (dialogInterface, i) -> SoulPermission.getInstance().goApplicationSettings(data -> {
                     // If you need to know when back from app detail.
                     if (checkPermissions(permissionNames(refusedPermissions))) {
-                        soulPermissionUtilsCallBack.onPermissionOk();
+                        soulPermissionUtilsCallBack.onAllPermissionOk();
                         return;
                     }
                     if (loopHint) {
                         multiPermissionsDenied(soulPermissionUtilsCallBack, true, refusedPermissions(refusedPermissions));
                         return;
                     }
-                    soulPermissionUtilsCallBack.onPermissionDenied();
+                    soulPermissionUtilsCallBack.onMultiPermissionDenied(message);
                 })).show();
     }
 
@@ -272,15 +269,32 @@ public class SoulPermissionUtils {
 
     public interface SoulPermissionUtilsCallBack {
         /**
-         * 权限可以
+         * 单权限可以
          */
         void onPermissionOk();
 
         /**
-         * 权限被拒
+         * 多权限可以
+         */
+        void onAllPermissionOk();
+
+        /**
+         * 单权限被拒
          * <p>
          * 循提场景，false有效。
+         *
+         * @param shouldRationale 应基本原理
+         * @param hint            提示
          */
-        void onPermissionDenied();
+        void onSinglePermissionDenied(boolean shouldRationale, String hint);
+
+        /**
+         * 多权限被拒
+         * <p>
+         * 循提场景，false有效。
+         *
+         * @param hint 提示
+         */
+        void onMultiPermissionDenied(String hint);
     }
 }
