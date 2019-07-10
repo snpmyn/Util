@@ -101,7 +101,7 @@ public class SoulPermissionUtils {
             }
             // MIUI避跳详情页设权限返应用重启
             if (MiuiUtils.isMiUi()) {
-                checkAndRequestPermissionCallBack.onPermissionDeniedInMiUi(message);
+                checkAndRequestPermissionCallBack.onPermissionDeniedNotRationaleInMiUi(message);
                 return;
             }
             // 其它对话框提示
@@ -118,7 +118,7 @@ public class SoulPermissionUtils {
                             singlePermissionDenied(context, permission, true, checkAndRequestPermissionCallBack);
                             return;
                         }
-                        checkAndRequestPermissionCallBack.onPermissionDeniedWithoutLoopHint(message);
+                        checkAndRequestPermissionCallBack.onPermissionDeniedNotRationaleWithoutLoopHint(message);
                     })).setCancelable(false).show();
         }
     }
@@ -184,7 +184,7 @@ public class SoulPermissionUtils {
         String message = "正常使用需授予以下权限：\n\n" + stringBuilder;
         // MIUI避跳详情页设权限返应用重启
         if (MiuiUtils.isMiUi()) {
-            checkAndRequestPermissionsCallBack.onPermissionDeniedInMiUi(message);
+            checkAndRequestPermissionsCallBack.onPermissionDeniedNotRationaleInMiUi(message);
             return;
         }
         // 其它对话框提示
@@ -201,7 +201,7 @@ public class SoulPermissionUtils {
                         multiPermissionsDenied(true, checkAndRequestPermissionsCallBack, refusedPermissions(refusedPermissions));
                         return;
                     }
-                    checkAndRequestPermissionsCallBack.onPermissionDeniedWithoutLoopHint(message);
+                    checkAndRequestPermissionsCallBack.onPermissionDeniedNotRationaleWithoutLoopHint(message);
                 })).setCancelable(false).show();
     }
 
@@ -275,20 +275,20 @@ public class SoulPermissionUtils {
         void onPermissionOk();
 
         /**
-         * MIUI权限被拒
+         * MIUI权限被非基本原理拒
          *
          * @param hint 提示
          */
-        void onPermissionDeniedInMiUi(String hint);
+        void onPermissionDeniedNotRationaleInMiUi(String hint);
 
         /**
-         * 无循提权限被拒
+         * 无循提权限被非基本原理拒
          * <p>
          * 循提false有效。
          *
          * @param hint 提示
          */
-        void onPermissionDeniedWithoutLoopHint(String hint);
+        void onPermissionDeniedNotRationaleWithoutLoopHint(String hint);
     }
 
     public interface CheckAndRequestPermissionsCallBack {
@@ -298,19 +298,19 @@ public class SoulPermissionUtils {
         void onAllPermissionOk();
 
         /**
-         * MIUI权限被拒
+         * MIUI权限被非基本原理拒
          *
          * @param hint 提示
          */
-        void onPermissionDeniedInMiUi(String hint);
+        void onPermissionDeniedNotRationaleInMiUi(String hint);
 
         /**
-         * 无循提权限被拒
+         * 无循提权限被非基本原理拒
          * <p>
          * 循提false有效。
          *
          * @param hint 提示
          */
-        void onPermissionDeniedWithoutLoopHint(String hint);
+        void onPermissionDeniedNotRationaleWithoutLoopHint(String hint);
     }
 }
