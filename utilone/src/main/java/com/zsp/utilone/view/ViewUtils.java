@@ -15,7 +15,8 @@ public class ViewUtils {
      * @param view 视图
      */
     public static void showView(View view) {
-        if (view.getVisibility() == View.GONE) {
+        int visibility = view.getVisibility();
+        if (visibility == View.GONE || visibility == View.INVISIBLE) {
             view.setVisibility(View.VISIBLE);
         }
     }
