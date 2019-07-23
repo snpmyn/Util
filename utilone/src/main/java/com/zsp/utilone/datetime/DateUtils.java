@@ -48,11 +48,20 @@ public class DateUtils {
     }
 
     /**
+     * 当前时（yyyy-MM-dd）
+     *
+     * @return String
+     */
+    public static String getCurrentTimeYearMonthDay() {
+        return getCurrentTime(DateFormatUtils.DATE_FORMAT_THREE);
+    }
+
+    /**
      * 当前时（yyyy-MM-dd HH:mm:ss）
      *
      * @return String
      */
-    private static String getCurrentTime() {
+    public static String getCurrentTimeYearMonthDayHourMinuteSecond() {
         return getCurrentTime(DateFormatUtils.DATE_FORMAT_SIX);
     }
 
@@ -634,7 +643,7 @@ public class DateUtils {
     public static int compareTime(String oldTime, String newTime, int type) {
         // newTime空默当前时
         if (newTime == null || "".equals(newTime)) {
-            newTime = getCurrentTime();
+            newTime = getCurrentTimeYearMonthDayHourMinuteSecond();
         }
         SimpleDateFormat sdf = DateFormatUtils.getFormat("");
         int value = 0;
@@ -818,7 +827,7 @@ public class DateUtils {
         long seconds = 0;
         // newTime空默当前时
         if (newTime == null || "".equals(newTime)) {
-            newTime = getCurrentTime();
+            newTime = getCurrentTimeYearMonthDayHourMinuteSecond();
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateFormatUtils.DATE_FORMAT_FIVE, Locale.US);
         try {
@@ -890,8 +899,6 @@ public class DateUtils {
         String num;
         if (tempNum < UtilOneMagic.INT_TEN) {
             num = "0" + tempNum;
-        } else if (tempNum == 0) {
-            num = "00";
         } else {
             num = "" + tempNum;
         }
