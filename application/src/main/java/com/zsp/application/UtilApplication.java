@@ -1,6 +1,5 @@
 package com.zsp.application;
 
-import android.app.Application;
 import android.content.ContentProvider;
 import android.os.Build;
 
@@ -17,11 +16,6 @@ import timber.log.Timber;
  * @desc 应用
  */
 public class UtilApplication extends LitePalApplication {
-    /**
-     * 实例
-     */
-    private static UtilApplication instance = null;
-
     /**
      * Called when the application is starting, before any activity, service,
      * or receiver objects (excluding content providers) have been created.
@@ -44,15 +38,10 @@ public class UtilApplication extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
         if (BuildConfig.DEBUG) {
             Timber.plant(new ThreadAwareDebugTree());
         } else {
             Timber.plant(new ReleaseTree());
         }
-    }
-
-    public static Application getInstance() {
-        return instance;
     }
 }
