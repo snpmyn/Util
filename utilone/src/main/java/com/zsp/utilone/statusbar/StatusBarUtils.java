@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,7 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
+import timber.log.Timber;
 import value.UtilOneMagic;
 
 /**
@@ -37,7 +37,6 @@ import value.UtilOneMagic;
  * @desc StatusBarUtils
  */
 public class StatusBarUtils {
-    private static final String TAG = "StatusBarUtils";
     private static final int DEFAULT_STATUS_BAR_ALPHA = 112;
     private static final int FAKE_STATUS_BAR_VIEW_ID = 1000;
     private static final int FAKE_TRANSLUCENT_VIEW_ID = 1001;
@@ -138,7 +137,7 @@ public class StatusBarUtils {
      * @param activity 需设Activity
      * @param color    状态栏色值
      */
-    public static void setColorNoTranslucent(Activity activity, @ColorInt int color) {
+    private static void setColorNoTranslucent(Activity activity, @ColorInt int color) {
         setColor(activity, color, 0);
     }
 
@@ -686,7 +685,7 @@ public class StatusBarUtils {
                 meiZuFlags.setInt(lp, value);
                 activity.getWindow().setAttributes(lp);
             } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
+                Timber.e(e);
             }
         }
     }
@@ -782,7 +781,7 @@ public class StatusBarUtils {
                 hasNavigationBar = true;
             }
         } catch (Exception e) {
-            Log.e("", e.getMessage());
+            Timber.e(e);
         }
         return hasNavigationBar;
     }

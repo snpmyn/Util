@@ -1,7 +1,6 @@
 package com.zsp.utilone.signature;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.File;
 import java.io.InputStream;
@@ -11,6 +10,8 @@ import java.util.Enumeration;
 import java.util.Formatter;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+
+import timber.log.Timber;
 
 /**
  * Created on 2019/6/21.
@@ -42,7 +43,7 @@ public class SignatureUtils {
                 InputStream var6 = var3.getInputStream(var5);
                 byte[] var7 = new byte[10240];
                 while (-1 != var6.read(var7)) {
-                    Log.e("jarSignature", "-1 != var6.read(var7)");
+                    Timber.d("jarSignature: %s", "-1 != var6.read(var7)");
                 }
                 Certificate[] var8 = var5.getCertificates();
                 if (var8 != null && var8.length > 0) {

@@ -1,10 +1,10 @@
 package com.zsp.utilone.throwable;
 
-import android.util.Log;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+
+import timber.log.Timber;
 
 /**
  * Created on 2019/6/21.
@@ -25,7 +25,7 @@ public class ThrowableUtils {
         try {
             Throwable var3;
             for (var3 = throwable; var3.getCause() != null; var3 = var3.getCause()) {
-                Log.e("exceptionCauseString", "var3 = ex; var3.getCause() != null; var3 = var3.getCause()");
+                Timber.e("exceptionCauseString: %s", "var3 = ex; var3.getCause() != null; var3 = var3.getCause()");
             }
             var3.printStackTrace(var2);
             return toVisualString(var1.toString());

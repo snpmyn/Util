@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -18,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import timber.log.Timber;
+
 /**
  * Created on 2017/12/6.
  *
@@ -25,8 +26,6 @@ import java.io.OutputStream;
  * @desc FileUtils
  */
 public class FileUtils {
-    private static final String TAG = "FileUtils";
-
     /**
      * 创文件夹
      *
@@ -164,7 +163,7 @@ public class FileUtils {
         File dirFile = new File(dir);
         // dir对应文件不存或非目录则退出
         if ((!dirFile.exists()) || (!dirFile.isDirectory())) {
-            Log.e(TAG, "删目录失败：" + dir + "不存在");
+            Timber.d("删目录失败：%s%s", dir, "不存在");
             return false;
         }
         boolean flag = true;
@@ -189,12 +188,12 @@ public class FileUtils {
             }
         }
         if (!flag) {
-            Log.e(TAG, "删目录失败");
+            Timber.d("删目录失败");
             return false;
         }
         // 删当前目录
         if (dirFile.delete()) {
-            Log.e(TAG, "删目录" + dir + "成功");
+            Timber.d("删目录%s%s", dir, "成功");
             return true;
         } else {
             return false;
@@ -304,7 +303,7 @@ public class FileUtils {
      * @param newFile  新文件
      * @param destFile 目标文件
      * @return 成true败false
-     * @throws IOException
+     * @throws IOException 输入/出流异常
      */
     public static boolean copy(File newFile, File destFile) throws IOException {
         if (newFile != null && destFile != null) {

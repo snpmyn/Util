@@ -22,6 +22,6 @@ public class TimberActivity extends AppCompatActivity {
     }
 
     private void execute() {
-        Timber.d("timber页");
+        Timber.d("timber页：%s%s", "timber", "测试");
     }
 }

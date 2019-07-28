@@ -2,7 +2,6 @@ package com.zsp.utilone.datetime;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.zsp.utilone.R;
 import com.zsp.utilone.data.BigDecimalToString;
@@ -15,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import timber.log.Timber;
 import value.UtilOneMagic;
 
 /**
@@ -947,7 +947,7 @@ public class DateUtils {
             try {
                 simpleDateFormat = new SimpleDateFormat(strPattern, Locale.CHINA);
             } catch (Throwable e) {
-                Log.e("formatUtc", e.toString());
+                Timber.e(e);
             }
         } else {
             simpleDateFormat.applyPattern(strPattern);

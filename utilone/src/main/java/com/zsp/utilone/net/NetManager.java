@@ -8,10 +8,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 import static android.content.Context.TELEPHONY_SERVICE;
@@ -271,7 +272,7 @@ public class NetManager {
 
     private static void log(String msg) {
         if (D) {
-            Log.e(TAG, msg);
+            Timber.d(msg);
         }
     }
 

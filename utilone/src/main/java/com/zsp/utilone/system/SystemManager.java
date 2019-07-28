@@ -7,7 +7,6 @@ import android.os.Debug;
 import android.os.Environment;
 import android.os.StatFs;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,6 +16,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created on 2018/6/20.
@@ -67,7 +68,7 @@ public class SystemManager {
                 }
             }
         } catch (SocketException e) {
-            Log.e("localIpAddress", e.toString());
+            Timber.e(e);
         }
         return null;
     }
@@ -93,7 +94,7 @@ public class SystemManager {
             cpuInfo[1] += arrayOfString[2];
             localBufferedReader.close();
         } catch (IOException e) {
-            Log.e("getDeviceInfo", e.toString());
+            Timber.e(e);
         }
         return cpuInfo;
     }
@@ -118,7 +119,7 @@ public class SystemManager {
             long totalBlocks = stat.getBlockCountLong();
             totalSpace = totalBlocks * blockSize;
         } catch (Exception e) {
-            Log.e("全空间", e.toString());
+            Timber.e(e);
         }
         return totalSpace;
     }
@@ -140,7 +141,7 @@ public class SystemManager {
             // 当前可用存储空间
             availableSpace = availableBlocks * blockSize;
         } catch (Exception e) {
-            Log.e("可用空间", e.toString());
+            Timber.e(e);
         }
         return availableSpace;
     }
