@@ -8,6 +8,6 @@ import com.zsp.application.UtilApplication;
  * @author 郑少鹏
  * @desc 应用
  */
-public class App extends UtilApplication {
+public class UtilApp extends UtilApplication {
 
 }
