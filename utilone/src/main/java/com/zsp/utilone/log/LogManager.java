@@ -48,7 +48,7 @@ import javax.xml.transform.stream.StreamSource;
  * @desc LogManager
  */
 public class LogManager {
-    public static final int V = Log.VERBOSE;
+    static final int V = Log.VERBOSE;
     static final int D = Log.DEBUG;
     static final int I = Log.INFO;
     static final int W = Log.WARN;
