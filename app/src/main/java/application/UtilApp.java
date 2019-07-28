@@ -3,6 +3,7 @@ package application;
 import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
+import com.zsp.util.BuildConfig;
 import com.zsp.utilone.timber.configure.TimberInitConfigure;
 
 /**
@@ -21,6 +22,6 @@ public class UtilApp extends Application {
             return;
         }
         LeakCanary.install(this);
-        TimberInitConfigure.initTimber();
+        TimberInitConfigure.initTimber(BuildConfig.DEBUG);
     }
 }
