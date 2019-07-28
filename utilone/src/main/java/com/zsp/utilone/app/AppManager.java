@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
-import android.util.Log;
 
-import com.zsp.utilone.log.LogManager;
+import timber.log.Timber;
 
 /**
  * Created on 2019/4/19.
@@ -29,7 +28,7 @@ public class AppManager {
             versionCode = info.versionCode;
         } catch (Exception e) {
             e.printStackTrace();
-            LogManager.e(e.getMessage());
+            Timber.e(e);
         }
         return versionCode;
     }
@@ -48,7 +47,7 @@ public class AppManager {
             versionName = info.versionName;
         } catch (Exception e) {
             e.printStackTrace();
-            LogManager.e(e.getMessage());
+            Timber.e(e);
         }
         return versionName;
     }
@@ -74,7 +73,7 @@ public class AppManager {
         try {
             packageInfo = manager.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e("packageInfo", e.toString());
+            Timber.e(e);
         }
         return packageInfo;
     }

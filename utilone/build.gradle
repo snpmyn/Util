@@ -38,6 +38,6 @@ dependencies {
     /*SoulPermission*/
     implementation 'org.apache.commons:commons-lang3:3.9'
     /*BasicThreadFactory*/
-    implementation project(path: ':application')
+    api project(path: ':application')
     /*application*/
 }

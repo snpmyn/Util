@@ -3,7 +3,8 @@
 
 ### 依赖
 #### AndroidLibrary - Application
-api 'org.litepal.android:java:3.0.0'（避重）
+* api 'com.jakewharton.timber:timber:4.7.1'（避重）
+* api 'org.litepal.android:java:3.0.0'（避重）
 #### AndroidLibrary - UtilOne
 * api 'com.github.bumptech.glide:glide:4.9.0'（避重）
 * api 'com.google.android.material:material:1.1.0-alpha08'（避重）

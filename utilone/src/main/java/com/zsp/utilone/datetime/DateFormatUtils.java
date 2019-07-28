@@ -1,11 +1,11 @@
 package com.zsp.utilone.datetime;
 
-import com.zsp.utilone.log.LogManager;
-
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 /**
  * Created on 2017/10/17.
@@ -171,7 +171,7 @@ public class DateFormatUtils {
             }
             return outFmt.format(dt);
         } catch (Exception e) {
-            LogManager.e(e.getMessage());
+            Timber.e(e);
         }
         return date;
     }

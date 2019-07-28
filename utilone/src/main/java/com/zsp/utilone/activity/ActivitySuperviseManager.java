@@ -11,11 +11,11 @@ import android.os.PersistableBundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.zsp.utilone.log.ErrorLogManager;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import timber.log.Timber;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 
@@ -40,11 +40,11 @@ public class ActivitySuperviseManager {
      */
     public static void pushActivity(Activity activity) {
         ACTIVITIES.add(activity);
-        ErrorLogManager.e("活动数", String.valueOf(ACTIVITIES.size()));
+        Timber.d("活动数：%s", ACTIVITIES.size());
         for (int i = 0; i < ACTIVITIES.size(); i++) {
-            ErrorLogManager.e("概览", ACTIVITIES.get(i).getClass().getSimpleName());
+            Timber.d("概览：%s", ACTIVITIES.get(i).getClass().getSimpleName());
         }
-        ErrorLogManager.e("推入", ACTIVITIES.get(ACTIVITIES.size() - 1).getClass().getSimpleName());
+        Timber.d("推入：%s", ACTIVITIES.get(ACTIVITIES.size() - 1).getClass().getSimpleName());
     }
 
     /**
@@ -62,7 +62,7 @@ public class ActivitySuperviseManager {
         ActivityManager manager = (ActivityManager) context.getApplicationContext().getSystemService(ACTIVITY_SERVICE);
         ActivityManager.RunningTaskInfo info = manager != null ? manager.getRunningTasks(1).get(0) : null;
         String activityName = info != null ? info.topActivity.getShortClassName() : null;
-        ErrorLogManager.e("当前活动", activityName);
+        Timber.d("当前活动：%s", activityName);
         return activityName;
     }
 
@@ -93,7 +93,7 @@ public class ActivitySuperviseManager {
             return;
         }
         if (activity != null) {
-            ErrorLogManager.e("结束：" + activity.getClass().getSimpleName());
+            Timber.d("结束：%s", activity.getClass().getSimpleName());
             ACTIVITIES.remove(activity);
             activity.finish();
         }
@@ -132,7 +132,7 @@ public class ActivitySuperviseManager {
         try {
             finishAllActivity();
         } catch (Exception e) {
-            ErrorLogManager.e(e.getMessage());
+            Timber.e(e);
         }
     }
 }

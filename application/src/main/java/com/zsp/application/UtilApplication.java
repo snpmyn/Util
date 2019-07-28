@@ -6,11 +6,15 @@ import android.os.Build;
 
 import org.litepal.LitePalApplication;
 
+import debugtree.ReleaseTree;
+import debugtree.ThreadAwareDebugTree;
+import timber.log.Timber;
+
 /**
  * Created on 2019/6/3.
  *
  * @author 郑少鹏
- * @desc UtilApplication
+ * @desc 应用
  */
 public class UtilApplication extends LitePalApplication {
     /**
@@ -41,6 +45,11 @@ public class UtilApplication extends LitePalApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new ThreadAwareDebugTree());
+        } else {
+            Timber.plant(new ReleaseTree());
+        }
     }
 
     public static Application getInstance() {
