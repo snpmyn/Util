@@ -29,7 +29,6 @@ import static android.content.Context.WIFI_SERVICE;
  * @desc NetManager
  */
 public class NetManager {
-    private static final String TAG = "NetManager";
     private static final boolean D = true;
     private static NetConnChangedReceiver sNetConnChangedReceiver = new NetConnChangedReceiver();
     private static List<NetConnChangedListener> sNetConnChangedListeners = new ArrayList<>();
