@@ -137,7 +137,7 @@ public class StatusBarUtils {
      * @param activity 需设Activity
      * @param color    状态栏色值
      */
-    private static void setColorNoTranslucent(Activity activity, @ColorInt int color) {
+    public static void setColorNoTranslucent(Activity activity, @ColorInt int color) {
         setColor(activity, color, 0);
     }
 
