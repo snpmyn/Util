@@ -1,9 +1,20 @@
 package com.zsp.utilone.file;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
+import android.webkit.MimeTypeMap;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.zsp.utilone.url.UrlUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -16,6 +27,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 
 import timber.log.Timber;
 
@@ -348,5 +360,452 @@ public class FileUtils {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Gets the extension of a file name, like ".png" or ".jpg".
+     *
+     * @param uri String
+     * @return Extension including the dot("."); "" if there is no extension; null if uri was null.
+     */
+    private static String getExtension(String uri) {
+        if (uri == null) {
+            return null;
+        }
+        int dot = uri.lastIndexOf(".");
+        if (dot >= 0) {
+            return uri.substring(dot);
+        } else {
+            // No extension.
+            return "";
+        }
+    }
+
+    /**
+     * Whether the uri is a media uri.
+     *
+     * @param uri Uri
+     * @return true if uri is a MediaStore uri
+     */
+    public static boolean isMediaUri(Uri uri) {
+        return "media".equalsIgnoreCase(uri.getAuthority());
+    }
+
+    /**
+     * Convert file into uri.
+     *
+     * @param file File
+     * @return uri
+     */
+    public static Uri getUri(File file) {
+        return (file != null) ? Uri.fromFile(file) : null;
+    }
+
+    /**
+     * Returns the path only (without file name).
+     *
+     * @param file File
+     * @return File
+     */
+    public static File getPathWithoutFilename(File file) {
+        if (file != null) {
+            if (file.isDirectory()) {
+                // no file to be split off. Return everything
+                return file;
+            } else {
+                String filename = file.getName();
+                String filepath = file.getAbsolutePath();
+                // Construct path without file name.
+                String pathWithoutName = filepath.substring(0, filepath.length() - filename.length());
+                if (pathWithoutName.endsWith("/")) {
+                    pathWithoutName = pathWithoutName.substring(0, pathWithoutName.length() - 1);
+                }
+                return new File(pathWithoutName);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get mime type for the give uri.
+     *
+     * @param file File
+     * @return String
+     */
+    private static String getMimeType(File file) {
+        String extension = getExtension(file.getName());
+        if (extension.length() > 0) {
+            return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.substring(1));
+        }
+        return "application/octet-stream";
+    }
+
+    /**
+     * Get mime type for the give uri.
+     *
+     * @param context   Context
+     * @param authority YOUR_AUTHORITY.provider
+     * @param uri       Uri
+     * @return String
+     */
+    public static String getMimeType(Context context, String authority, Uri uri) {
+        String path = getPath(context, authority, uri);
+        File file;
+        if (path != null) {
+            file = new File(path);
+            return getMimeType(file);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Whether the uri authority is local.
+     *
+     * @param authority YOUR_AUTHORITY.provider
+     * @param uri       Uri
+     * @return boolean
+     */
+    private static boolean isLocalStorageDocument(String authority, Uri uri) {
+        return authority.equals(uri.getAuthority());
+    }
+
+    /**
+     * Whether the uri authority is ExternalStorageProvider.
+     *
+     * @param uri the uri to check
+     * @return boolean
+     */
+    private static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * Whether the uri authority is DownloadsProvider.
+     *
+     * @param uri the uri to check
+     * @return boolean
+     */
+    private static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * Whether the uri authority is MediaProvider.
+     *
+     * @param uri the uri to check
+     * @return boolean
+     */
+    private static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * Whether the uri authority is Google Photos.
+     *
+     * @param uri the uri to check
+     * @return boolean
+     */
+    private static boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
+    /**
+     * Get the value of the data column for this uri.
+     * This is useful for MediaStore uris, and other file-based ContentProviders.
+     *
+     * @param context       The context.
+     * @param uri           The Uri to query.
+     * @param selection     (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+        final String column = MediaStore.Files.FileColumns.DATA;
+        final String[] projection = {column
+        };
+        try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                final int columnIndex = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(columnIndex);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get a file path from a uri.
+     * <p>
+     * This will get the the path for storage access framework documents, as well as the _data field for the MediaStore and other file-based ContentProviders.
+     * Callers should check whether the path is local before assuming it represents a local file.
+     *
+     * @param context   Context
+     * @param authority YOUR_AUTHORITY.provider
+     * @param uri       the uri to query
+     * @return String
+     */
+    private static String getPath(final Context context, String authority, final Uri uri) {
+        Timber.d("Authority: %s +\n Fragment: %s +\n Port: %s +\n Query: %s +\n Scheme: %s +\n Host: %s +\n Segments: %s",
+                uri.getAuthority(), uri.getFragment(), uri.getPort(), uri.getQuery(), uri.getScheme(), uri.getHost(), uri.getPathSegments().toString());
+        final boolean kitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        // DocumentProvider
+        if (kitKat && DocumentsContract.isDocumentUri(context, uri)) {
+            // LocalStorageProvider
+            if (isLocalStorageDocument(authority, uri)) {
+                // The path is the id
+                return DocumentsContract.getDocumentId(uri);
+            }
+            // ExternalStorageProvider
+            else if (isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+                final String id = DocumentsContract.getDocumentId(uri);
+                if (id != null && id.startsWith("raw:")) {
+                    return id.substring(4);
+                }
+                String[] contentUriPrefixesToTry = new String[]{
+                        "content://downloads/public_downloads",
+                        "content://downloads/my_downloads"
+                };
+                for (String contentUriPrefix : contentUriPrefixesToTry) {
+                    Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.valueOf(id));
+                    try {
+                        String path = getDataColumn(context, contentUri, null, null);
+                        if (path != null) {
+                            return path;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                // path could not be retrieved using ContentResolver, therefore copy file to accessible cache using streams
+                String fileName = getFileName(context, authority, uri);
+                File cacheDir = getDocumentCacheDir(context);
+                File file = generateFileName(fileName, cacheDir);
+                String destinationPath = null;
+                if (file != null) {
+                    destinationPath = file.getAbsolutePath();
+                    saveFileFromUri(context, uri, destinationPath);
+                }
+                return destinationPath;
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[]{
+                        split[1]
+                };
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            // Return the remote address
+            if (isGooglePhotosUri(uri)) {
+                return uri.getLastPathSegment();
+            }
+            return getDataColumn(context, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+        return null;
+    }
+
+    /**
+     * Convert uri into file, if possible.
+     *
+     * @param context   Context
+     * @param authority YOUR_AUTHORITY.provider
+     * @param uri       unsupported or pointed to a remote resource
+     * @return File
+     */
+    public static File getFile(Context context, String authority, Uri uri) {
+        if (uri != null) {
+            String path = getPath(context, authority, uri);
+            if (UrlUtils.isLocal(path)) {
+                return new File(path);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get the file size in a human-readable string.
+     *
+     * @param size 大小
+     * @return 大小
+     */
+    public static String getReadableFileSize(int size) {
+        final int bytesInKiloBytes = 1024;
+        final DecimalFormat dec = new DecimalFormat("###.#");
+        final String kiloBytes = " KB";
+        final String megaBytes = " MB";
+        final String gigaBytes = " GB";
+        float fileSize = 0;
+        String suffix = kiloBytes;
+        if (size > bytesInKiloBytes) {
+            fileSize = Integer.valueOf(size / bytesInKiloBytes).floatValue();
+            if (fileSize > bytesInKiloBytes) {
+                fileSize = fileSize / bytesInKiloBytes;
+                if (fileSize > bytesInKiloBytes) {
+                    fileSize = fileSize / bytesInKiloBytes;
+                    suffix = gigaBytes;
+                } else {
+                    suffix = megaBytes;
+                }
+            }
+        }
+        return dec.format(fileSize) + suffix;
+    }
+
+    private static File getDocumentCacheDir(@NonNull Context context) {
+        File dir = new File(context.getCacheDir(), "documents");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        Timber.d("cacheDir: %s", context.getCacheDir());
+        Timber.d("dir: %s", dir);
+        return dir;
+    }
+
+    @Nullable
+    private static File generateFileName(@Nullable String name, File directory) {
+        if (name == null) {
+            return null;
+        }
+        File file = new File(directory, name);
+        if (file.exists()) {
+            String fileName = name;
+            String extension = "";
+            int dotIndex = name.lastIndexOf('.');
+            if (dotIndex > 0) {
+                fileName = name.substring(0, dotIndex);
+                extension = name.substring(dotIndex);
+            }
+            int index = 0;
+            while (file.exists()) {
+                index++;
+                name = fileName + '(' + index + ')' + extension;
+                file = new File(directory, name);
+            }
+        }
+        try {
+            if (!file.createNewFile()) {
+                return null;
+            }
+        } catch (IOException e) {
+            Timber.e(e);
+            return null;
+        }
+        return file;
+    }
+
+    private static void saveFileFromUri(Context context, Uri uri, String destinationPath) {
+        InputStream inputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        try {
+            inputStream = context.getContentResolver().openInputStream(uri);
+            bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(destinationPath, false));
+            byte[] buf = new byte[1024];
+            if (inputStream != null) {
+                inputStream.read(buf);
+                do {
+                    bufferedOutputStream.write(buf);
+                } while (inputStream.read(buf) != -1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (bufferedOutputStream != null) {
+                    bufferedOutputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static byte[] readBytesFromFile(String filePath) {
+        FileInputStream fileInputStream = null;
+        byte[] bytesArray = null;
+        try {
+            File file = new File(filePath);
+            bytesArray = new byte[(int) file.length()];
+            // read file into bytes[]
+            fileInputStream = new FileInputStream(file);
+            fileInputStream.read(bytesArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return bytesArray;
+    }
+
+    public static File createTempImageFile(Context context, String fileName) throws IOException {
+        // create an image file name
+        File storageDir = new File(context.getCacheDir(), "documents");
+        return File.createTempFile(fileName, ".jpg", storageDir);
+    }
+
+    private static String getFileName(@NonNull Context context, String authority, Uri uri) {
+        String mimeType = context.getContentResolver().getType(uri);
+        String filename = null;
+        if (mimeType == null) {
+            String path = getPath(context, authority, uri);
+            if (path == null) {
+                filename = getName(uri.toString());
+            } else {
+                File file = new File(path);
+                filename = file.getName();
+            }
+        } else {
+            Cursor returnCursor = context.getContentResolver().query(uri, null, null, null, null);
+            if (returnCursor != null) {
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                returnCursor.moveToFirst();
+                filename = returnCursor.getString(nameIndex);
+                returnCursor.close();
+            }
+        }
+        return filename;
+    }
+
+    private static String getName(String filename) {
+        if (filename == null) {
+            return null;
+        }
+        int index = filename.lastIndexOf('/');
+        return filename.substring(index + 1);
     }
 }
