@@ -29,7 +29,6 @@ import static android.content.Context.WIFI_SERVICE;
  * @desc NetManager
  */
 public class NetManager {
-    private static final boolean D = true;
     private static NetConnChangedReceiver sNetConnChangedReceiver = new NetConnChangedReceiver();
     private static List<NetConnChangedListener> sNetConnChangedListeners = new ArrayList<>();
 
@@ -270,9 +269,7 @@ public class NetManager {
     }
 
     private static void log(String msg) {
-        if (D) {
-            Timber.d(msg);
-        }
+        Timber.d(msg);
     }
 
     public enum ConnectStatus {
