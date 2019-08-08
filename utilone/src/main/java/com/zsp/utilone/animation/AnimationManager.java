@@ -17,7 +17,7 @@ import android.view.animation.TranslateAnimation;
  * Created on 2017/11/15.
  *
  * @author 郑少鹏
- * @desc AnimationManager
+ * @desc 动画管理器
  */
 public class AnimationManager {
     /**

@@ -26,7 +26,7 @@ import static android.content.Context.WIFI_SERVICE;
  * NetworkInfo: Describes the status of a network interface of a given type (currently either Mobile or Wi-Fi).
  *
  * @author 郑少鹏
- * @desc NetManager
+ * @desc 网络管理器
  */
 public class NetManager {
     private static NetConnChangedReceiver sNetConnChangedReceiver = new NetConnChangedReceiver();

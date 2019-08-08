@@ -7,7 +7,7 @@ import android.widget.Toast;
  * Created on 2017/9/14.
  *
  * @author 郑少鹏
- * @decs 吐司
+ * @decs ToastUtils
  */
 public class ToastUtils {
     private static Toast toast;

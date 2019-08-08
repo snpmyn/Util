@@ -9,7 +9,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  * Created on 2018/9/6.
  *
  * @author 郑少鹏
- * @desc ThreadManager
+ * @desc 线程管理器
  * 依赖org.apache.commons:commons-lang3:3.8
  */
 public class ThreadManager {
