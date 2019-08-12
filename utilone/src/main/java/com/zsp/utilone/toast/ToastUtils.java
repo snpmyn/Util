@@ -3,8 +3,6 @@ package com.zsp.utilone.toast;
 import android.content.Context;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
-
 /**
  * Created on 2017/9/14.
  *
@@ -13,7 +11,6 @@ import java.lang.ref.WeakReference;
  */
 public class ToastUtils {
     private static Toast toast;
-    private static WeakReference<Context> weakReference;
 
     /**
      * 短吐司
@@ -24,10 +21,8 @@ public class ToastUtils {
     public static void shortShow(Context context, String content) {
         if (null != toast) {
             toast.cancel();
-            weakReference.clear();
         }
-        weakReference = new WeakReference<>(context);
-        toast = Toast.makeText(weakReference.get(), content, Toast.LENGTH_SHORT);
+        toast = Toast.makeText(context.getApplicationContext(), content, Toast.LENGTH_SHORT);
         toast.show();
     }
 }

@@ -30,6 +30,7 @@ import java.io.OutputStream;
 import java.text.DecimalFormat;
 
 import timber.log.Timber;
+import value.UtilOneMagic;
 
 /**
  * Created on 2017/12/6.
@@ -417,7 +418,7 @@ public class FileUtils {
                 String filepath = file.getAbsolutePath();
                 // Construct path without file name.
                 String pathWithoutName = filepath.substring(0, filepath.length() - filename.length());
-                if (pathWithoutName.endsWith("/")) {
+                if (pathWithoutName.endsWith(UtilOneMagic.STRING_BACKSLASH)) {
                     pathWithoutName = pathWithoutName.substring(0, pathWithoutName.length() - 1);
                 }
                 return new File(pathWithoutName);
@@ -560,14 +561,14 @@ public class FileUtils {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
-                if ("primary".equalsIgnoreCase(type)) {
+                if (UtilOneMagic.STRING_PRIMARY.equalsIgnoreCase(type)) {
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
                 }
             }
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
                 final String id = DocumentsContract.getDocumentId(uri);
-                if (id != null && id.startsWith("raw:")) {
+                if (id != null && id.startsWith(UtilOneMagic.STRING_RAW_COLON)) {
                     return id.substring(4);
                 }
                 String[] contentUriPrefixesToTry = new String[]{
@@ -602,11 +603,11 @@ public class FileUtils {
                 final String[] split = docId.split(":");
                 final String type = split[0];
                 Uri contentUri = null;
-                if ("image".equals(type)) {
+                if (UtilOneMagic.STRING_IMAGE.equals(type)) {
                     contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
+                } else if (UtilOneMagic.STRING_VIDEO.equals(type)) {
                     contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
+                } else if (UtilOneMagic.STRING_AUDIO.equals(type)) {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
                 }
                 final String selection = "_id=?";
@@ -617,7 +618,7 @@ public class FileUtils {
             }
         }
         // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+        else if (UtilOneMagic.STRING_CONTENT.equalsIgnoreCase(uri.getScheme())) {
             // Return the remote address
             if (isGooglePhotosUri(uri)) {
                 return uri.getLastPathSegment();
@@ -625,7 +626,7 @@ public class FileUtils {
             return getDataColumn(context, uri, null, null);
         }
         // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+        else if (UtilOneMagic.STRING_FILE.equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
         return null;

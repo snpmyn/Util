@@ -44,4 +44,12 @@ public class UtilOneMagic {
     public static final String STRING_DOT_MPE = ".mpe";
     public static final String STRING_DOT_MP4 = ".mp4";
     public static final String STRING_DOT_AVI = ".avi";
+    public static final String STRING_BACKSLASH = "/";
+    public static final String STRING_FILE = "file";
+    public static final String STRING_CONTENT = "content";
+    public static final String STRING_PRIMARY = "primary";
+    public static final String STRING_RAW_COLON = "raw:";
+    public static final String STRING_IMAGE = "image";
+    public static final String STRING_VIDEO = "video";
+    public static final String STRING_AUDIO = "audio";
 }
