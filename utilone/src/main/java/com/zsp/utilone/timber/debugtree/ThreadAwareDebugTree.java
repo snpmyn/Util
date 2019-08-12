@@ -18,13 +18,17 @@ public class ThreadAwareDebugTree extends Timber.DebugTree {
      * becomes {@code Foo}).
      * <p>
      * Note: This will not be called if a {@link android.util.Log #tag(String) manual tag} was specified.
+     * <p>
+     * Original:
+     * return super.createStackElementTag(element) + "->" + element.getMethodName() + "(" + element.getFileName() + ":" + +element.getLineNumber() + ")";
+     * Now:
+     * return element.getMethodName() + "(" + element.getFileName() + ":" + +element.getLineNumber() + ")";
      *
      * @param element StackTraceElement
      */
     @Override
     protected @Nullable String createStackElementTag(@NotNull StackTraceElement element) {
-        return super.createStackElementTag(element) + "->" + element.getMethodName() +
-                "(" + element.getFileName() + ":" + +element.getLineNumber() + ")";
+        return element.getMethodName() + "(" + element.getFileName() + ":" + +element.getLineNumber() + ")";
     }
 
     /**
