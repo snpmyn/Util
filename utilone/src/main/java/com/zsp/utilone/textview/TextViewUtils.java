@@ -23,12 +23,27 @@ public class TextViewUtils {
      * @param resId    资源ID
      * @param textView 控件
      */
-    public static void setDrawableByInt(Context context, int resId, TextView textView) {
+    public static void setTopDrawableByInt(Context context, int resId, TextView textView) {
         Drawable drawable = ContextCompat.getDrawable(context, resId);
         if (drawable != null) {
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
             textView.setCompoundDrawablePadding(6);
+        }
+    }
+
+    /**
+     * 设右上红点
+     *
+     * @param context    上下文
+     * @param drawableId 位图ID
+     * @param textView   控件
+     */
+    public static void setRightTopRedDot(Context context, int drawableId, TextView textView) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (drawable != null) {
+            drawable.setBounds(0, -16, 16, 0);
+            textView.setCompoundDrawables(null, null, drawable, null);
         }
     }
 
@@ -50,7 +65,7 @@ public class TextViewUtils {
      * @param textView 控件
      * @param color    色
      */
-    public void setDrawableColor(TextView textView, int color) {
+    public static void setDrawableColor(TextView textView, int color) {
         Drawable[] drawables = textView.getCompoundDrawables();
         for (Drawable drawable : drawables) {
             if (null != drawable) {
