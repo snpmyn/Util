@@ -34,6 +34,8 @@ public class TextViewUtils {
 
     /**
      * 设右上红点
+     * <p>
+     * 红点Drawable（圆）宽高6dip较适宜。
      *
      * @param context    上下文
      * @param drawableId 位图ID
