@@ -10,8 +10,8 @@
 * implementation 'org.apache.commons:commons-lang3:3.9'
 
 #### AndroidLibrary - UtilTwo
-* implementation 'androidx.core:core-ktx:1.2.0-alpha03'
-* implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version"
+* api 'androidx.core:core-ktx:1.2.0-alpha03'（避重）
+* api "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version"（避重）
 
 ### 权限
 #### app
