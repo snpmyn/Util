@@ -23,7 +23,7 @@ public class AnimationManager {
     /**
      * 补间晃动
      *
-     * @param cycleTimes cycleTimes
+     * @param cycleTimes 循环次数
      * @param duration   时长
      * @return Animation
      */
@@ -35,33 +35,18 @@ public class AnimationManager {
     }
 
     /**
-     * 属性XY缩放（1-0-1）
-     *
-     * @param view     视图
-     * @param duration 时长
-     */
-    public static void xyScale(View view, long duration) {
-        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.0f, 1.0f);
-        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.0f, 1.0f);
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.play(xAnimator).with(yAnimator);
-        animSet.setDuration(duration);
-        animSet.start();
-    }
-
-    /**
      * 属性XY缩放（1-0）
      *
      * @param view     视图
      * @param duration 时长
      */
     public static void xyScaleGo(View view, long duration) {
-        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.0f);
-        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.0f);
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.play(xAnimator).with(yAnimator);
-        animSet.setDuration(duration);
-        animSet.start();
+        ObjectAnimator xObjectAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.0f);
+        ObjectAnimator yObjectAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.0f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(xObjectAnimator).with(yObjectAnimator);
+        animatorSet.setDuration(duration);
+        animatorSet.start();
     }
 
     /**
@@ -71,215 +56,230 @@ public class AnimationManager {
      * @param duration 时长
      */
     public static void xyScaleShow(View view, long duration) {
-        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(view, "scaleX", 0.0f, 1.0f);
-        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(view, "scaleY", 0.0f, 1.0f);
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.play(xAnimator).with(yAnimator);
-        animSet.setDuration(duration);
-        animSet.start();
+        ObjectAnimator xObjectAnimator = ObjectAnimator.ofFloat(view, "scaleX", 0.0f, 1.0f);
+        ObjectAnimator yObjectAnimator = ObjectAnimator.ofFloat(view, "scaleY", 0.0f, 1.0f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(xObjectAnimator).with(yObjectAnimator);
+        animatorSet.setDuration(duration);
+        animatorSet.start();
+    }
+
+    /**
+     * 属性XY缩放（1-0-1）
+     *
+     * @param view     视图
+     * @param duration 时长
+     */
+    public static void xyScale(View view, long duration) {
+        ObjectAnimator xObjectAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.0f, 1.0f);
+        ObjectAnimator yObjectAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.0f, 1.0f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(xObjectAnimator).with(yObjectAnimator);
+        animatorSet.setDuration(duration);
+        animatorSet.start();
     }
 
     /**
      * 属性X渐变
      *
-     * @param v            视图
+     * @param view         视图
      * @param start        开始
      * @param end          终止
      * @param duration     时长
-     * @param interpolator interpolator
+     * @param interpolator 插值器
      */
-    public static void xGradual(final View v, int start, int end, long duration, int interpolator) {
-        ValueAnimator va = ValueAnimator.ofInt(start, end);
-        final ViewGroup.LayoutParams params = v.getLayoutParams();
-        va.addUpdateListener(animation -> {
+    public static void xGradual(final View view, int start, int end, long duration, int interpolator) {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(start, end);
+        final ViewGroup.LayoutParams params = view.getLayoutParams();
+        valueAnimator.addUpdateListener(animation -> {
             params.width = (int) animation.getAnimatedValue();
-            v.setLayoutParams(params);
-            v.requestLayout();
+            view.setLayoutParams(params);
+            view.requestLayout();
         });
         switch (interpolator) {
             case 1:
-                va.setInterpolator(new AccelerateInterpolator(2.0f));
+                valueAnimator.setInterpolator(new AccelerateInterpolator(2.0f));
                 break;
             case 2:
-                va.setInterpolator(new BounceInterpolator());
+                valueAnimator.setInterpolator(new BounceInterpolator());
                 break;
             default:
                 break;
         }
-        va.setDuration(duration);
-        va.start();
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
     }
 
     /**
      * 属性Y渐变
      *
-     * @param v            视图
+     * @param view         视图
      * @param start        开始
      * @param end          终止
      * @param duration     时长
-     * @param interpolator interpolator
+     * @param interpolator 插值器
      */
-    public static void yGradual(final View v, int start, int end, long duration, int interpolator) {
-        ValueAnimator va = ValueAnimator.ofInt(start, end);
-        final ViewGroup.LayoutParams params = v.getLayoutParams();
-        va.addUpdateListener(animation -> {
+    public static void yGradual(final View view, int start, int end, long duration, int interpolator) {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(start, end);
+        final ViewGroup.LayoutParams params = view.getLayoutParams();
+        valueAnimator.addUpdateListener(animation -> {
             params.height = (int) animation.getAnimatedValue();
-            v.setLayoutParams(params);
-            v.requestLayout();
+            view.setLayoutParams(params);
+            view.requestLayout();
         });
         switch (interpolator) {
             case 1:
-                va.setInterpolator(new AccelerateInterpolator(2.0f));
+                valueAnimator.setInterpolator(new AccelerateInterpolator(2.0f));
                 break;
             case 2:
-                va.setInterpolator(new BounceInterpolator());
+                valueAnimator.setInterpolator(new BounceInterpolator());
                 break;
             default:
                 break;
         }
-        va.setDuration(duration);
-        va.start();
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
     }
 
     /**
      * 属性Y渐变
      *
-     * @param v            视图
+     * @param view         视图
      * @param start        开始
      * @param end          终止
      * @param duration     时长
-     * @param interpolator interpolator
+     * @param interpolator 插值器
      * @return ValueAnimator
      */
-    public static ValueAnimator yGradualReturn(final View v, int start, int end, long duration, int interpolator) {
-        ValueAnimator va = ValueAnimator.ofInt(start, end);
-        final ViewGroup.LayoutParams params = v.getLayoutParams();
-        va.addUpdateListener(animation -> {
+    public static ValueAnimator yGradualReturn(final View view, int start, int end, long duration, int interpolator) {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(start, end);
+        final ViewGroup.LayoutParams params = view.getLayoutParams();
+        valueAnimator.addUpdateListener(animation -> {
             params.height = (int) animation.getAnimatedValue();
-            v.setLayoutParams(params);
-            v.requestLayout();
+            view.setLayoutParams(params);
+            view.requestLayout();
         });
         switch (interpolator) {
             case 1:
-                va.setInterpolator(new AccelerateInterpolator(2.0f));
+                valueAnimator.setInterpolator(new AccelerateInterpolator(2.0f));
                 break;
             case 2:
-                va.setInterpolator(new BounceInterpolator());
+                valueAnimator.setInterpolator(new BounceInterpolator());
                 break;
             default:
                 break;
         }
-        va.setDuration(duration);
-        return va;
+        valueAnimator.setDuration(duration);
+        return valueAnimator;
     }
 
     /**
      * 属性Y位移
      *
-     * @param v        视图
-     * @param trEnd    trEnd
-     * @param duration 时长
+     * @param view            视图
+     * @param yTranslationEnd trEnd
+     * @param duration        时长
      */
-    public static void yTranslation(View v, float trEnd, long duration) {
-        float yCurTranslation = v.getTranslationY();
-        ObjectAnimator oa = ObjectAnimator.ofFloat(v, "translationY", yCurTranslation, trEnd);
-        oa.setDuration(duration);
-        oa.start();
+    public static void yTranslation(View view, float yTranslationEnd, long duration) {
+        float yCurrentTranslation = view.getTranslationY();
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "translationY", yCurrentTranslation, yTranslationEnd);
+        objectAnimator.setDuration(duration);
+        objectAnimator.start();
     }
 
     /**
      * 属性透变（1-0）
      *
-     * @param v        视图
+     * @param view     视图
      * @param duration 时长
      */
-    public static void alphaGone(View v, long duration) {
-        ObjectAnimator oa = ObjectAnimator.ofFloat(v, "alpha", 1.0f, 0.0f);
-        oa.setDuration(duration);
-        oa.start();
+    public static void alphaGone(View view, long duration) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.0f);
+        objectAnimator.setDuration(duration);
+        objectAnimator.start();
     }
 
     /**
      * 属性透变（0-1）
      *
-     * @param v        视图
+     * @param view     视图
      * @param duration 时长
      */
-    public static void alphaShow(View v, long duration) {
-        ObjectAnimator oa = ObjectAnimator.ofFloat(v, "alpha", 0.0f, 1.0f);
-        oa.setDuration(duration);
-        oa.start();
+    public static void alphaShow(View view, long duration) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 0.0f, 1.0f);
+        objectAnimator.setDuration(duration);
+        objectAnimator.start();
     }
 
     /**
      * 属性循环透变
      *
-     * @param v        视图
+     * @param view     视图
      * @param duration 时长
      * @return objectAnimator
      */
-    public static ObjectAnimator alphaChangeCircle(View v, long duration) {
-        ObjectAnimator oa = ObjectAnimator.ofFloat(v, "alpha", 1.0f, 0.1f);
+    public static ObjectAnimator alphaChangeCircle(View view, long duration) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.1f);
         // 播放次数（infinite无限重复）
-        oa.setRepeatCount(ValueAnimator.INFINITE);
+        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         // 播放模式
         // ValueAnimator.RESTART（默）正序重放
         // ValueAnimator.REVERSE倒序回放
-        oa.setRepeatMode(ValueAnimator.REVERSE);
-        oa.setDuration(duration);
-        return oa;
+        objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        objectAnimator.setDuration(duration);
+        return objectAnimator;
     }
 
     /**
      * 属性XY缩透（1-0）
      *
-     * @param v        视图
+     * @param view     视图
      * @param duration 时长
      */
-    public static void xyScaleAlphaGone(View v, long duration) {
-        ObjectAnimator oa = ObjectAnimator.ofFloat(v, "alpha", 1.0f, 0.0f);
-        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(v, "scaleX", 1.0f, 0.0f);
-        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(v, "scaleY", 1.0f, 0.0f);
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.play(oa).with(xAnimator).with(yAnimator);
-        animSet.setDuration(duration);
-        animSet.start();
+    public static void xyScaleAlphaGone(View view, long duration) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.0f);
+        ObjectAnimator xObjectAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.0f);
+        ObjectAnimator yObjectAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.0f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(objectAnimator).with(xObjectAnimator).with(yObjectAnimator);
+        animatorSet.setDuration(duration);
+        animatorSet.start();
     }
 
     /**
      * 属性XY缩透（0-1）
      *
-     * @param v        视图
+     * @param view     视图
      * @param duration duration
      */
-    public static void xyScaleAlphaShow(View v, long duration) {
-        ObjectAnimator oa = ObjectAnimator.ofFloat(v, "alpha", 0.0f, 1.0f);
-        ObjectAnimator xAnimator = ObjectAnimator.ofFloat(v, "scaleX", 0.0f, 1.0f);
-        ObjectAnimator yAnimator = ObjectAnimator.ofFloat(v, "scaleY", 0.0f, 1.0f);
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.play(oa).with(xAnimator).with(yAnimator);
-        animSet.setInterpolator(new BounceInterpolator());
-        animSet.setDuration(duration);
-        animSet.start();
+    public static void xyScaleAlphaShow(View view, long duration) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 0.0f, 1.0f);
+        ObjectAnimator xObjectAnimator = ObjectAnimator.ofFloat(view, "scaleX", 0.0f, 1.0f);
+        ObjectAnimator yObjectAnimator = ObjectAnimator.ofFloat(view, "scaleY", 0.0f, 1.0f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(objectAnimator).with(xObjectAnimator).with(yObjectAnimator);
+        animatorSet.setInterpolator(new BounceInterpolator());
+        animatorSet.setDuration(duration);
+        animatorSet.start();
     }
 
     /**
      * 属性色变
      *
-     * @param v          视图
+     * @param view       视图
      * @param startColor 开始色
      * @param endColor   终止色
      * @param duration   时长
      */
-    public static void colorGradual(final View v, int startColor, int endColor, int duration) {
-        ValueAnimator ca = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor);
-        ca.addUpdateListener(animation -> {
+    public static void colorGradual(final View view, int startColor, int endColor, int duration) {
+        ValueAnimator valueAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor);
+        valueAnimator.addUpdateListener(animation -> {
             int color = (int) animation.getAnimatedValue();
-            // 取两图层全域，交集色加深
-            v.getBackground().setColorFilter(color, PorterDuff.Mode.DARKEN);
+            // 取两图层全域（交集色加深）
+            view.getBackground().setColorFilter(color, PorterDuff.Mode.DARKEN);
         });
-        ca.setDuration(duration);
-        ca.start();
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
     }
 
     /**
@@ -292,8 +292,8 @@ public class AnimationManager {
      */
     public static void rotation(View view, int duration, Float start, Float end) {
         // 负逆正顺（0.0f到360.0f）
-        ObjectAnimator rotation = ObjectAnimator.ofFloat(view, "rotation", start, end);
-        rotation.setDuration(duration);
-        rotation.start();
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "rotation", start, end);
+        objectAnimator.setDuration(duration);
+        objectAnimator.start();
     }
 }

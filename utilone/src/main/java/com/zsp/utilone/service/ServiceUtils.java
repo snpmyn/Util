@@ -17,13 +17,13 @@ public class ServiceUtils {
      *
      * @param context     上下文
      * @param serviceName 服务名
-     * @param maxNum      最大数
+     * @param maxNumber   最大数
      * @return 服务运行否
      */
-    public static boolean isServiceRunning(Context context, String serviceName, int maxNum) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+    public static boolean isServiceRunning(Context context, String serviceName, int maxNumber) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         // 此处前maxNum个查找（据需设）
-        List<ActivityManager.RunningServiceInfo> runningServiceInfoList = am.getRunningServices(maxNum);
+        List<ActivityManager.RunningServiceInfo> runningServiceInfoList = activityManager.getRunningServices(maxNumber);
         for (ActivityManager.RunningServiceInfo runningServiceInfo : runningServiceInfoList) {
             // 比对服务名
             String name = runningServiceInfo.service.getClassName();

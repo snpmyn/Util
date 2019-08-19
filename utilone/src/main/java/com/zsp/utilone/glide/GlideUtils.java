@@ -1,5 +1,6 @@
 package com.zsp.utilone.glide;
 
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.widget.ImageView;
 
@@ -25,6 +26,17 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
  * override(width, height)重写宽高后或致获图模糊。
  */
 public class GlideUtils {
+    /**
+     * 简用
+     *
+     * @param context   上下文
+     * @param path      路径
+     * @param imageView 控件
+     */
+    public static void simpleUse(Context context, Object path, ImageView imageView) {
+        Glide.with(context).load(path).into(imageView);
+    }
+
     /**
      * 加载
      *
