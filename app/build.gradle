@@ -29,6 +29,8 @@ dependencies {
     /*自带*/
     implementation project(path: ':utilone')
     /*UtilOne*/
+    implementation project(path: ':utiltwo')
+    /*UtilTwo*/
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     /*ButterKnife*/
