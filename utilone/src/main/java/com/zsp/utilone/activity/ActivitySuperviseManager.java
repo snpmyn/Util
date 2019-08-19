@@ -11,9 +11,7 @@ import android.os.PersistableBundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import timber.log.Timber;
 
@@ -31,7 +29,7 @@ import static android.content.Context.ACTIVITY_SERVICE;
  * 基类之onCreate推当前Activity至Activity管理容器，需时遍历容器并finish所有Activity。
  */
 public class ActivitySuperviseManager {
-    private static final List<Activity> ACTIVITIES = Collections.synchronizedList(new LinkedList<>());
+    private static final CopyOnWriteArrayList<Activity> ACTIVITIES = new CopyOnWriteArrayList<>();
 
     /**
      * 添Activity至堆栈
