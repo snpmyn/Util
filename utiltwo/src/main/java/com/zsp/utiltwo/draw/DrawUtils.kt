@@ -4,6 +4,7 @@ package com.zsp.utiltwo.draw
 
 import android.graphics.Color
 import android.graphics.Paint
+import android.view.View
 import androidx.annotation.ColorInt
 
 /**
@@ -16,7 +17,7 @@ object DrawUtils {
      * 创画笔
      */
     @JvmOverloads
-    fun createPaint(colorString: String? = null, @ColorInt color: Int? = null): Paint {
+    fun <T : View> T.createPaint(colorString: String? = null, @ColorInt color: Int? = null): Paint {
         return Paint().apply {
             this.resetPaint(colorString, color)
         }
