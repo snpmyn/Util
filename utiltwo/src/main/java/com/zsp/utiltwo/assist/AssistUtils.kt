@@ -12,9 +12,9 @@ object AssistUtils {
     /**
      * 绿幕背景
      */
-    fun Canvas.greenCurtainBackground(debug: Boolean) {
+    fun greenCurtainBackground(canvas: Canvas, debug: Boolean) {
         if (debug) {
-            this.drawColor(Color.GREEN)
+            canvas.drawColor(Color.GREEN)
         }
     }
 }

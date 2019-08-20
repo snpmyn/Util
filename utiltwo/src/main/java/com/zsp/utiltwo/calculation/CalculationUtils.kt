@@ -12,55 +12,31 @@ import kotlin.math.sin
  */
 object CalculationUtils {
     /**
-     * Flags基本操作
-     * FlagSet添Flag
+     * 角度转弧度
      */
-    fun Int.addFlag(flag: Int): Int {
-        return this or flag
-    }
-
-    /**
-     * Flags基本操作
-     * FlagSet移Flag
-     */
-    fun Int.removeFlag(flag: Int): Int {
-        return this and (flag.inv())
-    }
-
-    /**
-     * Flags基本操作
-     * FlagSet含Flag否
-     */
-    fun Int.containFlag(flag: Int): Boolean {
-        return this or flag == this
-    }
-
-    /**
-     * 角度制转弧度制
-     */
-    fun Float.degree2radian(): Float {
-        return (this / 180f * PI).toFloat()
+    fun degreeToRadian(degree: Float): Float {
+        return (degree / 180f * PI).toFloat()
     }
 
     /**
      * 角度sin值
      */
-    fun Float.degreeSin(): Float {
-        return sin(this.degree2radian())
+    fun degreeSin(degree: Float): Float {
+        return sin(degreeToRadian(degree))
     }
 
     /**
      * 角度cos值
      */
-    fun Float.degreeCos(): Float {
-        return cos(this.degree2radian())
+    fun degreeCos(degree: Float): Float {
+        return cos(degreeToRadian(degree))
     }
 
     /**
      * 点绕原点转一定角后坐标
      */
     fun PointF.degreePointF(outPointF: PointF, degree: Float) {
-        outPointF.x = this.x * degree.degreeCos() - this.y * degree.degreeSin()
-        outPointF.y = this.x * degree.degreeSin() + this.y * degree.degreeCos()
+        outPointF.x = this.x * degreeCos(degree) - this.y * degreeSin(degree)
+        outPointF.y = this.x * degreeSin(degree) + this.y * degreeCos(degree)
     }
 }

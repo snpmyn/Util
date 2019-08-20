@@ -11,21 +11,21 @@ object DrawUtils {
     /**
      * 绘文本时X轴上垂直居中Y坐标
      */
-    fun Paint.getCenteredY(): Float {
-        return this.fontSpacing / 2 - this.fontMetrics.bottom
+    fun getCenteredY(paint: Paint): Float {
+        return paint.fontSpacing / 2 - paint.fontMetrics.bottom
     }
 
     /**
      * 绘文本时X轴上贴紧X轴上边缘Y坐标
      */
-    fun Paint.getBottomedY(): Float {
-        return -this.fontMetrics.bottom
+    fun getBottomedY(paint: Paint): Float {
+        return -paint.fontMetrics.bottom
     }
 
     /**
      * 绘文本时X轴上贴近X轴下边缘Y坐标
      */
-    fun Paint.getToppedY(): Float {
-        return -this.fontMetrics.ascent
+    fun getToppedY(paint: Paint): Float {
+        return -paint.fontMetrics.ascent
     }
 }
