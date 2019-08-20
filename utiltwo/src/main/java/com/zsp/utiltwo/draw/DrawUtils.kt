@@ -16,7 +16,7 @@ object DrawUtils {
      * 创画笔
      */
     @JvmOverloads
-    internal fun createPaint(colorString: String? = null, @ColorInt color: Int? = null): Paint {
+    fun createPaint(colorString: String? = null, @ColorInt color: Int? = null): Paint {
         return Paint().apply {
             this.resetPaint(colorString, color)
         }
@@ -26,7 +26,7 @@ object DrawUtils {
      * 重置画笔
      */
     @JvmOverloads
-    internal fun Paint.resetPaint(colorString: String? = null, @ColorInt color: Int? = null) {
+    fun Paint.resetPaint(colorString: String? = null, @ColorInt color: Int? = null) {
         this.reset()
         // 默白色（处理系统渲染抗锯齿时人眼观察到像素色）
         this.color = color ?: Color.parseColor(colorString ?: "#FFFFFF")
@@ -38,21 +38,21 @@ object DrawUtils {
     /**
      * 绘文本时X轴上垂直居中Y坐标
      */
-    internal fun Paint.getCenteredY(): Float {
+    fun Paint.getCenteredY(): Float {
         return this.fontSpacing / 2 - this.fontMetrics.bottom
     }
 
     /**
      * 绘文本时X轴上贴紧X轴上边缘Y坐标
      */
-    internal fun Paint.getBottomedY(): Float {
+    fun Paint.getBottomedY(): Float {
         return -this.fontMetrics.bottom
     }
 
     /**
      * 绘文本时X轴上贴近X轴下边缘Y坐标
      */
-    internal fun Paint.getToppedY(): Float {
+    fun Paint.getToppedY(): Float {
         return -this.fontMetrics.ascent
     }
 }
