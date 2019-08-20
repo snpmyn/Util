@@ -1,6 +1,7 @@
-package com.zsp.utilone.glide;
+package com.zsp.utilone.glide.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.widget.ImageView;
 
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -40,13 +42,25 @@ public class GlideUtils {
     /**
      * 加载
      *
+     * @param context   上下文
+     * @param path      路径
+     * @param radius    半径
+     * @param imageView 控件
+     */
+    public static void loadByObjectRoundedCorners(Context context, Object path, int radius, ImageView imageView) {
+        Glide.with(context).load(path).apply(RequestOptions.bitmapTransform(new RoundedCorners(radius))).into(imageView);
+    }
+
+    /**
+     * 加载
+     *
      * @param context        上下文
      * @param path           路径
-     * @param requestOptions 请求配置
+     * @param transformation 转型
      * @param imageView      控件
      */
-    public static void loadByObjectRoundedCorners(Context context, Object path, RequestOptions requestOptions, ImageView imageView) {
-        Glide.with(context).load(path).apply(requestOptions).into(imageView);
+    public static void loadByObjectTransformation(Context context, Object path, Transformation<Bitmap> transformation, ImageView imageView) {
+        Glide.with(context).load(path).transform(transformation).into(imageView);
     }
 
     /**
