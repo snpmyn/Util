@@ -1,3 +1,5 @@
+@file:JvmName("DrawUtils")
+
 package com.zsp.utiltwo.draw
 
 import android.graphics.Color
