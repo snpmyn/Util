@@ -1,6 +1,10 @@
 ### 介绍
 工具
 
+### 说明
+* UtilOne基于Java
+* UtilTwo基于Kotlin
+
 ### 依赖
 #### AndroidLibrary - UtilOne
 * api 'com.github.bumptech.glide:glide:4.9.0'（避重）
@@ -10,8 +14,8 @@
 * implementation 'org.apache.commons:commons-lang3:3.9'
 
 #### AndroidLibrary - UtilTwo
-* api 'androidx.core:core-ktx:1.2.0-alpha03'（避重）
-* api "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version"（避重）
+* implementation 'androidx.core:core-ktx:1.2.0-alpha03'
+* implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version"
 
 ### 权限
 #### app
