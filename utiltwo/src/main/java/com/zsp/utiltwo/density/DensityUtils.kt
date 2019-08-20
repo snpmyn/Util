@@ -7,11 +7,13 @@ import android.content.Context
  * @author 郑少鹏
  * @desc DensityUtils
  */
-/**
- * 设备独立像素转像素
- */
-internal fun Context.dipToPxByFloat(dpValue: Float): Float {
-    if (dpValue == 0.0f) return 0.0f
-    val scale = resources.displayMetrics.density
-    return (dpValue * scale + 0.5f)
+object DensityUtils {
+    /**
+     * 设备独立像素转像素
+     */
+    internal fun dipToPxByFloat(context: Context, dpValue: Float): Float {
+        if (dpValue == 0.0f) return 0.0f
+        val scale = context.resources.displayMetrics.density
+        return (dpValue * scale + 0.5f)
+    }
 }

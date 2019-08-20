@@ -8,11 +8,13 @@ import android.graphics.Color
  * @author 郑少鹏
  * @desc AssistUtils
  */
-/**
- * 绿幕背景
- */
-internal fun Canvas.greenCurtainBackground(debug: Boolean) {
-    if (debug) {
-        this.drawColor(Color.GREEN)
+object AssistUtils {
+    /**
+     * 绿幕背景
+     */
+    internal fun Canvas.greenCurtainBackground(debug: Boolean) {
+        if (debug) {
+            this.drawColor(Color.GREEN)
+        }
     }
 }
