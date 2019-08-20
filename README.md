@@ -3,7 +3,7 @@
 
 ### 说明
 * UtilOne基于Java
-* UtilTwo基于Kotlin
+* UtilTwo基于kotlin
 
 ### 依赖
 #### AndroidLibrary - UtilOne
