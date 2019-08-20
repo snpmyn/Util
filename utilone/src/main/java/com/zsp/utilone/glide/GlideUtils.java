@@ -27,14 +27,70 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
  */
 public class GlideUtils {
     /**
-     * 简用
+     * 加载
      *
      * @param context   上下文
      * @param path      路径
      * @param imageView 控件
      */
-    public static void simpleUse(Context context, Object path, ImageView imageView) {
+    public static void loadByObject(Context context, Object path, ImageView imageView) {
         Glide.with(context).load(path).into(imageView);
+    }
+
+    /**
+     * 加载
+     *
+     * @param context        上下文
+     * @param path           路径
+     * @param requestOptions 请求配置
+     * @param imageView      控件
+     */
+    public static void loadByObjectRoundedCorners(Context context, Object path, RequestOptions requestOptions, ImageView imageView) {
+        Glide.with(context).load(path).apply(requestOptions).into(imageView);
+    }
+
+    /**
+     * 加载
+     *
+     * @param fragmentActivity 上下文
+     * @param rId              int资源符
+     * @param cId              颜色占位符
+     * @param iv               控件
+     */
+    public static void loadByIntPlaceHolderColor(FragmentActivity fragmentActivity, int rId, int cId, ImageView iv) {
+        RequestOptions options = new RequestOptions()
+                .placeholder(new ColorDrawable(ContextCompat.getColor(fragmentActivity, cId)))
+                .priority(Priority.HIGH)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(fragmentActivity)
+                .load(rId)
+                .apply(options)
+                // sizeMultiplier
+                .thumbnail(0.25f)
+                .transition(withCrossFade())
+                .into(iv);
+    }
+
+    /**
+     * 加载
+     *
+     * @param fragmentActivity 上下文
+     * @param strId            String资源符
+     * @param cId              颜色占位符
+     * @param iv               控件
+     */
+    public static void loadByStringPlaceHolderColor(FragmentActivity fragmentActivity, String strId, int cId, ImageView iv) {
+        RequestOptions options = new RequestOptions()
+                .placeholder(new ColorDrawable(ContextCompat.getColor(fragmentActivity, cId)))
+                .priority(Priority.HIGH)
+                .diskCacheStrategy(DiskCacheStrategy.DATA);
+        Glide.with(fragmentActivity)
+                .load(strId)
+                .apply(options)
+                // sizeMultiplier
+                .thumbnail(0.25f)
+                .transition(withCrossFade())
+                .into(iv);
     }
 
     /**
@@ -125,50 +181,6 @@ public class GlideUtils {
                 .load(strId)
                 .apply(options)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(radius)))
-                // sizeMultiplier
-                .thumbnail(0.25f)
-                .transition(withCrossFade())
-                .into(iv);
-    }
-
-    /**
-     * 加载
-     *
-     * @param fragmentActivity 上下文
-     * @param rId              int资源符
-     * @param cId              颜色占位符
-     * @param iv               控件
-     */
-    public static void loadByIntPlaceHolderColor(FragmentActivity fragmentActivity, int rId, int cId, ImageView iv) {
-        RequestOptions options = new RequestOptions()
-                .placeholder(new ColorDrawable(ContextCompat.getColor(fragmentActivity, cId)))
-                .priority(Priority.HIGH)
-                .diskCacheStrategy(DiskCacheStrategy.ALL);
-        Glide.with(fragmentActivity)
-                .load(rId)
-                .apply(options)
-                // sizeMultiplier
-                .thumbnail(0.25f)
-                .transition(withCrossFade())
-                .into(iv);
-    }
-
-    /**
-     * 加载
-     *
-     * @param fragmentActivity 上下文
-     * @param strId            String资源符
-     * @param cId              颜色占位符
-     * @param iv               控件
-     */
-    public static void loadByStringPlaceHolderColor(FragmentActivity fragmentActivity, String strId, int cId, ImageView iv) {
-        RequestOptions options = new RequestOptions()
-                .placeholder(new ColorDrawable(ContextCompat.getColor(fragmentActivity, cId)))
-                .priority(Priority.HIGH)
-                .diskCacheStrategy(DiskCacheStrategy.DATA);
-        Glide.with(fragmentActivity)
-                .load(strId)
-                .apply(options)
                 // sizeMultiplier
                 .thumbnail(0.25f)
                 .transition(withCrossFade())
