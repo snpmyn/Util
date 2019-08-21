@@ -35,8 +35,10 @@ object CalculationUtils {
     /**
      * 点绕原点转一定角后坐标
      */
-    fun PointF.degreePointF(outPointF: PointF, degree: Float) {
-        outPointF.x = this.x * degreeCos(degree) - this.y * degreeSin(degree)
-        outPointF.y = this.x * degreeSin(degree) + this.y * degreeCos(degree)
+    fun degreePointF(pointF: PointF, degree: Float): PointF {
+        val outPointF = PointF()
+        outPointF.x = pointF.x * degreeCos(degree) - pointF.y * degreeSin(degree)
+        outPointF.y = pointF.x * degreeSin(degree) + pointF.y * degreeCos(degree)
+        return outPointF
     }
 }
