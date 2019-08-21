@@ -15,7 +15,7 @@ object CalculationUtils {
      * 角度转弧度
      */
     fun degreeToRadian(degree: Float): Float {
-        return (degree / 180f * PI).toFloat()
+        return (degree / 180.0f * PI).toFloat()
     }
 
     /**
@@ -35,10 +35,8 @@ object CalculationUtils {
     /**
      * 点绕原点转一定角后坐标
      */
-    fun degreePointF(pointF: PointF, degree: Float): PointF {
-        val outPointF = PointF()
-        outPointF.x = pointF.x * degreeCos(degree) - pointF.y * degreeSin(degree)
-        outPointF.y = pointF.x * degreeSin(degree) + pointF.y * degreeCos(degree)
-        return outPointF
+    fun degreePointF(originalPointF: PointF, resultPointF: PointF, degree: Float) {
+        resultPointF.x = originalPointF.x * degreeCos(degree) - originalPointF.y * degreeSin(degree)
+        resultPointF.y = originalPointF.x * degreeSin(degree) + originalPointF.y * degreeCos(degree)
     }
 }
