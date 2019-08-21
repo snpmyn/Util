@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zsp.util">
 
-    <dist:module dist:instant="true" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:name="application.UtilApp"
         android:allowBackup="false"
@@ -27,5 +22,12 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ManifestOrder" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <dist:module dist:instant="true" />
 
 </manifest>
