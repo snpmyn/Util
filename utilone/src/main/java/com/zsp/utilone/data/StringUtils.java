@@ -103,7 +103,7 @@ public class StringUtils {
     }
 
     /**
-     * 转double为字符串
+     * 转Double为字符串
      * <p>
      * 最多留num位小数。
      *
@@ -267,5 +267,46 @@ public class StringUtils {
             }
             return stringBuffer.toString();
         }
+    }
+
+    /**
+     * Padding the specified number of spaces to the input string to make it that length.
+     *
+     * @param input String
+     * @param size  int
+     * @return String
+     */
+    public static String paddingLeft(String input, int size) {
+        if (input.length() > size) {
+            throw new IllegalArgumentException("input must be shorter than or equal to the number of spaces: " + size);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = input.length(); i < size; i++) {
+            sb.append(" ");
+        }
+        return sb.append(input).toString();
+    }
+
+    /**
+     * Replace all occurances of the searchString in the originalString with the replaceString.
+     * Faster than the String.replace() method.
+     * Does not use regexes.
+     * <p>
+     * If your searchString is empty, this will spin forever.
+     *
+     * @param originalString 原始字符串
+     * @param searchString   搜索字符串
+     * @param replaceString  替换字符串
+     * @return 字符串
+     */
+    public static String replace(String originalString, String searchString, String replaceString) {
+        StringBuilder sb = new StringBuilder(originalString);
+        int index = sb.indexOf(searchString);
+        while (index != -1) {
+            sb.replace(index, index + searchString.length(), replaceString);
+            index += replaceString.length();
+            index = sb.indexOf(searchString, index);
+        }
+        return sb.toString();
     }
 }
