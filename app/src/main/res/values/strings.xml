@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Util</string>
     <string name="timber">timber</string>
+    <string name="rxBus">RxBus</string>
+    <string name="rxBusTestOne">RxBus测试一</string>
+    <string name="rxBusTestTwo">RxBus测试二</string>
 </resources>

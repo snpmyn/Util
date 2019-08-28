@@ -1,4 +1,4 @@
-package example;
+package example.timber;
 
 import android.os.Bundle;
 

@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zsp.util">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <dist:module dist:instant="true" />
+
     <application
         android:name="application.UtilApp"
         android:allowBackup="false"
@@ -13,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="example.TimberActivity" />
+        <activity android:name="example.rxbus.RxBusActivity" />
+        <activity android:name="example.timber.TimberActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +28,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        tools:ignore="ManifestOrder" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <dist:module dist:instant="true" />
 
 </manifest>

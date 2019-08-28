@@ -12,7 +12,8 @@ import com.zsp.utilone.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import example.TimberActivity;
+import example.rxbus.RxBusActivity;
+import example.timber.TimberActivity;
 
 /**
  * @decs: 主页
@@ -55,10 +56,19 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    @OnClick(R.id.mainActivityMbTimber)
+    @OnClick({R.id.mainActivityMbTimber, R.id.mainActivityMbRxBus})
     public void onViewClicked(View view) {
-        if (view.getId() == R.id.mainActivityMbTimber) {
-            IntentUtils.jumpNoBundle(this, TimberActivity.class);
+        switch (view.getId()) {
+            // timber
+            case R.id.mainActivityMbTimber:
+                IntentUtils.jumpNoBundle(this, TimberActivity.class);
+                break;
+            // RxBus
+            case R.id.mainActivityMbRxBus:
+                IntentUtils.jumpNoBundle(this, RxBusActivity.class);
+                break;
+            default:
+                break;
         }
     }
 }

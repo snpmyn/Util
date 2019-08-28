@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
+    android:gravity="center"
+    android:orientation="vertical"
     android:padding="@dimen/dp_12"
     tools:context=".MainActivity">
 
@@ -12,5 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/timber"
+        android:textAppearance="?android:attr/textAppearanceInverse" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mainActivityMbRxBus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rxBus"
         android:textAppearance="?android:attr/textAppearanceInverse" />
 </LinearLayout>
