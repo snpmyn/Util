@@ -3,6 +3,7 @@ package com.zsp.utilone.file;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -28,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 import value.UtilOneMagic;
@@ -58,11 +61,11 @@ public class FileUtils {
     }
 
     /**
-     * 据uri获真路径
+     * 据Uri获真路径
      *
      * @param context    上下文
      * @param contentUri contentUri
-     * @return 据URI真路径
+     * @return 据Uri真路径
      */
     public static String getRealPathFromUri(Context context, Uri contentUri) {
         String[] pro = {MediaStore.Images.Media.DATA};
@@ -396,7 +399,7 @@ public class FileUtils {
      * Convert file into uri.
      *
      * @param file File
-     * @return uri
+     * @return Uri
      */
     public static Uri getUri(File file) {
         return (file != null) ? Uri.fromFile(file) : null;
@@ -576,7 +579,10 @@ public class FileUtils {
                         "content://downloads/my_downloads"
                 };
                 for (String contentUriPrefix : contentUriPrefixesToTry) {
-                    Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.valueOf(id));
+                    Uri contentUri = null;
+                    if (id != null) {
+                        contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.valueOf(id));
+                    }
                     try {
                         String path = getDataColumn(context, contentUri, null, null);
                         if (path != null) {
@@ -808,5 +814,73 @@ public class FileUtils {
         }
         int index = filename.lastIndexOf('/');
         return filename.substring(index + 1);
+    }
+
+    /**
+     * assets转文件
+     *
+     * @param context                   上下文
+     * @param count                     数量
+     * @param assetsFileNamePrefix      assets文件前缀
+     * @param transferredFileNamePrefix 转后文件前缀
+     * @return 文件集
+     */
+    public static List<File> assetsToFiles(Context context, int count, String assetsFileNamePrefix, String transferredFileNamePrefix) {
+        final List<File> files = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            try {
+                InputStream inputStream = context.getApplicationContext().getResources().getAssets().open(assetsFileNamePrefix + i);
+                File file = new File(context.getApplicationContext().getExternalFilesDir("assets"), transferredFileNamePrefix + i);
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                byte[] buffer = new byte[4096];
+                int length = inputStream.read(buffer);
+                while (length > 0) {
+                    fileOutputStream.write(buffer, 0, length);
+                    length = inputStream.read(buffer);
+                }
+                fileOutputStream.close();
+                inputStream.close();
+                files.add(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return files;
+    }
+
+    /**
+     * assets转统一资源标识符
+     *
+     * @param context                   上下文
+     * @param count                     数量
+     * @param assetsFileNamePrefix      assets文件前缀
+     * @param transferredFileNamePrefix 转后文件前缀
+     * @return 统一资源标识符集
+     */
+    public static List<Uri> assetsToUris(Context context, int count, String assetsFileNamePrefix, String transferredFileNamePrefix) {
+        final List<Uri> uris = new ArrayList<>();
+        final List<File> files = assetsToFiles(context, count, assetsFileNamePrefix, transferredFileNamePrefix);
+        for (int i = 0; i < count; i++) {
+            Uri uri = Uri.fromFile(files.get(i));
+            uris.add(uri);
+        }
+        return uris;
+    }
+
+    /**
+     * 算图文件尺寸
+     *
+     * @param imageFile 图文件
+     * @return 尺寸数组
+     */
+    public static int[] calculatedImageFileSize(File imageFile) {
+        int[] size = new int[2];
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        options.inSampleSize = 1;
+        BitmapFactory.decodeFile(imageFile.getAbsolutePath(), options);
+        size[0] = options.outWidth;
+        size[1] = options.outHeight;
+        return size;
     }
 }
