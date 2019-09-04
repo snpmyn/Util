@@ -13,18 +13,34 @@ import java.util.regex.Pattern;
  */
 public class RegularUtils {
     /**
+     * 手机号（精确）
+     * <p>
+     * 中国电信号段 133、149、153、173、177、180、181、189、199
+     * 中国联通号段 130、131、132、145、155、156、166、175、176、185、186
+     * 中国移动号段 134(0-8)、135、136、137、138、139、147、150、151、152、157、158、159、178、182、183、184、187、188、198
+     * <p>
+     * 其它号段
+     * 14号段前为上网卡专属号段，如中国联通145、中国移动147等。
+     * <p>
+     * 虚拟运营商
+     * 电信：1700、1701、1702
+     * 移动：1703、1705、1706
+     * 联通：1704、1707、1708、1709、171
+     * <p>
+     * 卫星通信：1349
+     */
+    private static final String REGEX_MOBILE_EXACT = "^((13[0-9])|(14[5,7,9])|(15([0-3]|[5-9]))|(166)|(17[0,1,3,5,6,7,8])|(18[0-9])|(19[8|9]))\\d{8}$";
+
+    /**
      * 手机号（简单）
      */
     private static final String REGEX_MOBILE_SIMPLE = "^[1]\\d{10}$";
     /**
-     * 手机号（精确）
-     * 移动134(0-8)、135、136、137、138、139、147、150、151、152、157、158、159、178、182、183、184、187、188
-     * 联通130、131、132、145、155、156、175、176、185、186
-     * 电信133、153、173、177、180、181、189
-     * 全球星1349
-     * 虚拟运营商170
+     * constructor
      */
-    private static final String REGEX_MOBILE_EXACT = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|(147))\\d{8}$";
+    private RegularUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
     /**
      * 电话号码（正则）
      */
@@ -49,13 +65,6 @@ public class RegularUtils {
      * 汉字（正则）
      */
     private static final String REGEX_ZH = "^[\\u4e00-\\u9fa5]+$";
-
-    /**
-     * constructor
-     */
-    private RegularUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
 
     /**
      * 手机号（简单）

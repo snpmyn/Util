@@ -1,7 +1,5 @@
 package com.zsp.utilone.validate;
 
-import android.text.TextUtils;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +20,6 @@ public class CheckOutUtils {
     private static Pattern p1 = Pattern.compile("^([\u4E00-\u9FA5]|[\uF900-\uFA2D]|[\u258C]|[\u2022]|[\u2E80-\uFE4F])+$");
     private static Pattern p2 = Pattern.compile("^[A-Za-z0-9][\\w._]*[a-zA-Z0-9]+@[A-Za-z0-9-_]+\\.([A-Za-z]{2,4})");
     private static Pattern p3 = Pattern.compile("[0-9]*");
-    private static Pattern p4 = Pattern.compile("1[0-9]{10}");
     private static Pattern p5 = Pattern.compile("[\u4e00-\u9fa5]");
     private static Pattern p6 = Pattern.compile("^[A-Za-z]+$");
     private static Pattern p7 = Pattern.compile("^[\u4E00-\u9FFF]+$");
@@ -59,37 +56,10 @@ public class CheckOutUtils {
     }
 
     /**
-     * 手机格式
-     */
-    public static boolean isMobileNo(String mobiles) {
-        /*
-          移动134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
-          联通130、131、132、152、155、156、185、186
-          电信133、153、180、189、（1349卫通）147 177
-          总结，即第一位必1，第二位必3、5、8，其它位可0-9
-          "[1]"表第1位数为1，"[358]"表第二位可3、5、8中任一个，"\\d{9}"表后面可为0～9任一数，共9位
-         */
-        String telRegex = "[1][34578]\\d{9}";
-        if (TextUtils.isEmpty(mobiles)) {
-            return false;
-        } else {
-            return mobiles.matches(telRegex);
-        }
-    }
-
-    /**
      * 输数字否
      */
     public static boolean isNumeric(String str) {
         return p3.matcher(str).matches();
-    }
-
-    /**
-     * 手机号合法否
-     */
-    public static boolean isPhone(String mobiles) {
-        Matcher m = p4.matcher(mobiles);
-        return m.matches();
     }
 
     /**
