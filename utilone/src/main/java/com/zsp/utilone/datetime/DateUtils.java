@@ -57,6 +57,15 @@ public class DateUtils {
     }
 
     /**
+     * 当前时（yyyy-MM-dd HH:mm）
+     *
+     * @return String
+     */
+    public static String getCurrentTimeYearMonthDayHourMinute() {
+        return getCurrentTime(DateFormatUtils.DATE_FORMAT_FIVE);
+    }
+
+    /**
      * 当前时（yyyy-MM-dd HH:mm:ss）
      *
      * @return String
