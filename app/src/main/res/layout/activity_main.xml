@@ -22,4 +22,11 @@
         android:layout_height="wrap_content"
         android:text="@string/rxBus"
         android:textAppearance="?android:attr/textAppearanceInverse" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mainActivityMbMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/map"
+        android:textAppearance="?android:attr/textAppearanceInverse" />
 </LinearLayout>

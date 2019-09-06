@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name="example.map.MapActivity" />
         <activity android:name="example.rxbus.RxBusActivity" />
         <activity android:name="example.timber.TimberActivity" />
         <activity android:name=".MainActivity">

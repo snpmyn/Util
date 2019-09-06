@@ -4,4 +4,7 @@
     <string name="rxBus">RxBus</string>
     <string name="rxBusTestOne">RxBus测试一</string>
     <string name="rxBusTestTwo">RxBus测试二</string>
+    <string name="map">Map</string>
+    <string name="mapFromListHint">List集合：key1, value1, key2, value2, key3, value3</string>
+    <string name="mapFromList">Map来自List</string>
 </resources>

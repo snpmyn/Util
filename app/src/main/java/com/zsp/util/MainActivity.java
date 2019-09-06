@@ -12,6 +12,7 @@ import com.zsp.utilone.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import example.map.MapActivity;
 import example.rxbus.RxBusActivity;
 import example.timber.TimberActivity;
 
@@ -56,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    @OnClick({R.id.mainActivityMbTimber, R.id.mainActivityMbRxBus})
+    @OnClick({R.id.mainActivityMbTimber,
+            R.id.mainActivityMbRxBus,
+            R.id.mainActivityMbMap})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             // timber
@@ -66,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
             // RxBus
             case R.id.mainActivityMbRxBus:
                 IntentUtils.jumpNoBundle(this, RxBusActivity.class);
+                break;
+            // Map
+            case R.id.mainActivityMbMap:
+                IntentUtils.jumpNoBundle(this, MapActivity.class);
                 break;
             default:
                 break;
