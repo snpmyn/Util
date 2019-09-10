@@ -13,6 +13,13 @@ import java.util.regex.Pattern;
  */
 public class RegularUtils {
     /**
+     * all numbers
+     * <p>
+     * Phone number + IoT number + Data only number
+     */
+    private static final String REGEX_ALL_MOBILE = "^(?:\\+?86)?1(?:3\\d{3}|5[^4\\D]\\d{2}|8\\d{3}|7(?:[01356789]\\d{2}|4(?:0\\d|1[0-2]|9\\d))|9[189]\\d{2}|6[567]\\d{2}|4(?:[14]0\\d{3}|[68]\\d{4}|[579]\\d{2}))\\d{6}$";
+
+    /**
      * 手机号（精确）
      * <p>
      * 中国电信号段 133、149、153、173、177、180、181、189、199
@@ -30,16 +37,17 @@ public class RegularUtils {
      * 卫星通信：1349
      */
     private static final String REGEX_MOBILE_EXACT = "^((13[0-9])|(14[5,7,9])|(15([0-3]|[5-9]))|(166)|(17[0,1,3,5,6,7,8])|(18[0-9])|(19[8|9]))\\d{8}$";
-
     /**
-     * 手机号（简单）
+     * all numbers with SMS
+     * <p>
+     * Phone number + Data only number
      */
-    private static final String REGEX_MOBILE_SIMPLE = "^[1]\\d{10}$";
+    private static final String REGEX_ALL_MOBILE_WITH_SMS = "^(?:\\+?86)?1(?:3\\d{3}|5[^4\\D]\\d{2}|8\\d{3}|7(?:[01356789]\\d{2}|4(?:0\\d|1[0-2]|9\\d))|9[189]\\d{2}|6[567]\\d{2}|4[579]\\d{2})\\d{6}$";
     /**
      * constructor
      */
     private RegularUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
+        throw new UnsupportedOperationException("You can't instantiate me...");
     }
     /**
      * 电话号码（正则）
@@ -67,16 +75,6 @@ public class RegularUtils {
     private static final String REGEX_ZH = "^[\\u4e00-\\u9fa5]+$";
 
     /**
-     * 手机号（简单）
-     *
-     * @param input 待验文本
-     * @return true匹/false不匹
-     */
-    public static boolean isMobileSimple(CharSequence input) {
-        return isMatch(REGEX_MOBILE_SIMPLE, input);
-    }
-
-    /**
      * 手机号（精确）
      *
      * @param input 待验文本
@@ -84,6 +82,26 @@ public class RegularUtils {
      */
     public static boolean isMobileExact(CharSequence input) {
         return isMatch(REGEX_MOBILE_EXACT, input);
+    }
+
+    /**
+     * 全手机号
+     *
+     * @param input 待验文本
+     * @return true匹/false不匹
+     */
+    public static boolean allMobile(CharSequence input) {
+        return isMatch(REGEX_ALL_MOBILE, input);
+    }
+
+    /**
+     * 符合短信全手机号
+     *
+     * @param input 待验文本
+     * @return true匹/false不匹
+     */
+    public static boolean allMobileWithSms(CharSequence input) {
+        return isMatch(REGEX_ALL_MOBILE_WITH_SMS, input);
     }
 
     /**

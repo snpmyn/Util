@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="example.storage.MmkvActivity">
+
+    <TextView
+        android:id="@+id/mmkvActivityTvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/mmkvActivityMbRemoveBooleanValue"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mmkvActivityMbRemoveBooleanValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/removeBooleanValue"
+        android:textAppearance="?android:attr/textAppearanceInverse"
+        app:layout_constraintBottom_toTopOf="@+id/mmkvActivityMbClearMemoryCache"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/mmkvActivityMbRemoveIntValueAndLongValue" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mmkvActivityMbRemoveIntValueAndLongValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/removeIntValueAndLongValue"
+        android:textAppearance="?android:attr/textAppearanceInverse"
+        app:layout_constraintBottom_toTopOf="@+id/mmkvActivityMbClearMemoryCache"
+        app:layout_constraintLeft_toRightOf="@+id/mmkvActivityMbRemoveBooleanValue"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mmkvActivityMbClearMemoryCache"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clearMemoryCache"
+        android:textAppearance="?android:attr/textAppearanceInverse"
+        app:layout_constraintBottom_toTopOf="@+id/mmkvActivityMbEncode"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mmkvActivityMbEncode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/encode"
+        android:textAppearance="?android:attr/textAppearanceInverse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/mmkvActivityMbDecode" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mmkvActivityMbDecode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/decode"
+        android:textAppearance="?android:attr/textAppearanceInverse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/mmkvActivityMbEncode"
+        app:layout_constraintRight_toRightOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

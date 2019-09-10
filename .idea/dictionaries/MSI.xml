@@ -9,6 +9,7 @@
       <w>emui</w>
       <w>externalstorage</w>
       <w>flyme</w>
+      <w>getkeepsafe</w>
       <w>getprop</w>
       <w>hmmss</w>
       <w>huawei</w>
@@ -21,6 +22,7 @@
       <w>meizu</w>
       <w>misconfigurations</w>
       <w>miui</w>
+      <w>mmkv</w>
       <w>mpeg</w>
       <w>msword</w>
       <w>occurances</w>
@@ -32,6 +34,7 @@
       <w>proc</w>
       <w>qiku</w>
       <w>regexes</w>
+      <w>relinker</w>
       <w>reposted</w>
       <w>rxandroid</w>
       <w>rxbus</w>
@@ -41,6 +44,7 @@
       <w>snackbar</w>
       <w>snpmyn</w>
       <w>soulpermission</w>
+      <w>tencent</w>
       <w>uniqued</w>
       <w>utilone</w>
       <w>utiltwo</w>

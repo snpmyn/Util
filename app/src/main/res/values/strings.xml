@@ -7,4 +7,10 @@
     <string name="map">Map</string>
     <string name="mapFromListHint">List集合：key1, value1, key2, value2, key3, value3</string>
     <string name="mapFromList">Map来自List</string>
+    <string name="mmkv">MMKV</string>
+    <string name="encode">编码</string>
+    <string name="removeBooleanValue">移boolean值</string>
+    <string name="removeIntValueAndLongValue">移int值和long值</string>
+    <string name="clearMemoryCache">清内存缓存</string>
+    <string name="decode">解码</string>
 </resources>

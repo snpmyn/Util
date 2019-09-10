@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import example.map.MapActivity;
 import example.rxbus.RxBusActivity;
+import example.storage.MmkvActivity;
 import example.timber.TimberActivity;
 
 /**
@@ -59,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.mainActivityMbTimber,
             R.id.mainActivityMbRxBus,
-            R.id.mainActivityMbMap})
+            R.id.mainActivityMbMap,
+            R.id.mainActivityMbMmkv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             // timber
@@ -73,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
             // Map
             case R.id.mainActivityMbMap:
                 IntentUtils.jumpNoBundle(this, MapActivity.class);
+                break;
+            // MMKV
+            case R.id.mainActivityMbMmkv:
+                IntentUtils.jumpNoBundle(this, MmkvActivity.class);
                 break;
             default:
                 break;

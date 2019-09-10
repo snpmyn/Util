@@ -29,4 +29,11 @@
         android:layout_height="wrap_content"
         android:text="@string/map"
         android:textAppearance="?android:attr/textAppearanceInverse" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mainActivityMbMmkv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mmkv"
+        android:textAppearance="?android:attr/textAppearanceInverse" />
 </LinearLayout>

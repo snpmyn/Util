@@ -1,4 +1,4 @@
-package com.zsp.utilone.sharedpreferences;
+package com.zsp.utilone.storage.sharedpreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
