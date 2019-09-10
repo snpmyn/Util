@@ -21,15 +21,15 @@ public class MmkvInitConfigure {
      * 初始MMKV
      *
      * @param application                   应用
-     * @param mmkvLogLevel                  MMKV日志级别
+     * @param debug                         调试模式
      * @param mmkvHandler                   MMKV处理
      * @param mmkvContentChangeNotification MMKV内容改变通知
      */
-    public static void initMmkv(Application application, MMKVLogLevel mmkvLogLevel, MMKVHandler mmkvHandler, MMKVContentChangeNotification mmkvContentChangeNotification) {
+    public static void initMmkv(Application application, boolean debug, MMKVHandler mmkvHandler, MMKVContentChangeNotification mmkvContentChangeNotification) {
         String dir = application.getFilesDir().getAbsolutePath() + "/mmkv";
         String rootDir = MMKV.initialize(dir, libName -> ReLinker.loadLibrary(application, libName), MMKVLogLevel.LevelInfo);
         Timber.d("mmkv root: %s", rootDir);
-        MMKV.setLogLevel(mmkvLogLevel);
+        MMKV.setLogLevel(debug ? MMKVLogLevel.LevelInfo : MMKVLogLevel.LevelNone);
         MMKV.registerHandler(mmkvHandler);
         MMKV.registerContentChangeNotify(mmkvContentChangeNotification);
     }

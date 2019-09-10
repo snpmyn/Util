@@ -72,7 +72,7 @@ public class MmkvActivity extends AppCompatActivity {
         MmkvKit.defaultMmkv().encode("long", Long.MAX_VALUE);
         MmkvKit.defaultMmkv().encode("float", -3.14F);
         MmkvKit.defaultMmkv().encode("double", Double.MIN_VALUE);
-        MmkvKit.defaultMmkv().encode("string", "Hello from mmkv");
+        MmkvKit.defaultMmkv().encode("string", "hello from mmkv");
         MmkvKit.defaultMmkv().encode("bytes", new byte[]{'m', 'm', 'k', 'v'});
     }
 
