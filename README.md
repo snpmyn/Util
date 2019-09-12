@@ -3,6 +3,7 @@
 [![SNAPSHOT](https://jitpack.io/v/Jaouan/Revealator.svg)](https://jitpack.io/#snpmyn/Util)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1c9a1b1d1ce4ca7a201ab93492bf6e0)](https://app.codacy.com/project/snpmyn/Util/dashboard)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
+[![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
 
 ### 介绍
 工具
@@ -14,7 +15,7 @@
 ### 依赖
 #### AndroidLibrary - UtilOne
 * api 'com.github.bumptech.glide:glide:4.9.0'（避重）
-* api 'com.google.android.material:material:1.1.0-alpha09'（避重）
+* api 'com.google.android.material:material:1.1.0-alpha10'（避重）
 * api 'io.reactivex:rxandroid:1.2.1'（避重）
 * api 'io.reactivex:rxjava:1.3.8'（避重）
 * api 'com.jakewharton.timber:timber:4.7.1'（避重）
@@ -24,7 +25,7 @@
 * implementation 'org.apache.commons:commons-lang3:3.9'
 
 #### AndroidLibrary - UtilTwo
-* implementation 'androidx.core:core-ktx:1.2.0-alpha03'
+* implementation 'androidx.core:core-ktx:1.2.0-alpha04'
 * implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version"
 
 ### 权限
