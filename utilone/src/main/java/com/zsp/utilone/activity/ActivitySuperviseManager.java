@@ -1,6 +1,5 @@
 package com.zsp.utilone.activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
@@ -9,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -47,6 +47,7 @@ public class ActivitySuperviseManager {
 
     /**
      * 当前Activity名
+     * <p>
      * info.topActivity.getShortClassName() Activity名
      * info.topActivity.getClassName() 类名
      * info.topActivity.getPackageName() 包名
@@ -55,11 +56,16 @@ public class ActivitySuperviseManager {
      * @param context 上下文
      * @return 当前Activity名
      */
-    @TargetApi(Build.VERSION_CODES.Q)
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public static String getCurrentRunningActivityName(Context context) {
         ActivityManager manager = (ActivityManager) context.getApplicationContext().getSystemService(ACTIVITY_SERVICE);
         ActivityManager.RunningTaskInfo info = manager != null ? manager.getRunningTasks(1).get(0) : null;
-        String activityName = info != null ? info.topActivity.getShortClassName() : null;
+        String activityName;
+        if (null != info && null != info.topActivity) {
+            activityName = info.topActivity.getShortClassName();
+        } else {
+            activityName = null;
+        }
         Timber.d("当前活动：%s", activityName);
         return activityName;
     }

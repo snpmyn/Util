@@ -6,6 +6,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.lang.ref.WeakReference;
+import java.util.Objects;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -16,10 +17,6 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
  * @decs KeyboardUtils
  */
 public class KeyboardUtils {
-    private KeyboardUtils() {
-
-    }
-
     /**
      * 打开软件盘
      *
@@ -63,7 +60,7 @@ public class KeyboardUtils {
         if (activityUse == null || activityUse.getCurrentFocus() == null) {
             return;
         }
-        ((InputMethodManager) activityUse.getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(activityUse.getCurrentFocus().
-                getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        ((InputMethodManager) Objects.requireNonNull(activityUse.getSystemService(INPUT_METHOD_SERVICE), "must not be null")).
+                hideSoftInputFromWindow(activityUse.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }

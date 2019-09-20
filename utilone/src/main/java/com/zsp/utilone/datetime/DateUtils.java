@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import timber.log.Timber;
 import value.UtilOneMagic;
@@ -169,6 +170,7 @@ public class DateUtils {
 
     /**
      * 获当前时（HH:mm）
+     * <p>
      * calendar.get(Calendar.YEAR)
      * calendar.get(Calendar.MONTH)
      * calendar.get(Calendar.DAY_OF_MONTH)
@@ -594,6 +596,7 @@ public class DateUtils {
 
     /**
      * 较两日期隔（天、月、年）
+     * <p>
      * compareDate("2009-09-12", null, 0) 天
      * compareDate("2009-09-12", null, 1) 月
      * compareDate("2009-09-12", null, 2) 年
@@ -618,8 +621,8 @@ public class DateUtils {
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
         try {
-            c1.setTime(df.parse(startDay));
-            c2.setTime(df.parse(endDay));
+            c1.setTime(Objects.requireNonNull(df.parse(startDay), "must not be null"));
+            c2.setTime(Objects.requireNonNull(df.parse(endDay), "must not be null"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -669,7 +672,7 @@ public class DateUtils {
                 value = (int) (between % (24 * 36000) / 3600);
             } else if (type == UtilOneMagic.INT_TWO) {
                 value = (int) (between % 3600 / 60);
-            } else if (type == UtilOneMagic.INT_THREE) {
+            } else {
                 value = (int) (between % 60 / 60);
             }
         } catch (ParseException e) {
@@ -680,6 +683,7 @@ public class DateUtils {
 
     /**
      * 较两日期大小
+     * <p>
      * date1 > date2 返1
      * date1 = date2 返0
      * date1 < date2 返-1
@@ -808,6 +812,7 @@ public class DateUtils {
 
     /**
      * 当前日
+     * <p>
      * 安卓系统月份从0-11计算（故真实月份加一）
      *
      * @return 当前日
@@ -840,8 +845,8 @@ public class DateUtils {
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateFormatUtils.DATE_FORMAT_FIVE, Locale.US);
         try {
-            long oldConversionResult = simpleDateFormat.parse(oldTime).getTime();
-            long newConversionResult = simpleDateFormat.parse(newTime).getTime();
+            long oldConversionResult = Objects.requireNonNull(simpleDateFormat.parse(oldTime), "must not be null").getTime();
+            long newConversionResult = Objects.requireNonNull(simpleDateFormat.parse(newTime), "must not be null").getTime();
             long dc = Math.abs(newConversionResult - oldConversionResult);
             seconds = dc / 1000;
         } catch (ParseException e) {
@@ -895,7 +900,7 @@ public class DateUtils {
         String tem;
         if (num > 0) {
             Long minute = num / 60 / 1000;
-            Long remainder = num % (60 * 1000);
+            long remainder = num % (60 * 1000);
             Long second = remainder / 1000;
             tem = addLeftZero(minute) + ":" + addLeftZero(second);
         } else {
@@ -961,6 +966,6 @@ public class DateUtils {
         } else {
             simpleDateFormat.applyPattern(strPattern);
         }
-        return simpleDateFormat == null ? "NULL" : simpleDateFormat.format(l);
+        return simpleDateFormat == null ? "null" : simpleDateFormat.format(l);
     }
 }

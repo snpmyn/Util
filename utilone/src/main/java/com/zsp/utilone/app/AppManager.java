@@ -1,5 +1,6 @@
 package com.zsp.utilone.app;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -61,6 +62,7 @@ public class AppManager {
      * @param packageName 包名
      * @return 包信息
      */
+    @SuppressLint("WrongConstant")
     public static PackageInfo packageInfo(Context context, String packageName) {
         if (null == context) {
             return null;

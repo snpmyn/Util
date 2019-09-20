@@ -11,7 +11,6 @@ public class UtilOneMagic {
      * int
      */
     public static final int INT_TWO = 2;
-    public static final int INT_THREE = 3;
     public static final int INT_TEN = 10;
     public static final int INT_FIFTEEN = 15;
     public static final int INT_EIGHTEEN = 18;
