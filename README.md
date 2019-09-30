@@ -1,4 +1,4 @@
-<div align=center><img src="https://github.com/snpmyn/Util/raw/master/image.png"/></div>
+<div align=center><img src="https://github.com/snpmyn/Util/raw/master/Util.png"/></div>
 
 [![SNAPSHOT](https://jitpack.io/v/Jaouan/Revealator.svg)](https://jitpack.io/#snpmyn/Util)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1c9a1b1d1ce4ca7a201ab93492bf6e0)](https://app.codacy.com/project/snpmyn/Util/dashboard)
