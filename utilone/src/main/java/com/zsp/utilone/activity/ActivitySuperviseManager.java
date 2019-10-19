@@ -53,7 +53,7 @@ public class ActivitySuperviseManager {
      * @param activity Activity
      */
     public static void removeActivity(Activity activity) {
-        if (ACTIVITIES.isEmpty()) {
+        if (ACTIVITIES.isEmpty() || !ACTIVITIES.contains(activity)) {
             return;
         }
         ACTIVITIES.remove(activity);
