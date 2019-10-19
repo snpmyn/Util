@@ -11,7 +11,8 @@ import android.os.PersistableBundle;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -25,25 +26,39 @@ import static android.content.Context.ACTIVITY_SERVICE;
  * @desc ActivitySuperviseManager
  * Application：
  * {@link Application#registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks)}之onActivityCreated当{@link AppCompatActivity#onCreate(Bundle, PersistableBundle)}时执行，android:launchMode="singleTask"时不执行。
- * {@link Application#registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks)}onActivityDestroyed当{@link AppCompatActivity#finish()} (Bundle, PersistableBundle)}时执行，android:launchMode="singleTask"时不执行。
+ * {@link Application#registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks)}onActivityDestroyed当{@link AppCompatActivity#finish()(Bundle, PersistableBundle)}时执行，android:launchMode="singleTask"时不执行。
  * 基类：
  * 基类之onCreate推当前Activity至Activity管理容器，需时遍历容器并finish所有Activity。
  */
 public class ActivitySuperviseManager {
-    private static List<Activity> activities = new ArrayList<>();
+    private static final List<Activity> ACTIVITIES = Collections.synchronizedList(new LinkedList<>());
 
     /**
-     * 添Activity至堆栈
+     * 推Activity至堆栈
      *
      * @param activity Activity
      */
     public static void pushActivity(Activity activity) {
-        activities.add(activity);
-        Timber.d("活动数：%s", activities.size());
-        for (int i = 0; i < activities.size(); i++) {
-            Timber.d("概览：%s", activities.get(i).getClass().getSimpleName());
+        ACTIVITIES.add(activity);
+        Timber.d("活动数：%s", ACTIVITIES.size());
+        for (int i = 0; i < ACTIVITIES.size(); i++) {
+            Timber.d("概览：%s", ACTIVITIES.get(i).getClass().getSimpleName());
         }
-        Timber.d("推入：%s", activities.get(activities.size() - 1).getClass().getSimpleName());
+        Timber.d("推入：%s", ACTIVITIES.get(ACTIVITIES.size() - 1).getClass().getSimpleName());
+    }
+
+    /**
+     * 从堆栈去Activity
+     *
+     * @param activity Activity
+     */
+    public static void removeActivity(Activity activity) {
+        ACTIVITIES.remove(activity);
+        Timber.d("活动数：%s", ACTIVITIES.size());
+        for (int i = 0; i < ACTIVITIES.size(); i++) {
+            Timber.d("概览：%s", ACTIVITIES.get(i).getClass().getSimpleName());
+        }
+        Timber.d("去除：%s", ACTIVITIES.get(ACTIVITIES.size() - 1).getClass().getSimpleName());
     }
 
     /**
@@ -78,11 +93,13 @@ public class ActivitySuperviseManager {
      */
     public static Activity getTopActivityInstance() {
         Activity topActivityInstance;
-        int size = activities.size() - 1;
-        if (size < 0) {
-            return null;
+        synchronized (ACTIVITIES) {
+            final int size = ACTIVITIES.size() - 1;
+            if (size < 0) {
+                return null;
+            }
+            topActivityInstance = ACTIVITIES.get(size);
         }
-        topActivityInstance = activities.get(size);
         return topActivityInstance;
     }
 
@@ -92,12 +109,12 @@ public class ActivitySuperviseManager {
      * @param activity Activity
      */
     private static void finishActivity(Activity activity) {
-        if (activities.isEmpty()) {
+        if (ACTIVITIES.isEmpty()) {
             return;
         }
         if (activity != null) {
             Timber.d("结束：%s", activity.getClass().getSimpleName());
-            activities.remove(activity);
+            ACTIVITIES.remove(activity);
             activity.finish();
         }
     }
@@ -108,10 +125,10 @@ public class ActivitySuperviseManager {
      * @param cls Class<?>
      */
     public static void finishActivity(Class<?> cls) {
-        if (activities.isEmpty()) {
+        if (ACTIVITIES.isEmpty()) {
             return;
         }
-        for (Activity activity : activities) {
+        for (Activity activity : ACTIVITIES) {
             if (activity.getClass().equals(cls)) {
                 finishActivity(activity);
             }
@@ -122,10 +139,10 @@ public class ActivitySuperviseManager {
      * 结束所有Activity
      */
     private static void finishAllActivity() {
-        for (Activity activity : activities) {
+        for (Activity activity : ACTIVITIES) {
             activity.finish();
         }
-        activities.clear();
+        ACTIVITIES.clear();
     }
 
     /**
