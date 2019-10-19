@@ -11,7 +11,8 @@ import android.os.PersistableBundle;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -29,7 +30,7 @@ import static android.content.Context.ACTIVITY_SERVICE;
  * 基类之onCreate推当前Activity至Activity管理容器，需时遍历容器并finish所有Activity。
  */
 public class ActivitySuperviseManager {
-    private static final CopyOnWriteArrayList<Activity> ACTIVITIES = new CopyOnWriteArrayList<>();
+    private static List<Activity> activities = new ArrayList<>();
 
     /**
      * 添Activity至堆栈
@@ -37,12 +38,12 @@ public class ActivitySuperviseManager {
      * @param activity Activity
      */
     public static void pushActivity(Activity activity) {
-        ACTIVITIES.add(activity);
-        Timber.d("活动数：%s", ACTIVITIES.size());
-        for (int i = 0; i < ACTIVITIES.size(); i++) {
-            Timber.d("概览：%s", ACTIVITIES.get(i).getClass().getSimpleName());
+        activities.add(activity);
+        Timber.d("活动数：%s", activities.size());
+        for (int i = 0; i < activities.size(); i++) {
+            Timber.d("概览：%s", activities.get(i).getClass().getSimpleName());
         }
-        Timber.d("推入：%s", ACTIVITIES.get(ACTIVITIES.size() - 1).getClass().getSimpleName());
+        Timber.d("推入：%s", activities.get(activities.size() - 1).getClass().getSimpleName());
     }
 
     /**
@@ -58,16 +59,16 @@ public class ActivitySuperviseManager {
      */
     @RequiresApi(api = Build.VERSION_CODES.Q)
     public static String getCurrentRunningActivityName(Context context) {
-        ActivityManager manager = (ActivityManager) context.getApplicationContext().getSystemService(ACTIVITY_SERVICE);
-        ActivityManager.RunningTaskInfo info = manager != null ? manager.getRunningTasks(1).get(0) : null;
-        String activityName;
-        if (null != info && null != info.topActivity) {
-            activityName = info.topActivity.getShortClassName();
+        ActivityManager activityManager = (ActivityManager) context.getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+        ActivityManager.RunningTaskInfo runningTaskInfo = activityManager != null ? activityManager.getRunningTasks(1).get(0) : null;
+        String currentRunningActivityName;
+        if (null != runningTaskInfo && null != runningTaskInfo.topActivity) {
+            currentRunningActivityName = runningTaskInfo.topActivity.getShortClassName();
         } else {
-            activityName = null;
+            currentRunningActivityName = null;
         }
-        Timber.d("当前活动：%s", activityName);
-        return activityName;
+        Timber.d("当前活动名：%s", currentRunningActivityName);
+        return currentRunningActivityName;
     }
 
     /**
@@ -76,15 +77,13 @@ public class ActivitySuperviseManager {
      * @return 栈顶Activity实例
      */
     public static Activity getTopActivityInstance() {
-        Activity mBaseActivity;
-        synchronized (ACTIVITIES) {
-            final int size = ACTIVITIES.size() - 1;
-            if (size < 0) {
-                return null;
-            }
-            mBaseActivity = ACTIVITIES.get(size);
+        Activity topActivityInstance;
+        int size = activities.size() - 1;
+        if (size < 0) {
+            return null;
         }
-        return mBaseActivity;
+        topActivityInstance = activities.get(size);
+        return topActivityInstance;
     }
 
     /**
@@ -93,12 +92,12 @@ public class ActivitySuperviseManager {
      * @param activity Activity
      */
     private static void finishActivity(Activity activity) {
-        if (ACTIVITIES.isEmpty()) {
+        if (activities.isEmpty()) {
             return;
         }
         if (activity != null) {
             Timber.d("结束：%s", activity.getClass().getSimpleName());
-            ACTIVITIES.remove(activity);
+            activities.remove(activity);
             activity.finish();
         }
     }
@@ -109,10 +108,10 @@ public class ActivitySuperviseManager {
      * @param cls Class<?>
      */
     public static void finishActivity(Class<?> cls) {
-        if (ACTIVITIES.isEmpty()) {
+        if (activities.isEmpty()) {
             return;
         }
-        for (Activity activity : ACTIVITIES) {
+        for (Activity activity : activities) {
             if (activity.getClass().equals(cls)) {
                 finishActivity(activity);
             }
@@ -123,10 +122,10 @@ public class ActivitySuperviseManager {
      * 结束所有Activity
      */
     private static void finishAllActivity() {
-        for (Activity activity : ACTIVITIES) {
+        for (Activity activity : activities) {
             activity.finish();
         }
-        ACTIVITIES.clear();
+        activities.clear();
     }
 
     /**
