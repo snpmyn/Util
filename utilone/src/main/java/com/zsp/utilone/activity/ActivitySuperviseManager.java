@@ -53,6 +53,9 @@ public class ActivitySuperviseManager {
      * @param activity Activity
      */
     public static void removeActivity(Activity activity) {
+        if (ACTIVITIES.isEmpty()) {
+            return;
+        }
         ACTIVITIES.remove(activity);
         Timber.d("活动数：%s", ACTIVITIES.size());
         for (int i = 0; i < ACTIVITIES.size(); i++) {
