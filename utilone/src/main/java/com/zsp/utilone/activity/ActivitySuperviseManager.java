@@ -40,11 +40,11 @@ public class ActivitySuperviseManager {
      */
     public static void pushActivity(Activity activity) {
         ACTIVITIES.add(activity);
+        Timber.d("推入：%s", activity.getClass().getSimpleName());
         Timber.d("活动数：%s", ACTIVITIES.size());
         for (int i = 0; i < ACTIVITIES.size(); i++) {
             Timber.d("概览：%s", ACTIVITIES.get(i).getClass().getSimpleName());
         }
-        Timber.d("推入：%s", ACTIVITIES.get(ACTIVITIES.size() - 1).getClass().getSimpleName());
     }
 
     /**
@@ -53,15 +53,12 @@ public class ActivitySuperviseManager {
      * @param activity Activity
      */
     public static void removeActivity(Activity activity) {
-        if (ACTIVITIES.isEmpty() || !ACTIVITIES.contains(activity)) {
-            return;
-        }
         ACTIVITIES.remove(activity);
+        Timber.d("去除：%s", activity.getClass().getSimpleName());
         Timber.d("活动数：%s", ACTIVITIES.size());
         for (int i = 0; i < ACTIVITIES.size(); i++) {
             Timber.d("概览：%s", ACTIVITIES.get(i).getClass().getSimpleName());
         }
-        Timber.d("去除：%s", ACTIVITIES.get(ACTIVITIES.size() - 1).getClass().getSimpleName());
     }
 
     /**
