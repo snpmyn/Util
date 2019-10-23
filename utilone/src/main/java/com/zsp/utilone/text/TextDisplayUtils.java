@@ -56,4 +56,28 @@ public class TextDisplayUtils {
         }
         return result;
     }
+
+    /**
+     * 手机号隐
+     * <p>
+     * 4到7位*。
+     *
+     * @param cellPhoneNumber 手机号
+     * @return 隐后手机号
+     */
+    public static String cellPhoneNumberHiding(String cellPhoneNumber) {
+        return cellPhoneNumber.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+    }
+
+    /**
+     * 邮箱隐
+     * <p>
+     * 显@前首位和末位。
+     *
+     * @param mailbox 邮箱
+     * @return 隐后邮箱
+     */
+    public static String mailboxNumberHiding(String mailbox) {
+        return mailbox.replaceAll("(\\w?)(\\w+)(\\w)(@\\w+\\.[a-z]+(\\.[a-z]+)?)", "$1****$3$4");
+    }
 }
