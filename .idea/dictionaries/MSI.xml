@@ -1,6 +1,8 @@
 <component name="ProjectDictionaryState">
   <dictionary name="MSI">
     <words>
+      <w>allprojects</w>
+      <w>buildscript</w>
       <w>bumptech</w>
       <w>cdma</w>
       <w>codacy</w>
@@ -16,6 +18,8 @@
       <w>huawei</w>
       <w>interprocess</w>
       <w>jakewharton</w>
+      <w>jcenter</w>
+      <w>jitpack</w>
       <w>keepattributes</w>
       <w>litepal</w>
       <w>mainkeys</w>

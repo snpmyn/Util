@@ -6,32 +6,83 @@
 [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
 
 ### 介绍
-工具
+工具。
 
 ### 说明
 * UtilOne基于Java
 * UtilTwo基于kotlin
 
-### 依赖
-#### AndroidLibrary - UtilOne
-* api 'com.github.bumptech.glide:glide:4.10.0'（避重）
-* api 'com.google.android.material:material:1.2.0-alpha01'（避重）
-* api 'io.reactivex:rxandroid:1.2.1'（避重）
-* api 'io.reactivex:rxjava:1.3.8'（避重）
-* api 'com.jakewharton.timber:timber:4.7.1'（避重）
-* api 'com.tencent:mmkv-static:1.0.23'（避重）
-* implementation 'com.getkeepsafe.relinker:relinker:1.3.1'
-* implementation 'com.qw:soulpermission:1.2.2_x'
-* implementation 'org.apache.commons:commons-lang3:3.9'
+| 模块 | 依赖 |
+|:-:|:-:|
+| 一方库(UtilOne) | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|
+| 一方库(UtilOne) | api 'com.google.android.material:material:1.2.0-alpha01'（避重）|
+| 一方库(UtilOne) | api 'io.reactivex:rxandroid:1.2.1'（避重）|
+| 一方库(UtilOne) | api 'io.reactivex:rxjava:1.3.8'（避重）|
+| 一方库(UtilOne) | api 'com.jakewharton.timber:timber:4.7.1'（避重）|
+| 一方库(UtilOne) | api 'com.tencent:mmkv-static:1.0.23'（避重）|
+| 一方库(UtilOne) | implementation 'com.getkeepsafe.relinker:relinker:1.3.1' |
+| 一方库(UtilOne) | implementation 'com.qw:soulpermission:1.2.2_x' |
+| 一方库(UtilOne) | implementation 'org.apache.commons:commons-lang3:3.9' |
+| 一方库(UtilTwo) | implementation 'androidx.core:core-ktx:1.2.0-beta01' |
+| 一方库(UtilTwo) | implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version" |
 
-#### AndroidLibrary - UtilTwo
-* implementation 'androidx.core:core-ktx:1.2.0-beta01'
-* implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version"
+| 模块 | 权限 |
+|:-:|:-:|
+| app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
+| app | android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）|
 
-### 权限
-#### app
-* android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）
-* android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）
+### 使用
+build.gradle(module)
+```
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {   
+    repositories {
+        google()
+        jcenter()       
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.1'
+        
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }             
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+```
+build.gradle(app)
+```
+apply plugin: 'com.android.application'
+
+android {
+    ...
+    defaultConfig {
+        ...      
+    }       
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+}
+
+dependencies {
+    implementation 'com.github.snpmyn:Util:master-SNAPSHOT'
+}
+```
 
 ### License
 ```
