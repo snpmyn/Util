@@ -9,6 +9,7 @@
 工具。
 
 ### 说明
+包含示例app、一方库UtilOne、一方库UtilTwo。
 * UtilOne基于Java
 * UtilTwo基于kotlin
 
