@@ -10,8 +10,8 @@
 
 ### 说明
 包含示例app、一方库UtilOne、一方库UtilTwo。
-* UtilOne基于Java
-* UtilTwo基于kotlin
+* 一方库UtilOne基于Java
+* 一方库UtilTwo基于kotlin
 
 | 模块 | 依赖 |
 |:-:|:-:|
@@ -29,8 +29,8 @@
 
 | 模块 | 权限 |
 |:-:|:-:|
-| app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
-| app | android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）|
+| 示例app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
+| 示例app | android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）|
 
 ### 使用
 build.gradle(module)
