@@ -9,10 +9,13 @@
 工具。
 
 ### 说明
-包含示例app、一方库UtilOne、一方库UtilTwo。
-* 一方库UtilOne基于Java
-* 一方库UtilTwo基于kotlin
+| 模块 | 说明 |
+|:-:|:-:|
+| 示例app | 用法举例 |
+| 一方库UtilOne | 基于Java |
+| 一方库UtilTwo | 基于kotlin |
 
+### 依赖、权限
 | 模块 | 依赖 |
 |:-:|:-:|
 | 一方库(UtilOne) | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|

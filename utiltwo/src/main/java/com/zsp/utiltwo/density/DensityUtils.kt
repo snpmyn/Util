@@ -18,6 +18,15 @@ object DensityUtils {
     }
 
     /**
+     * sp转像素
+     */
+    fun spToPxByFloat(context: Context, dipValue: Float): Int {
+        if (dipValue == 0.0f) return 0
+        val scale = context.resources.displayMetrics.density
+        return (dipValue * scale + 0.5f).toInt()
+    }
+
+    /**
      * 像素转设备独立像素
      */
     fun pxToDipByInt(context: Context, pxValue: Int): Float {
