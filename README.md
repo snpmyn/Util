@@ -20,17 +20,17 @@
 
 | 模块 | 依赖 |
 |:-:|:-:|
-| 一方库(UtilOne) | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|
-| 一方库(UtilOne) | api 'com.google.android.material:material:1.2.0-alpha01'（避重）|
-| 一方库(UtilOne) | api 'io.reactivex:rxandroid:1.2.1'（避重）|
-| 一方库(UtilOne) | api 'io.reactivex:rxjava:1.3.8'（避重）|
-| 一方库(UtilOne) | api 'com.jakewharton.timber:timber:4.7.1'（避重）|
-| 一方库(UtilOne) | api 'com.tencent:mmkv-static:1.0.23'（避重）|
-| 一方库(UtilOne) | implementation 'com.getkeepsafe.relinker:relinker:1.3.1' |
-| 一方库(UtilOne) | implementation 'com.qw:soulpermission:1.2.2_x' |
-| 一方库(UtilOne) | implementation 'org.apache.commons:commons-lang3:3.9' |
-| 一方库(UtilTwo) | implementation 'androidx.core:core-ktx:1.2.0-beta01' |
-| 一方库(UtilTwo) | implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version" |
+| 一方库UtilOne | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|
+| 一方库UtilOne | api 'com.google.android.material:material:1.2.0-alpha01'（避重）|
+| 一方库UtilOne | api 'io.reactivex:rxandroid:1.2.1'（避重）|
+| 一方库UtilOne | api 'io.reactivex:rxjava:1.3.8'（避重）|
+| 一方库UtilOne | api 'com.jakewharton.timber:timber:4.7.1'（避重）|
+| 一方库UtilOne | api 'com.tencent:mmkv-static:1.0.23'（避重）|
+| 一方库UtilOne | implementation 'com.getkeepsafe.relinker:relinker:1.3.1' |
+| 一方库UtilOne | implementation 'com.qw:soulpermission:1.2.2_x' |
+| 一方库UtilOne | implementation 'org.apache.commons:commons-lang3:3.9' |
+| 一方库UtilTwo | implementation 'androidx.core:core-ktx:1.2.0-beta01' |
+| 一方库UtilTwo | implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version" |
 
 | 模块 | 权限 |
 |:-:|:-:|
