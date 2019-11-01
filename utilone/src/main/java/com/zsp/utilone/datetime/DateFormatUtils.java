@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import timber.log.Timber;
+import value.UtilOneMagic;
 
 /**
  * Created on 2017/10/17.
@@ -15,7 +16,7 @@ import timber.log.Timber;
  */
 public class DateFormatUtils {
     /**
-     * ss 秒
+     * ss
      */
     public static final String DATE_SECOND = "ss";
     /**
@@ -31,23 +32,23 @@ public class DateFormatUtils {
      */
     public static final String TIME_NOFULL_FORMAT = "yyyyMMddHHmmss";
     /**
-     * yyyy 年
+     * yyyy
      */
     static final String DATE_YEAR = "yyyy";
     /**
-     * MM 月
+     * MM
      */
     static final String DATE_MONTH = "MM";
     /**
-     * DD 日
+     * DD
      */
     static final String DATE_DAY = "dd";
     /**
-     * HH 时
+     * HH
      */
     static final String DATE_HOUR = "HH";
     /**
-     * mm 分
+     * mm
      */
     static final String DATE_MINUTE = "mm";
     /**
@@ -66,13 +67,6 @@ public class DateFormatUtils {
      * yyyy-MM-dd hh:mm:ss
      */
     static final String DATE_FORMAT_SIX = "yyyy-MM-dd HH:mm:ss";
-    /**
-     * magic value
-     */
-    private final static int SS = 14;
-    private final static int SJ = 19;
-    private final static int S = 10;
-    private final static int B = 8;
 
     /**
      * 格式转换
@@ -88,7 +82,7 @@ public class DateFormatUtils {
         if (value == null || "".equals(value)) {
             return sReturn;
         }
-        if (value.length() == SS) {
+        if (value.length() == UtilOneMagic.INT_FOURTEEN) {
             // 长度14格式转yyyy-mm-dd hh:mm:ss
             sReturn = value.substring(0, 4)
                     + "-" + value.substring(4, 6)
@@ -98,7 +92,7 @@ public class DateFormatUtils {
                     + value.substring(12, 14);
             return sReturn;
         }
-        if (value.length() == SJ) {
+        if (value.length() == UtilOneMagic.INT_NINETEEN) {
             // 长度19格式转yyyymmddhhmmss
             sReturn = value.substring(0, 4)
                     + value.substring(5, 7)
@@ -108,11 +102,11 @@ public class DateFormatUtils {
                     + value.substring(17, 19);
             return sReturn;
         }
-        if (value.length() == S) {
+        if (value.length() == UtilOneMagic.INT_TEN) {
             // 长度10格式转yyyymmhh
             sReturn = value.substring(0, 4) + value.substring(5, 7) + value.substring(8, 10);
         }
-        if (value.length() == B) {
+        if (value.length() == UtilOneMagic.INT_EIGHT) {
             // 长度8格式转yyyy-mm-dd
             sReturn = value.substring(0, 4) + "-" + value.substring(4, 6) + "-" + value.substring(6, 8);
         }

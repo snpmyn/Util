@@ -11,9 +11,12 @@ public class UtilOneMagic {
      * int
      */
     public static final int INT_TWO = 2;
+    public static final int INT_EIGHT = 8;
     public static final int INT_TEN = 10;
+    public static final int INT_FOURTEEN = 14;
     public static final int INT_FIFTEEN = 15;
     public static final int INT_EIGHTEEN = 18;
+    public static final int INT_NINETEEN = 19;
     /**
      * String
      */
