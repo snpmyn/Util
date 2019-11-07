@@ -10,16 +10,18 @@
 
 ### 架构
 
-| 模块 | 说明 |
-|:-:|:-:|
-| 示例app | 用法举例 |
-| 一方库UtilOne | 基于Java |
-| 一方库UtilTwo | 基于kotlin |
+| 模块 | 说明 | 补充 |
+|:-:|:-:|:-:|
+| 示例app | 用法举例 | 无 |
+| 一方库UtilOne | 基于Java | 无 |
+| 一方库UtilTwo | 基于kotlin | 无 |
 
 ### 依赖、权限
 
 | 模块 | 依赖 |
 |:-:|:-:|
+| 示例app | implementation project(path: ':utilone') |
+| 示例app | implementation project(path: ':utiltwo') |
 | 一方库UtilOne | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|
 | 一方库UtilOne | api 'com.google.android.material:material:1.2.0-alpha01'（避重）|
 | 一方库UtilOne | api 'io.reactivex:rxandroid:1.2.1'（避重）|
@@ -36,6 +38,8 @@
 |:-:|:-:|
 | 示例app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
 | 示例app | android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）|
+| 一方库UtilOne | 无 |
+| 一方库UtilTwo | 无 |
 
 ### 使用
 build.gradle(module)
