@@ -31,7 +31,7 @@
 | 一方库UtilOne | implementation 'com.getkeepsafe.relinker:relinker:1.3.1' |
 | 一方库UtilOne | implementation 'com.qw:soulpermission:1.2.2_x' |
 | 一方库UtilOne | implementation 'org.apache.commons:commons-lang3:3.9' |
-| 一方库UtilTwo | implementation 'androidx.core:core-ktx:1.2.0-beta01' |
+| 一方库UtilTwo | implementation 'androidx.core:core-ktx:1.2.0-beta02' |
 | 一方库UtilTwo | implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version" |
 
 | 模块 | 权限 |
