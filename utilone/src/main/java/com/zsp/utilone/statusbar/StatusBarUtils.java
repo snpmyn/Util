@@ -713,7 +713,7 @@ public class StatusBarUtils {
     }
 
     /**
-     * 状态栏浅
+     * 状态栏亮
      *
      * @param activity 活动
      */
