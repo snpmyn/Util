@@ -42,8 +42,8 @@
 | 一方库UtilTwo | 无 |
 
 ### 使用
-> 版本快速迭代中，暂时使用`master-SNAPSHOT`版。<br>
-> 获取不成功请暂时查看源码。
+> [SECURITY](https://github.com/snpmyn/Util/blob/master/SECURITY.md)<br>
+> 版本快速迭代中，拉取失败暂时查看源码。
 
 build.gradle(module)
 ```
@@ -94,7 +94,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.snpmyn:Util:master-SNAPSHOT'
+    implementation 'com.github.snpmyn:Util:1.0.1'
 }
 ```
 
