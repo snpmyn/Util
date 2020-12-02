@@ -34,4 +34,5 @@
         tools:ignore="ManifestOrder,ScopedStorage" />
 
     <dist:module dist:instant="true" />
+
 </manifest>
