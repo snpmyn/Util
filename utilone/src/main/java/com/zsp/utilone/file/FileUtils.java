@@ -581,7 +581,7 @@ public class FileUtils {
                 for (String contentUriPrefix : contentUriPrefixesToTry) {
                     Uri contentUri = null;
                     if (id != null) {
-                        contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.valueOf(id));
+                        contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.parseLong(id));
                     }
                     try {
                         String path = getDataColumn(context, contentUri, null, null);

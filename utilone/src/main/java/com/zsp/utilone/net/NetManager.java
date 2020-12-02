@@ -29,8 +29,8 @@ import static android.content.Context.WIFI_SERVICE;
  * @desc 网络管理器
  */
 public class NetManager {
-    private static NetConnChangedReceiver sNetConnChangedReceiver = new NetConnChangedReceiver();
-    private static List<NetConnChangedListener> sNetConnChangedListeners = new ArrayList<>();
+    private static final NetConnChangedReceiver S_NET_CONN_CHANGED_RECEIVER = new NetConnChangedReceiver();
+    private static final List<NetConnChangedListener> S_NET_CONN_CHANGED_LISTENERS = new ArrayList<>();
 
     private NetManager() {
         throw new IllegalStateException("No instance!");
@@ -205,7 +205,7 @@ public class NetManager {
         checkNonNull(context.getApplicationContext(), "context == null");
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        context.getApplicationContext().registerReceiver(sNetConnChangedReceiver, filter);
+        context.getApplicationContext().registerReceiver(S_NET_CONN_CHANGED_RECEIVER, filter);
     }
 
     /**
@@ -215,8 +215,8 @@ public class NetManager {
      */
     public static void unregisterNetConnChangedReceiver(Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
-        context.getApplicationContext().unregisterReceiver(sNetConnChangedReceiver);
-        sNetConnChangedListeners.clear();
+        context.getApplicationContext().unregisterReceiver(S_NET_CONN_CHANGED_RECEIVER);
+        S_NET_CONN_CHANGED_LISTENERS.clear();
     }
 
     /**
@@ -226,7 +226,7 @@ public class NetManager {
      */
     public static void addNetConnChangedListener(NetConnChangedListener listener) {
         checkNonNull(listener, "listener == null");
-        boolean result = sNetConnChangedListeners.add(listener);
+        boolean result = S_NET_CONN_CHANGED_LISTENERS.add(listener);
         log("addNetConnChangedListener: " + result);
     }
 
@@ -237,17 +237,17 @@ public class NetManager {
      */
     public static void removeNetConnChangedListener(NetConnChangedListener listener) {
         checkNonNull(listener, "listener == null");
-        boolean result = sNetConnChangedListeners.remove(listener);
+        boolean result = S_NET_CONN_CHANGED_LISTENERS.remove(listener);
         log("removeNetConnChangedListener: " + result);
     }
 
     private static void broadcastConnStatus(ConnectStatus connectStatus) {
-        int size = sNetConnChangedListeners.size();
+        int size = S_NET_CONN_CHANGED_LISTENERS.size();
         if (size == 0) {
             return;
         }
         for (int i = 0; i < size; i++) {
-            sNetConnChangedListeners.get(i).onNetConnChanged(connectStatus);
+            S_NET_CONN_CHANGED_LISTENERS.get(i).onNetConnChanged(connectStatus);
         }
     }
 

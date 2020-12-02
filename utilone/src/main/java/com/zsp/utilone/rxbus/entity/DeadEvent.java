@@ -9,9 +9,6 @@ package com.zsp.utilone.rxbus.entity;
  * @date: 2019/8/28 10:59
  */
 public class DeadEvent {
-    private final Object source;
-    private final Object event;
-
     /**
      * Creates a new DeadEvent.
      *
@@ -19,7 +16,6 @@ public class DeadEvent {
      * @param event  The event that could not be delivered.
      */
     public DeadEvent(Object source, Object event) {
-        this.source = source;
-        this.event = event;
+
     }
 }

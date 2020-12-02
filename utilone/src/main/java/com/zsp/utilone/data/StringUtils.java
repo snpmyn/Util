@@ -127,7 +127,7 @@ public class StringUtils {
      * @return 关联否
      */
     public static boolean relate(String oneString, String twoString) {
-        return oneString.contains(twoString) || twoString.contains(oneString) || oneString.equals(twoString);
+        return oneString.contains(twoString) || twoString.contains(oneString);
     }
 
     /**

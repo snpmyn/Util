@@ -1,6 +1,7 @@
 package com.zsp.util;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick({R.id.mainActivityMbTimber,
             R.id.mainActivityMbRxBus,
             R.id.mainActivityMbMap,

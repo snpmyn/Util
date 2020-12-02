@@ -16,22 +16,22 @@ public class CheckOutUtils {
      * Pattern p = Pattern.compile("\\w+@(\\w+.)+[a-z]{2,3}"); 简匹
      * Pattern p = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*"); 复匹
      */
-    private static Pattern p0 = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
-    private static Pattern p1 = Pattern.compile("^([\u4E00-\u9FA5]|[\uF900-\uFA2D]|[\u258C]|[\u2022]|[\u2E80-\uFE4F])+$");
-    private static Pattern p2 = Pattern.compile("^[A-Za-z0-9][\\w._]*[a-zA-Z0-9]+@[A-Za-z0-9-_]+\\.([A-Za-z]{2,4})");
-    private static Pattern p3 = Pattern.compile("[0-9]*");
-    private static Pattern p5 = Pattern.compile("[\u4e00-\u9fa5]");
-    private static Pattern p6 = Pattern.compile("^[A-Za-z]+$");
-    private static Pattern p7 = Pattern.compile("^[\u4E00-\u9FFF]+$");
-    private static Pattern p8 = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z.*]{6,20}$");
-    private static Pattern p9 = Pattern.compile("[A-Za-z0-9]{6,12}");
-    private static Pattern p10 = Pattern.compile(".{6,20}");
-    private static Pattern p11 = Pattern.compile(".{1,250}");
-    private static Pattern p12 = Pattern.compile("^(?![^a-zA-Z]+$)(?!\\\\D+$).{4,16}$");
-    private static Pattern p13 = Pattern.compile(".{2,25}");
-    private static Pattern p14 = Pattern.compile("[a-zA-Z][a-zA-Z0-9]+");
-    private static Pattern p15 = Pattern.compile(".{13,19}");
-    private static Pattern p16 = Pattern.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-/\\s]?((((0?[13578])|(1[02]))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-/\\s]?((((0?[13578])|(1[02]))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3])):([0-5]?[0-9])((\\s)|(:([0-5]?[0-9])))))?$");
+    private static final Pattern P0 = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+    private static final Pattern P1 = Pattern.compile("^([\u4E00-\u9FA5]|[\uF900-\uFA2D]|[\u258C]|[\u2022]|[\u2E80-\uFE4F])+$");
+    private static final Pattern P2 = Pattern.compile("^[A-Za-z0-9][\\w._]*[a-zA-Z0-9]+@[A-Za-z0-9-_]+\\.([A-Za-z]{2,4})");
+    private static final Pattern P3 = Pattern.compile("[0-9]*");
+    private static final Pattern P5 = Pattern.compile("[\u4e00-\u9fa5]");
+    private static final Pattern P6 = Pattern.compile("^[A-Za-z]+$");
+    private static final Pattern P7 = Pattern.compile("^[\u4E00-\u9FFF]+$");
+    private static final Pattern P8 = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z.*]{6,20}$");
+    private static final Pattern P9 = Pattern.compile("[A-Za-z0-9]{6,12}");
+    private static final Pattern P10 = Pattern.compile(".{6,20}");
+    private static final Pattern P11 = Pattern.compile(".{1,250}");
+    private static final Pattern P12 = Pattern.compile("^(?![^a-zA-Z]+$)(?!\\\\D+$).{4,16}$");
+    private static final Pattern P13 = Pattern.compile(".{2,25}");
+    private static final Pattern P14 = Pattern.compile("[a-zA-Z][a-zA-Z0-9]+");
+    private static final Pattern P15 = Pattern.compile(".{13,19}");
+    private static final Pattern P16 = Pattern.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-/\\s]?((((0?[13578])|(1[02]))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-/\\s]?((((0?[13578])|(1[02]))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3])):([0-5]?[0-9])((\\s)|(:([0-5]?[0-9])))))?$");
 
     /**
      * 用户名1-50即2-25汉字
@@ -40,7 +40,7 @@ public class CheckOutUtils {
      * @return 2-25汉字
      */
     public static boolean isUserNameYws(String userName) {
-        Matcher mc = p1.matcher(userName);
+        Matcher mc = P1.matcher(userName);
         return mc.matches();
     }
 
@@ -51,7 +51,7 @@ public class CheckOutUtils {
      * @return 邮箱否
      */
     public static boolean isValidEmail(String mail) {
-        Matcher mc = p2.matcher(mail);
+        Matcher mc = P2.matcher(mail);
         return mc.matches();
     }
 
@@ -59,7 +59,7 @@ public class CheckOutUtils {
      * 输数字否
      */
     public static boolean isNumeric(String str) {
-        return p3.matcher(str).matches();
+        return P3.matcher(str).matches();
     }
 
     /**
@@ -88,7 +88,7 @@ public class CheckOutUtils {
      * 含中否
      */
     public static boolean isContainChinese(String str) {
-        Matcher m = p5.matcher(str);
+        Matcher m = P5.matcher(str);
         return m.find();
     }
 
@@ -96,15 +96,15 @@ public class CheckOutUtils {
      * 纯英否
      */
     public static boolean isLetter(String str) {
-        Matcher m = p6.matcher(str);
+        Matcher m = P6.matcher(str);
         return m.matches();
     }
 
     /**
      * 纯中否
      */
-    public static boolean isChiness(String str) {
-        Matcher m = p7.matcher(str);
+    public static boolean isChinese(String str) {
+        Matcher m = P7.matcher(str);
         return m.matches();
     }
 
@@ -112,7 +112,7 @@ public class CheckOutUtils {
      * 密码类型否
      */
     public static boolean isPassword(String str) {
-        Matcher m = p8.matcher(str);
+        Matcher m = P8.matcher(str);
         return m.matches();
     }
 
@@ -120,7 +120,7 @@ public class CheckOutUtils {
      * 警员号否
      */
     public static boolean isPoliceNumberAndLength(String str) {
-        Matcher m = p9.matcher(str);
+        Matcher m = P9.matcher(str);
         return m.matches();
     }
 
@@ -131,7 +131,7 @@ public class CheckOutUtils {
         if (null == email || "".equals(email)) {
             return false;
         }
-        Matcher m = p0.matcher(email);
+        Matcher m = P0.matcher(email);
         return m.matches();
     }
 
@@ -142,7 +142,7 @@ public class CheckOutUtils {
      * @return 6到20位
      */
     public static boolean isLength(String str) {
-        return p10.matcher(str).matches();
+        return P10.matcher(str).matches();
     }
 
     /**
@@ -152,7 +152,7 @@ public class CheckOutUtils {
      * @return 1到250位
      */
     public static boolean isAddressLength(String str) {
-        return p11.matcher(str).matches();
+        return P11.matcher(str).matches();
     }
 
     /**
@@ -162,7 +162,7 @@ public class CheckOutUtils {
      * @return 4到16位
      */
     public static boolean isUserNameSsl(String str) {
-        return p12.matcher(str).matches();
+        return P12.matcher(str).matches();
     }
 
     /**
@@ -172,7 +172,7 @@ public class CheckOutUtils {
      * @return 用户真名长
      */
     public static boolean isNameLength(String str) {
-        return p13.matcher(str).matches();
+        return P13.matcher(str).matches();
     }
 
     /**
@@ -182,7 +182,7 @@ public class CheckOutUtils {
      * @return 输字符首字母英否
      */
     public static boolean isEnglish(String str) {
-        return p14.matcher(str).matches();
+        return P14.matcher(str).matches();
     }
 
     /**
@@ -191,8 +191,8 @@ public class CheckOutUtils {
      * @param str 银行卡号
      * @return 13到19位
      */
-    public static boolean isbank(String str) {
-        return p15.matcher(str).matches();
+    public static boolean isBank(String str) {
+        return P15.matcher(str).matches();
     }
 
     /**
@@ -255,7 +255,7 @@ public class CheckOutUtils {
      * @return 字符串日期格式否
      */
     public static boolean isDate(String strDate) {
-        Matcher m = p16.matcher(strDate);
+        Matcher m = P16.matcher(strDate);
         return m.matches();
     }
 

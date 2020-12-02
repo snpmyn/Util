@@ -1,5 +1,6 @@
 package com.zsp.utilone.statusbar;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -651,7 +652,7 @@ public class StatusBarUtils {
         Class<? extends Window> clazz = activity.getWindow().getClass();
         try {
             int darkModeFlag;
-            Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            @SuppressLint("PrivateApi") Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
             Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
             darkModeFlag = field.getInt(layoutParams);
             Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
@@ -772,7 +773,7 @@ public class StatusBarUtils {
             hasNavigationBar = resources.getBoolean(id);
         }
         try {
-            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            @SuppressLint("PrivateApi") Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
             Method m = systemPropertiesClass.getMethod("get", String.class);
             String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
             if (UtilOneMagic.STRING_L.equals(navBarOverride)) {

@@ -1,5 +1,6 @@
 package example.storage;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import butterknife.OnClick;
  * @date: 2019/9/9 17:02
  */
 public class MmkvActivity extends AppCompatActivity {
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.mmkvActivityTvResult)
     TextView mmkvActivityTvResult;
 
@@ -31,6 +33,7 @@ public class MmkvActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick({R.id.mmkvActivityMbEncode,
             R.id.mmkvActivityMbRemoveBooleanValue,
             R.id.mmkvActivityMbRemoveIntValueAndLongValue,

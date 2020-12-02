@@ -464,7 +464,7 @@ public class DateUtils {
      */
     public static int getCurrentYear(Date value) {
         String date = dateToString(value, DateFormatUtils.DATE_YEAR);
-        return Integer.valueOf(date);
+        return Integer.parseInt(date);
     }
 
     /**
@@ -487,7 +487,7 @@ public class DateUtils {
      */
     public static int getCurrentMonth(Date value) {
         String date = dateToString(value, DateFormatUtils.DATE_MONTH);
-        return Integer.valueOf(date);
+        return Integer.parseInt(date);
     }
 
     /**
@@ -510,7 +510,7 @@ public class DateUtils {
      */
     public static int getCurrentDay(Date value) {
         String date = dateToString(value, DateFormatUtils.DATE_DAY);
-        return Integer.valueOf(date);
+        return Integer.parseInt(date);
     }
 
     /**
@@ -533,7 +533,7 @@ public class DateUtils {
      */
     private static String getCurrentWeek(Date value) {
         Calendar calendar = getCalendar(value, DateFormatUtils.DATE_FORMAT_THREE);
-        int weekIndex = calendar.get(Calendar.DAY_OF_WEEK) - 1 < 0 ? 0 : calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        int weekIndex = Math.max(calendar.get(Calendar.DAY_OF_WEEK) - 1, 0);
         return WEEKS[weekIndex];
     }
 
@@ -556,7 +556,7 @@ public class DateUtils {
      */
     public static int getCurrentHour(Date value) {
         String date = dateToString(value, DateFormatUtils.DATE_HOUR);
-        return Integer.valueOf(date);
+        return Integer.parseInt(date);
     }
 
     /**
@@ -579,7 +579,7 @@ public class DateUtils {
      */
     public static int getCurrentMinute(Date value) {
         String date = dateToString(value, DateFormatUtils.DATE_MINUTE);
-        return Integer.valueOf(date);
+        return Integer.parseInt(date);
     }
 
     /**
@@ -755,7 +755,7 @@ public class DateUtils {
      * @param date date
      * @return Date
      */
-    public static Date geWeektLastDate(Date date) {
+    public static Date getWeekLastDate(Date date) {
         Calendar now = Calendar.getInstance();
         now.setTime(date);
         int today = now.get(Calendar.DAY_OF_WEEK);

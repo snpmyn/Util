@@ -43,12 +43,10 @@ public class IntentUtils {
     public static void jumpWithBundle(Context context, Class<?> targetActivityClass, Bundle bundle) {
         Intent intent = new Intent(context, targetActivityClass);
         intent.putExtras(bundle);
-        if (context instanceof Activity) {
-            context.startActivity(intent);
-        } else {
+        if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
         }
+        context.startActivity(intent);
     }
 
     /**

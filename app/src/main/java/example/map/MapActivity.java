@@ -1,5 +1,6 @@
 package example.map;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -28,6 +29,7 @@ public class MapActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick(R.id.mapActivityMbMapFromList)
     public void onViewClicked(View view) {
         if (view.getId() == R.id.mapActivityMbMapFromList) {

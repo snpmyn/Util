@@ -197,8 +197,8 @@ public final class AnnotatedFinder {
     }
 
     private static class SourceMethod {
-        private EventThread thread;
-        private Method method;
+        private final EventThread thread;
+        private final Method method;
 
         private SourceMethod(EventThread thread, Method method) {
             this.thread = thread;

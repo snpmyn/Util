@@ -19,7 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
  * @desc CenterCropRoundCornerTransform
  */
 public class CenterCropRoundCornerTransform extends CenterCrop {
-    private int radius;
+    private final int radius;
 
     /**
      * constructor

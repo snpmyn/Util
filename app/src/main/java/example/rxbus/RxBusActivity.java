@@ -1,5 +1,6 @@
 package example.rxbus;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -36,6 +37,7 @@ public class RxBusActivity extends AppCompatActivity {
         RxBus.get().register(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick({R.id.rxBusActivityRxBusTestOne, R.id.rxBusActivityRxBusTestTwo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
