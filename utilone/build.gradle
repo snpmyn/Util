@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -31,7 +31,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     /*自带*/
-    api 'com.github.bumptech.glide:glide:4.10.0'
+    api 'com.github.bumptech.glide:glide:4.11.0'
     api 'com.google.android.material:material:1.3.0-alpha04'
     api 'io.reactivex:rxandroid:1.2.1'
     api 'io.reactivex:rxjava:1.3.8'
@@ -44,6 +44,6 @@ dependencies {
     /*ReLinker*/
     implementation 'com.qw:soulpermission:1.2.2_x'
     /*SoulPermission*/
-    implementation 'org.apache.commons:commons-lang3:3.9'
+    implementation 'org.apache.commons:commons-lang3:3.11'
     /*BasicThreadFactory*/
 }

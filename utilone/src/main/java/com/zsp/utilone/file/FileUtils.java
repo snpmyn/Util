@@ -565,7 +565,7 @@ public class FileUtils {
                 final String[] split = docId.split(":");
                 final String type = split[0];
                 if (UtilOneMagic.STRING_PRIMARY.equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                    return Environment.getExternalStorageState() + "/" + split[1];
                 }
             }
             // DownloadsProvider
