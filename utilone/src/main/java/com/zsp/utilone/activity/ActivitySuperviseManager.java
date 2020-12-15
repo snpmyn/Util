@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -72,8 +73,7 @@ public class ActivitySuperviseManager {
      * @param context 上下文
      * @return 当前Activity名
      */
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public static String getCurrentRunningActivityName(Context context) {
+    public static String getCurrentRunningActivityName(@NotNull Context context) {
         ActivityManager activityManager = (ActivityManager) context.getApplicationContext().getSystemService(ACTIVITY_SERVICE);
         ActivityManager.RunningTaskInfo runningTaskInfo = activityManager != null ? activityManager.getRunningTasks(1).get(0) : null;
         String currentRunningActivityName;
@@ -91,7 +91,7 @@ public class ActivitySuperviseManager {
      *
      * @return 栈顶Activity实例
      */
-    public static Activity getTopActivityInstance() {
+    public static @Nullable Activity getTopActivityInstance() {
         Activity topActivityInstance;
         synchronized (ACTIVITIES) {
             final int size = ACTIVITIES.size() - 1;

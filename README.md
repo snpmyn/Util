@@ -96,7 +96,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.snpmyn:Util:v0.1'
+    implementation 'com.github.snpmyn:Util:v0.1.1'
 }
 ```
 
