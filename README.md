@@ -38,8 +38,8 @@
 
 | 模块 | 权限 |
 |:-:|:-:|
-| 示例app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
 | 示例app | android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）|
+| 示例app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
 | 一方库UtilOne | 无 |
 | 一方库UtilTwo | 无 |
 
@@ -58,7 +58,7 @@ buildscript {
                 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.0-alpha16'           
+        classpath 'com.android.tools.build:gradle:4.1.1'      
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -96,7 +96,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.snpmyn:Util:v1.1'
+    implementation 'com.github.snpmyn:Util:v0.1'
 }
 ```
 
