@@ -25,7 +25,7 @@
 | 示例app | implementation project(path: ':utilone') |
 | 示例app | implementation project(path: ':utiltwo') |
 | 一方库UtilOne | api 'com.github.bumptech.glide:glide:4.11.0'（避重）|
-| 一方库UtilOne | api 'com.google.android.material:material:1.3.0-alpha04'（避重）|
+| 一方库UtilOne | api 'com.google.android.material:material:1.3.0-beta01'（避重）|
 | 一方库UtilOne | api 'io.reactivex:rxandroid:1.2.1'（避重）|
 | 一方库UtilOne | api 'io.reactivex:rxjava:1.3.8'（避重）|
 | 一方库UtilOne | api 'com.jakewharton.timber:timber:4.7.1'（避重）|
@@ -87,8 +87,8 @@ android {
         ...      
     }       
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     configurations.all {
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -96,7 +96,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.snpmyn:Util:v0.1.1'
+    implementation 'com.github.snpmyn:Util:v0.1.2'
 }
 ```
 
