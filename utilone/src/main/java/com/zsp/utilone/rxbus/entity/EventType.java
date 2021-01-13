@@ -68,7 +68,7 @@ public class EventType {
      * @param cls Class<?>
      * @return Class<?>
      */
-    private Class<?> getRealClass(Class<?> cls) {
+    private Class<?> getRealClass(@NotNull Class<?> cls) {
         String clsName = cls.getName();
         if (int.class.getName().equals(clsName)) {
             cls = Integer.class;

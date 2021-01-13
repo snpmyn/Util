@@ -3,6 +3,8 @@ package com.zsp.utilone.rom;
 import android.os.Build;
 import android.text.TextUtils;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -97,7 +99,7 @@ public class RomUtils {
         return sName.equals(rom);
     }
 
-    private static String getProp(String name) {
+    private static @Nullable String getProp(String name) {
         String line;
         BufferedReader input = null;
         try {

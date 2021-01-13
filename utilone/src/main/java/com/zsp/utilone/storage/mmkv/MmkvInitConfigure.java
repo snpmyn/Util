@@ -8,6 +8,8 @@ import com.tencent.mmkv.MMKVContentChangeNotification;
 import com.tencent.mmkv.MMKVHandler;
 import com.tencent.mmkv.MMKVLogLevel;
 
+import org.jetbrains.annotations.NotNull;
+
 import timber.log.Timber;
 
 /**
@@ -25,7 +27,7 @@ public class MmkvInitConfigure {
      * @param mmkvHandler                   MMKV处理
      * @param mmkvContentChangeNotification MMKV内容改变通知
      */
-    public static void initMmkv(Application application, boolean debug, MMKVHandler mmkvHandler, MMKVContentChangeNotification mmkvContentChangeNotification) {
+    public static void initMmkv(@NotNull Application application, boolean debug, MMKVHandler mmkvHandler, MMKVContentChangeNotification mmkvContentChangeNotification) {
         String dir = application.getFilesDir().getAbsolutePath() + "/mmkv";
         String rootDir = MMKV.initialize(dir, libName -> ReLinker.loadLibrary(application, libName), MMKVLogLevel.LevelInfo);
         Timber.d("mmkv root: %s", rootDir);

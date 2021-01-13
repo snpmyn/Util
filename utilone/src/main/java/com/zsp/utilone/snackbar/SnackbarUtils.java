@@ -4,6 +4,8 @@ import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created on 2019/6/3.
  *
@@ -19,7 +21,7 @@ public class SnackbarUtils {
      * @param lengthLong   长否
      * @return Snackbar
      */
-    public static Snackbar snackbarCreateByCharSequence(View view, CharSequence charSequence, boolean lengthLong) {
+    public static @NotNull Snackbar snackbarCreateByCharSequence(View view, CharSequence charSequence, boolean lengthLong) {
         return Snackbar.make(view, charSequence, lengthLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT);
     }
 
@@ -33,7 +35,7 @@ public class SnackbarUtils {
      * @param snackbarOnClickListener Snackbar点监听
      * @return Snackbar
      */
-    public static Snackbar snackbarCreateByCharSequenceWithActionByCharSequence(
+    public static @NotNull Snackbar snackbarCreateByCharSequenceWithActionByCharSequence(
             View view, CharSequence createCharSequence, boolean lengthLong,
             CharSequence actionCharSequence, SnackbarOnClickListener snackbarOnClickListener) {
         Snackbar snackbar = snackbarCreateByCharSequence(view, createCharSequence, lengthLong);
@@ -49,7 +51,7 @@ public class SnackbarUtils {
      * @param lengthLong 长否
      * @return Snackbar
      */
-    public static Snackbar snackbarCreateByResId(View view, int resId, boolean lengthLong) {
+    public static @NotNull Snackbar snackbarCreateByResId(View view, int resId, boolean lengthLong) {
         return Snackbar.make(view, resId, lengthLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT);
     }
 
@@ -63,7 +65,7 @@ public class SnackbarUtils {
      * @param snackbarOnClickListener Snackbar点监听
      * @return Snackbar
      */
-    public static Snackbar snackbarCreateByResIdWithActionByResId(
+    public static @NotNull Snackbar snackbarCreateByResIdWithActionByResId(
             View view, int createResId, boolean lengthLong,
             int actionResId, SnackbarOnClickListener snackbarOnClickListener) {
         Snackbar snackbar = snackbarCreateByResId(view, createResId, lengthLong);

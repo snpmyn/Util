@@ -6,6 +6,9 @@ import android.text.TextUtils;
 import com.zsp.utilone.R;
 import com.zsp.utilone.data.BigDecimalToString;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -33,7 +36,7 @@ public class DateUtils {
      * @param format 格式
      * @return String
      */
-    private static String getCurrentTime(String format) {
+    private static @NotNull String getCurrentTime(String format) {
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
         Date date = new Date();
         return sdf.format(date);
@@ -44,7 +47,7 @@ public class DateUtils {
      *
      * @return String
      */
-    public static String getCurrentTimeYearMonth() {
+    public static @NotNull String getCurrentTimeYearMonth() {
         return getCurrentTime(DateFormatUtils.DATE_FORMAT_TWO);
     }
 
@@ -53,7 +56,7 @@ public class DateUtils {
      *
      * @return String
      */
-    public static String getCurrentTimeYearMonthDay() {
+    public static @NotNull String getCurrentTimeYearMonthDay() {
         return getCurrentTime(DateFormatUtils.DATE_FORMAT_THREE);
     }
 
@@ -62,7 +65,7 @@ public class DateUtils {
      *
      * @return String
      */
-    public static String getCurrentTimeYearMonthDayHourMinute() {
+    public static @NotNull String getCurrentTimeYearMonthDayHourMinute() {
         return getCurrentTime(DateFormatUtils.DATE_FORMAT_FIVE);
     }
 
@@ -71,7 +74,7 @@ public class DateUtils {
      *
      * @return String
      */
-    public static String getCurrentTimeYearMonthDayHourMinuteSecond() {
+    public static @NotNull String getCurrentTimeYearMonthDayHourMinuteSecond() {
         return getCurrentTime(DateFormatUtils.DATE_FORMAT_SIX);
     }
 
@@ -99,7 +102,7 @@ public class DateUtils {
      * @param date date
      * @return string
      */
-    public static String dateConversionToHourMinute(Date date) {
+    public static @NotNull String dateConversionToHourMinute(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.US);
         return format.format(date);
     }
@@ -110,7 +113,7 @@ public class DateUtils {
      * @param date date
      * @return string
      */
-    public static String dateConversionToMinuteSecond(Date date) {
+    public static @NotNull String dateConversionToMinuteSecond(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("mm:ss", Locale.US);
         return format.format(date);
     }
@@ -121,7 +124,7 @@ public class DateUtils {
      * @param date date
      * @return string
      */
-    public static String dateConversionToYearMonth(Date date) {
+    public static @NotNull String dateConversionToYearMonth(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM", Locale.US);
         return format.format(date);
     }
@@ -132,7 +135,7 @@ public class DateUtils {
      * @param date date
      * @return string
      */
-    public static String dateConversionToYearMonthDate(Date date) {
+    public static @NotNull String dateConversionToYearMonthDate(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         return format.format(date);
     }
@@ -143,7 +146,7 @@ public class DateUtils {
      * @param date date
      * @return string
      */
-    public static String dateConversionToYearMonthDateHourMinute(Date date) {
+    public static @NotNull String dateConversionToYearMonthDateHourMinute(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
         return format.format(date);
     }
@@ -154,7 +157,7 @@ public class DateUtils {
      * @param date date
      * @return string
      */
-    public static String dateConversionToYearMonthDateHourMinuteSecond(Date date) {
+    public static @NotNull String dateConversionToYearMonthDateHourMinuteSecond(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         return format.format(date);
     }
@@ -177,7 +180,7 @@ public class DateUtils {
      *
      * @return HashMap
      */
-    public static String getCurrentHm() {
+    public static @NotNull String getCurrentHm() {
         Calendar calendar = Calendar.getInstance();
         return calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
     }
@@ -190,7 +193,7 @@ public class DateUtils {
      * @param format 默格式yyyy-MM-dd HH:mm:ss
      * @return String
      */
-    private static String addYearToDate(int year, Date date, String format) {
+    private static @NotNull String addYearToDate(int year, Date date, String format) {
         Calendar calender = getCalendar(date, format);
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
         calender.add(Calendar.YEAR, year);
@@ -205,7 +208,7 @@ public class DateUtils {
      * @param format 默格式yyyy-MM-dd HH:mm:ss
      * @return String
      */
-    public static String addYearToDate(int year, String date, String format) {
+    public static @NotNull String addYearToDate(int year, String date, String format) {
         Date newDate = new Date();
         if (null != date && !"".equals(date)) {
             newDate = stringToDate(date, format);
@@ -221,7 +224,7 @@ public class DateUtils {
      * @param format 指定格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    private static String addMothToDate(int month, Date date, String format) {
+    private static @NotNull String addMothToDate(int month, Date date, String format) {
         Calendar calender = getCalendar(date, format);
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
         calender.add(Calendar.MONTH, month);
@@ -236,7 +239,7 @@ public class DateUtils {
      * @param format 指定格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    public static String addMothToDate(int month, String date, String format) {
+    public static @NotNull String addMothToDate(int month, String date, String format) {
         Date newDate = new Date();
         if (null != date && !"".equals(date)) {
             newDate = stringToDate(date, format);
@@ -252,7 +255,7 @@ public class DateUtils {
      * @param format 日期格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    private static String addDayToDate(int day, Date date, String format) {
+    private static @NotNull String addDayToDate(int day, Date date, String format) {
         Calendar calendar = getCalendar(date, format);
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
         calendar.add(Calendar.DATE, day);
@@ -267,7 +270,7 @@ public class DateUtils {
      * @param format 日期格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    public static String addDayToDate(int day, String date, String format) {
+    public static @NotNull String addDayToDate(int day, String date, String format) {
         Date newDate = new Date();
         if (null != date && !"".equals(date)) {
             newDate = stringToDate(date, format);
@@ -283,7 +286,7 @@ public class DateUtils {
      * @param format 日期格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    private static String addHourToDate(int hour, Date date, String format) {
+    private static @NotNull String addHourToDate(int hour, Date date, String format) {
         Calendar calendar = getCalendar(date, format);
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
         calendar.add(Calendar.HOUR, hour);
@@ -298,7 +301,7 @@ public class DateUtils {
      * @param format 日期格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    public static String addHourToDate(int hour, String date, String format) {
+    public static @NotNull String addHourToDate(int hour, String date, String format) {
         Date newDate = new Date();
         if (null != date && !"".equals(date)) {
             newDate = stringToDate(date, format);
@@ -314,7 +317,7 @@ public class DateUtils {
      * @param format 日期格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    private static String addMinuteToDate(int minute, Date date, String format) {
+    private static @NotNull String addMinuteToDate(int minute, Date date, String format) {
         Calendar calendar = getCalendar(date, format);
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
         calendar.add(Calendar.MINUTE, minute);
@@ -329,7 +332,7 @@ public class DateUtils {
      * @param format 日期格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    public static String addMinuteToDate(int minute, String date, String format) {
+    public static @NotNull String addMinuteToDate(int minute, String date, String format) {
         Date newDate = new Date();
         if (null != date && !"".equals(date)) {
             newDate = stringToDate(date, format);
@@ -345,7 +348,7 @@ public class DateUtils {
      * @param format 日期格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    private static String addSecondToDate(int second, Date date, String format) {
+    private static @NotNull String addSecondToDate(int second, Date date, String format) {
         Calendar calendar = getCalendar(date, format);
         SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
         calendar.add(Calendar.SECOND, second);
@@ -360,7 +363,7 @@ public class DateUtils {
      * @param format 日期格式（空默yyyy-mm-dd HH:mm:ss）
      * @return String
      */
-    public static String addSecondToDate(int second, String date, String format) {
+    public static @NotNull String addSecondToDate(int second, String date, String format) {
         Date newDate = new Date();
         if (null != date && !"".equals(date)) {
             newDate = stringToDate(date, format);
@@ -375,7 +378,7 @@ public class DateUtils {
      * @param format 格式
      * @return Calendar
      */
-    private static Calendar getCalendar(Date date, String format) {
+    private static @NotNull Calendar getCalendar(Date date, String format) {
         if (date == null) {
             date = getCurrentDate(format);
         }
@@ -713,7 +716,7 @@ public class DateUtils {
      * @param date date
      * @return string
      */
-    private static String getMonthFirstDate(String date) {
+    private static @NotNull String getMonthFirstDate(String date) {
         date = DateFormatUtils.formatDate(date);
         return DateFormatUtils.formatDate(date, "yyyy-MM") + "-01";
     }
@@ -724,7 +727,7 @@ public class DateUtils {
      * @param date date
      * @return string
      */
-    public static String getMonthLastDate(String date) {
+    public static @NotNull String getMonthLastDate(String date) {
         Date strDate = DateUtils.stringToDate(getMonthFirstDate(date));
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(strDate);
@@ -739,7 +742,7 @@ public class DateUtils {
      * @param date date
      * @return Date
      */
-    public static Date getWeekFirstDate(Date date) {
+    public static @NotNull Date getWeekFirstDate(Date date) {
         Calendar now = Calendar.getInstance();
         now.setTime(date);
         int today = now.get(Calendar.DAY_OF_WEEK);
@@ -755,7 +758,7 @@ public class DateUtils {
      * @param date date
      * @return Date
      */
-    public static Date getWeekLastDate(Date date) {
+    public static @NotNull Date getWeekLastDate(Date date) {
         Calendar now = Calendar.getInstance();
         now.setTime(date);
         int today = now.get(Calendar.DAY_OF_WEEK);
@@ -826,7 +829,7 @@ public class DateUtils {
      *
      * @return 时间戳
      */
-    public static String timeStamp() {
+    public static @NotNull String timeStamp() {
         return new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
     }
 
@@ -861,7 +864,7 @@ public class DateUtils {
      * @param time 时间
      * @return 时间
      */
-    public static String getFormatHms(long time) {
+    public static @NotNull String getFormatHms(long time) {
         time = time / 1000;
         int s = (int) (time % 60);
         int m = (int) (time / 60);
@@ -877,7 +880,7 @@ public class DateUtils {
      * @param lateTime  后时间
      * @return 先后相差
      */
-    public static String earlyLateDiffer(Context context, long earlyTime, long lateTime) {
+    public static @NotNull String earlyLateDiffer(@NotNull Context context, long earlyTime, long lateTime) {
         long between = lateTime - earlyTime;
         long day = between / (24 * 60 * 60 * 1000);
         long hour = (between / (60 * 60 * 1000) - day * 24);
@@ -896,7 +899,7 @@ public class DateUtils {
      * @param num 时间毫秒
      * @return 格式化后的str
      */
-    public static String formatDate(Long num) {
+    public static @NotNull String formatDate(Long num) {
         String tem;
         if (num > 0) {
             Long minute = num / 60 / 1000;
@@ -909,7 +912,8 @@ public class DateUtils {
         return tem;
     }
 
-    private static String addLeftZero(Long tempNum) {
+    @Contract(pure = true)
+    private static @NotNull String addLeftZero(Long tempNum) {
         String num;
         if (tempNum < UtilOneMagic.INT_TEN) {
             num = "0" + tempNum;
@@ -925,7 +929,7 @@ public class DateUtils {
      * @param time 时间
      * @return 分秒
      */
-    public static String minuteSecond(int time) {
+    public static @NotNull String minuteSecond(int time) {
         int min = time % 3600 / 60;
         int second = time % 60;
         return String.format(Locale.CHINA, "%02d:%02d", min, second);
@@ -937,7 +941,7 @@ public class DateUtils {
      * @param time 时间
      * @return 时分秒
      */
-    private String hourMinuteSecond(int time) {
+    private @NotNull String hourMinuteSecond(int time) {
         int hour = time / 3600;
         int min = time % 3600 / 60;
         int second = time % 60;

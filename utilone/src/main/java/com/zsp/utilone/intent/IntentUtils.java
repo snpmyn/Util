@@ -9,6 +9,8 @@ import android.os.Bundle;
 
 import androidx.core.content.FileProvider;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 
 import value.UtilOneMagic;
@@ -25,7 +27,7 @@ public class IntentUtils {
      *
      * @param application Application
      */
-    public static void restart(Application application) {
+    public static void restart(@NotNull Application application) {
         Intent intent = application.getPackageManager().getLaunchIntentForPackage(application.getPackageName());
         if (intent != null) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -57,12 +59,10 @@ public class IntentUtils {
      */
     public static void jumpNoBundle(Context context, Class<?> targetActivityClass) {
         Intent intent = new Intent(context, targetActivityClass);
-        if (context instanceof Activity) {
-            context.startActivity(intent);
-        } else {
+        if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
         }
+        context.startActivity(intent);
     }
 
     /**
@@ -71,7 +71,7 @@ public class IntentUtils {
      * @param context         上下文
      * @param cellPhoneNumber 手机号
      */
-    public static void phone(Context context, String cellPhoneNumber) {
+    public static void phone(@NotNull Context context, String cellPhoneNumber) {
         Intent intent = new Intent(Intent.ACTION_CALL);
         Uri data = Uri.parse("tel:" + cellPhoneNumber);
         intent.setData(data);
@@ -102,7 +102,7 @@ public class IntentUtils {
      * @param file      File
      * @return Intent
      */
-    public static Intent getViewIntent(Context context, String authority, File file) {
+    public static @NotNull Intent getViewIntent(Context context, String authority, File file) {
         Uri uri = FileProvider.getUriForFile(context, authority, file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         String url = file.toString();
@@ -154,7 +154,7 @@ public class IntentUtils {
      *
      * @return the intent for opening a file with Intent.createChooser()
      */
-    public static Intent createGetContentIntent() {
+    public static @NotNull Intent createGetContentIntent() {
         // Implicitly allow the user to select a particular kind of data.
         final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         // the mime data type filter

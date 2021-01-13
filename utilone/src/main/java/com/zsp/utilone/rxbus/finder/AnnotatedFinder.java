@@ -10,6 +10,8 @@ import com.zsp.utilone.rxbus.entity.ProducerBaseEvent;
 import com.zsp.utilone.rxbus.entity.SubscriberBaseEvent;
 import com.zsp.utilone.rxbus.thread.EventThread;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -57,7 +59,7 @@ public final class AnnotatedFinder {
      * @param producerMethods   Map<EventType, SourceMethod>
      * @param subscriberMethods Map<EventType, Set<SourceMethod>>
      */
-    private static void loadAnnotatedMethods(Class<?> listenerClass, Map<EventType, SourceMethod> producerMethods, Map<EventType, Set<SourceMethod>> subscriberMethods) {
+    private static void loadAnnotatedMethods(@NotNull Class<?> listenerClass, Map<EventType, SourceMethod> producerMethods, Map<EventType, Set<SourceMethod>> subscriberMethods) {
         for (Method method : listenerClass.getDeclaredMethods()) {
             // The compiler sometimes creates synthetic bridge methods as part of the type erasure process.
             // As of JDK8 these methods now include the same annotations as the original declarations.
@@ -153,7 +155,7 @@ public final class AnnotatedFinder {
      * @param listener Object
      * @return Map<EventType, ProducerBaseEvent>
      */
-    static Map<EventType, ProducerBaseEvent> findAllProducers(Object listener) {
+    static @NotNull Map<EventType, ProducerBaseEvent> findAllProducers(@NotNull Object listener) {
         final Class<?> listenerClass = listener.getClass();
         Map<EventType, ProducerBaseEvent> producersInMethod = new HashMap<>(9);
         Map<EventType, SourceMethod> methods = PRODUCERS_CACHE.get(listenerClass);
@@ -176,7 +178,7 @@ public final class AnnotatedFinder {
      * @param listener Object
      * @return Map<EventType, Set < SubscriberBaseEvent>>
      */
-    static Map<EventType, Set<SubscriberBaseEvent>> findAllSubscribers(Object listener) {
+    static @NotNull Map<EventType, Set<SubscriberBaseEvent>> findAllSubscribers(@NotNull Object listener) {
         Class<?> listenerClass = listener.getClass();
         Map<EventType, Set<SubscriberBaseEvent>> subscribersInMethod = new HashMap<>(9);
         Map<EventType, Set<SourceMethod>> methods = SUBSCRIBERS_CACHE.get(listenerClass);

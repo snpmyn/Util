@@ -2,6 +2,8 @@ package com.zsp.utilone.signature;
 
 import android.text.TextUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.InputStream;
 import java.security.MessageDigest;
@@ -60,7 +62,7 @@ public class SignatureUtils {
         return var1;
     }
 
-    private static String bytesToHexString(byte[] bytes) {
+    private static @NotNull String bytesToHexString(byte[] bytes) {
         if (null == bytes) {
             return "";
         } else {

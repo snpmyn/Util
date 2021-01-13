@@ -1,5 +1,7 @@
 package com.zsp.utilone.rxbus.entity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
@@ -16,7 +18,7 @@ abstract class BaseEvent {
      * @param msg String
      * @param e   InvocationTargetException
      */
-    void throwRuntimeException(String msg, InvocationTargetException e) {
+    void throwRuntimeException(String msg, @NotNull InvocationTargetException e) {
         throwRuntimeException(msg, Objects.requireNonNull(e.getCause(), "e.getCause() must not be null"));
     }
 
@@ -27,7 +29,7 @@ abstract class BaseEvent {
      * @param msg String
      * @param e   Throwable
      */
-    private void throwRuntimeException(String msg, Throwable e) {
+    private void throwRuntimeException(String msg, @NotNull Throwable e) {
         Throwable cause = e.getCause();
         if (cause != null) {
             throw new RuntimeException(msg + ": " + cause.getMessage(), cause);

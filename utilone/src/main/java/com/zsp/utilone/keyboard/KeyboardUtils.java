@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.ref.WeakReference;
 import java.util.Objects;
 
@@ -23,7 +25,7 @@ public class KeyboardUtils {
      * @param context  上下文
      * @param editText 软键盘
      */
-    public static void openKeyboardThree(Context context, EditText editText) {
+    public static void openKeyboardThree(@NotNull Context context, @NotNull EditText editText) {
         // 获焦
         editText.setFocusable(true);
         editText.setFocusableInTouchMode(true);
@@ -42,7 +44,7 @@ public class KeyboardUtils {
      * @param context  上下文
      * @param editText 软键盘
      */
-    public static void closeKeyboard(Context context, EditText editText) {
+    public static void closeKeyboard(@NotNull Context context, EditText editText) {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
             inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);

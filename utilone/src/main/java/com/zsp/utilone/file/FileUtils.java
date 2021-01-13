@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -16,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.zsp.utilone.url.UrlUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -67,7 +68,7 @@ public class FileUtils {
      * @param contentUri contentUri
      * @return 据Uri真路径
      */
-    public static String getRealPathFromUri(Context context, Uri contentUri) {
+    public static @org.jetbrains.annotations.Nullable String getRealPathFromUri(Context context, Uri contentUri) {
         String[] pro = {MediaStore.Images.Media.DATA};
         try (Cursor cursor = context.getContentResolver().query(contentUri, pro, null, null, null)) {
             int columnIndex;
@@ -107,7 +108,7 @@ public class FileUtils {
      * @param filePath filePath
      * @return 文件
      */
-    private static File getFileByPath(final String filePath) {
+    private static @org.jetbrains.annotations.Nullable File getFileByPath(final String filePath) {
         return isSpace(filePath) ? null : new File(filePath);
     }
 
@@ -171,7 +172,7 @@ public class FileUtils {
      * @param dir 所删目录文件路径
      * @return 成true败false
      */
-    private static boolean deleteDirectory(String dir) {
+    private static boolean deleteDirectory(@NotNull String dir) {
         // dir不以文件分隔符结尾则自动添文件分隔符
         if (!dir.endsWith(File.separator)) {
             dir = dir + File.separator;
@@ -298,7 +299,7 @@ public class FileUtils {
      * @param filePath 文件地址
      * @return 字符串
      */
-    public static StringBuilder fileToString(String filePath) {
+    public static @NotNull StringBuilder fileToString(String filePath) {
         StringBuilder result = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -391,7 +392,7 @@ public class FileUtils {
      * @param uri Uri
      * @return true if uri is a MediaStore uri
      */
-    public static boolean isMediaUri(Uri uri) {
+    public static boolean isMediaUri(@NotNull Uri uri) {
         return "media".equalsIgnoreCase(uri.getAuthority());
     }
 
@@ -436,7 +437,7 @@ public class FileUtils {
      * @param file File
      * @return String
      */
-    private static String getMimeType(File file) {
+    private static String getMimeType(@NotNull File file) {
         String extension = getExtension(file.getName());
         if (extension.length() > 0) {
             return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.substring(1));
@@ -452,7 +453,7 @@ public class FileUtils {
      * @param uri       Uri
      * @return String
      */
-    public static String getMimeType(Context context, String authority, Uri uri) {
+    public static @org.jetbrains.annotations.Nullable String getMimeType(Context context, String authority, Uri uri) {
         String path = getPath(context, authority, uri);
         File file;
         if (path != null) {
@@ -470,7 +471,7 @@ public class FileUtils {
      * @param uri       Uri
      * @return boolean
      */
-    private static boolean isLocalStorageDocument(String authority, Uri uri) {
+    private static boolean isLocalStorageDocument(@NotNull String authority, @NotNull Uri uri) {
         return authority.equals(uri.getAuthority());
     }
 
@@ -480,7 +481,7 @@ public class FileUtils {
      * @param uri the uri to check
      * @return boolean
      */
-    private static boolean isExternalStorageDocument(Uri uri) {
+    private static boolean isExternalStorageDocument(@NotNull Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
 
@@ -490,7 +491,7 @@ public class FileUtils {
      * @param uri the uri to check
      * @return boolean
      */
-    private static boolean isDownloadsDocument(Uri uri) {
+    private static boolean isDownloadsDocument(@NotNull Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
 
@@ -500,7 +501,7 @@ public class FileUtils {
      * @param uri the uri to check
      * @return boolean
      */
-    private static boolean isMediaDocument(Uri uri) {
+    private static boolean isMediaDocument(@NotNull Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
@@ -510,7 +511,7 @@ public class FileUtils {
      * @param uri the uri to check
      * @return boolean
      */
-    private static boolean isGooglePhotosUri(Uri uri) {
+    private static boolean isGooglePhotosUri(@NotNull Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
@@ -524,7 +525,7 @@ public class FileUtils {
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
-    private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+    private static @org.jetbrains.annotations.Nullable String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
         final String column = MediaStore.Files.FileColumns.DATA;
         final String[] projection = {column
         };
@@ -548,12 +549,11 @@ public class FileUtils {
      * @param uri       the uri to query
      * @return String
      */
-    private static String getPath(final Context context, String authority, final Uri uri) {
+    private static @org.jetbrains.annotations.Nullable String getPath(final Context context, String authority, final @NotNull Uri uri) {
         Timber.d("Authority: %s +\n Fragment: %s +\n Port: %s +\n Query: %s +\n Scheme: %s +\n Host: %s +\n Segments: %s",
                 uri.getAuthority(), uri.getFragment(), uri.getPort(), uri.getQuery(), uri.getScheme(), uri.getHost(), uri.getPathSegments().toString());
-        final boolean kitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
         // DocumentProvider
-        if (kitKat && DocumentsContract.isDocumentUri(context, uri)) {
+        if (DocumentsContract.isDocumentUri(context, uri)) {
             // LocalStorageProvider
             if (isLocalStorageDocument(authority, uri)) {
                 // The path is the id
@@ -617,8 +617,7 @@ public class FileUtils {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
                 }
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{
-                        split[1]
+                final String[] selectionArgs = new String[]{split[1]
                 };
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
@@ -662,7 +661,7 @@ public class FileUtils {
      * @param size 大小
      * @return 大小
      */
-    public static String getReadableFileSize(int size) {
+    public static @NotNull String getReadableFileSize(int size) {
         final int bytesInKiloBytes = 1024;
         final DecimalFormat dec = new DecimalFormat("###.#");
         final String kiloBytes = " KB";
@@ -685,7 +684,7 @@ public class FileUtils {
         return dec.format(fileSize) + suffix;
     }
 
-    private static File getDocumentCacheDir(@NonNull Context context) {
+    private static @NotNull File getDocumentCacheDir(@NonNull Context context) {
         File dir = new File(context.getCacheDir(), "documents");
         if (!dir.exists()) {
             dir.mkdirs();
@@ -727,7 +726,7 @@ public class FileUtils {
         return file;
     }
 
-    private static void saveFileFromUri(Context context, Uri uri, String destinationPath) {
+    private static void saveFileFromUri(@NotNull Context context, Uri uri, String destinationPath) {
         InputStream inputStream = null;
         BufferedOutputStream bufferedOutputStream = null;
         try {
@@ -779,7 +778,7 @@ public class FileUtils {
         return bytesArray;
     }
 
-    public static File createTempImageFile(Context context, String fileName) throws IOException {
+    public static @NotNull File createTempImageFile(@NotNull Context context, String fileName) throws IOException {
         // create an image file name
         File storageDir = new File(context.getCacheDir(), "documents");
         return File.createTempFile(fileName, ".jpg", storageDir);
@@ -825,7 +824,7 @@ public class FileUtils {
      * @param transferredFileNamePrefix 转后文件前缀
      * @return 文件集
      */
-    public static List<File> assetsToFiles(Context context, int count, String assetsFileNamePrefix, String transferredFileNamePrefix) {
+    public static @NotNull List<File> assetsToFiles(Context context, int count, String assetsFileNamePrefix, String transferredFileNamePrefix) {
         final List<File> files = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             try {
@@ -857,7 +856,7 @@ public class FileUtils {
      * @param transferredFileNamePrefix 转后文件前缀
      * @return 统一资源标识符集
      */
-    public static List<Uri> assetsToUris(Context context, int count, String assetsFileNamePrefix, String transferredFileNamePrefix) {
+    public static @NotNull List<Uri> assetsToUris(Context context, int count, String assetsFileNamePrefix, String transferredFileNamePrefix) {
         final List<Uri> uris = new ArrayList<>();
         final List<File> files = assetsToFiles(context, count, assetsFileNamePrefix, transferredFileNamePrefix);
         for (int i = 0; i < count; i++) {
@@ -873,7 +872,7 @@ public class FileUtils {
      * @param imageFile 图文件
      * @return 尺寸数组
      */
-    public static int[] calculatedImageFileSize(File imageFile) {
+    public static int @NotNull [] calculatedImageFileSize(@NotNull File imageFile) {
         int[] size = new int[2];
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;

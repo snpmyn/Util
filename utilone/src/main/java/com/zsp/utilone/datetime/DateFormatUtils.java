@@ -1,5 +1,8 @@
 package com.zsp.utilone.datetime;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -188,7 +191,7 @@ public class DateFormatUtils {
      * @param value value
      * @return formatDate
      */
-    static String formatDate(String value) {
+    static @NotNull String formatDate(String value) {
         return getFormat(DATE_FORMAT_SIX).format(DateUtils.stringToDate(value, DATE_FORMAT_SIX));
     }
 
@@ -198,7 +201,7 @@ public class DateFormatUtils {
      * @param value value
      * @return formatDate
      */
-    static String formatDate(Date value) {
+    static @NotNull String formatDate(Date value) {
         return formatDate(DateUtils.dateToString(value));
     }
 
@@ -208,7 +211,8 @@ public class DateFormatUtils {
      * @param format format
      * @return SimpleDateFormat
      */
-    static SimpleDateFormat getFormat(String format) {
+    @Contract("_ -> new")
+    static @NotNull SimpleDateFormat getFormat(String format) {
         if (format == null || "".equals(format)) {
             format = DATE_FORMAT_FIVE;
         }

@@ -13,6 +13,8 @@ import android.view.animation.BounceInterpolator;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created on 2017/11/15.
  *
@@ -27,7 +29,7 @@ public class AnimationManager {
      * @param duration   时长
      * @return Animation
      */
-    public static Animation shake(float cycleTimes, long duration) {
+    public static @NotNull Animation shake(float cycleTimes, long duration) {
         Animation translateAnimation = new TranslateAnimation(0.0f, 10.0f, 0.0f, 10.0f);
         translateAnimation.setInterpolator(new CycleInterpolator(cycleTimes));
         translateAnimation.setDuration(duration);
@@ -88,7 +90,7 @@ public class AnimationManager {
      * @param duration     时长
      * @param interpolator 插值器
      */
-    public static void xGradual(final View view, int start, int end, long duration, int interpolator) {
+    public static void xGradual(final @NotNull View view, int start, int end, long duration, int interpolator) {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(start, end);
         final ViewGroup.LayoutParams params = view.getLayoutParams();
         valueAnimator.addUpdateListener(animation -> {
@@ -119,7 +121,7 @@ public class AnimationManager {
      * @param duration     时长
      * @param interpolator 插值器
      */
-    public static void yGradual(final View view, int start, int end, long duration, int interpolator) {
+    public static void yGradual(final @NotNull View view, int start, int end, long duration, int interpolator) {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(start, end);
         final ViewGroup.LayoutParams params = view.getLayoutParams();
         valueAnimator.addUpdateListener(animation -> {
@@ -151,7 +153,7 @@ public class AnimationManager {
      * @param interpolator 插值器
      * @return ValueAnimator
      */
-    public static ValueAnimator yGradualReturn(final View view, int start, int end, long duration, int interpolator) {
+    public static @NotNull ValueAnimator yGradualReturn(final @NotNull View view, int start, int end, long duration, int interpolator) {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(start, end);
         final ViewGroup.LayoutParams params = view.getLayoutParams();
         valueAnimator.addUpdateListener(animation -> {
@@ -180,7 +182,7 @@ public class AnimationManager {
      * @param yTranslationEnd trEnd
      * @param duration        时长
      */
-    public static void yTranslation(View view, float yTranslationEnd, long duration) {
+    public static void yTranslation(@NotNull View view, float yTranslationEnd, long duration) {
         float yCurrentTranslation = view.getTranslationY();
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "translationY", yCurrentTranslation, yTranslationEnd);
         objectAnimator.setDuration(duration);
@@ -218,7 +220,7 @@ public class AnimationManager {
      * @param duration 时长
      * @return objectAnimator
      */
-    public static ObjectAnimator alphaChangeCircle(View view, long duration) {
+    public static @NotNull ObjectAnimator alphaChangeCircle(View view, long duration) {
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.1f);
         // 播放次数（infinite无限重复）
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);

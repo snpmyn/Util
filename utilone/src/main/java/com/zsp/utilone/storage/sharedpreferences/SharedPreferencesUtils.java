@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class SharedPreferencesUtils {
      * @param context 上下文
      * @return SharedPreferences
      */
-    public static SharedPreferences createSharedPreferences(Context context) {
+    public static SharedPreferences createSharedPreferences(@NotNull Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
     }
 
@@ -79,7 +81,7 @@ public class SharedPreferencesUtils {
      * @param key     key
      * @param list    list
      */
-    public static void saveListString(Context context, String key, List<String> list) {
+    public static void saveListString(Context context, String key, @NotNull List<String> list) {
         // 存前清已存数据保唯一性
         clearListString(context, key);
         int size = list.size();
@@ -133,7 +135,7 @@ public class SharedPreferencesUtils {
      * @param key     key
      * @return list<String>
      */
-    public static List<String> getListString(Context context, String key) {
+    public static @NotNull List<String> getListString(Context context, String key) {
         List<String> list = new ArrayList<>();
         int size = getInt(context, key + "size");
         for (int i = 0; i < size; i++) {

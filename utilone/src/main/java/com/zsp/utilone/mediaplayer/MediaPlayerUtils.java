@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 
 /**
@@ -19,7 +21,7 @@ public class MediaPlayerUtils {
      * @param context 上下文
      * @param resId   资源ID
      */
-    public static void playRawResource(Context context, int resId) {
+    public static void playRawResource(@NotNull Context context, int resId) {
         try {
             final MediaPlayer mediaPlayer = new MediaPlayer();
             AssetFileDescriptor assetFileDescriptor = context.getResources().openRawResourceFd(resId);
@@ -63,7 +65,7 @@ public class MediaPlayerUtils {
      * @param context  上下文
      * @param fileName 文件名
      */
-    private void playAssetsResource(Context context, String fileName) {
+    private void playAssetsResource(@NotNull Context context, String fileName) {
         try {
             final MediaPlayer mediaPlayer = new MediaPlayer();
             AssetFileDescriptor assetFileDescriptor = context.getAssets().openFd(fileName);

@@ -8,6 +8,10 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.text.TextUtils;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,7 +42,8 @@ public class SystemManager {
     /**
      * 系统版本号
      */
-    public static String osVersionCode() {
+    @Contract(pure = true)
+    public static @NotNull String osVersionCode() {
         String release = Build.VERSION.RELEASE;
         release = "android" + release;
         return release;
@@ -54,7 +59,7 @@ public class SystemManager {
     /**
      * 本地IP
      */
-    public static String localIp() {
+    public static @Nullable String localIp() {
         try {
             Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
             while (en.hasMoreElements()) {

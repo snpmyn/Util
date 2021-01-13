@@ -3,6 +3,8 @@ package com.zsp.utilone.density;
 import android.content.Context;
 import android.content.res.Resources;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created on 2017/11/17.
  *
@@ -17,7 +19,7 @@ public class DensityUtils {
      * @param dip     设备独立像素
      * @return 像素
      */
-    public static int dipToPxByFloat(Context context, float dip) {
+    public static int dipToPxByFloat(@NotNull Context context, float dip) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dip * scale + 0.5f);
     }
@@ -39,7 +41,7 @@ public class DensityUtils {
      * @param px      像素
      * @return 设备独立像素
      */
-    public static int pxToDip(Context context, float px) {
+    public static int pxToDip(@NotNull Context context, float px) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (px / scale + 0.5f);
     }
@@ -51,7 +53,7 @@ public class DensityUtils {
      * @param px      px
      * @return sp
      */
-    public static int pxToSp(Context context, float px) {
+    public static int pxToSp(@NotNull Context context, float px) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (px / fontScale + 0.5f);
     }
@@ -63,7 +65,7 @@ public class DensityUtils {
      * @param sp      sp
      * @return px
      */
-    public static int spToPx(Context context, float sp) {
+    public static int spToPx(@NotNull Context context, float sp) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (sp * fontScale + 0.5f);
     }

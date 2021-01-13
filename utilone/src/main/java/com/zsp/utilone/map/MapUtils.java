@@ -2,6 +2,8 @@ package com.zsp.utilone.map;
 
 import com.zsp.utilone.data.IntUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +24,7 @@ public class MapUtils {
      * @param list List
      * @return Map
      */
-    public static Map<String, String> mapFromList(List<String> list) {
+    public static @NotNull Map<String, String> mapFromList(@NotNull List<String> list) {
         Map<String, String> map = new HashMap<>(list.size() / 2);
         for (int i = 0; i < list.size(); i++) {
             if (IntUtils.even(i)) {

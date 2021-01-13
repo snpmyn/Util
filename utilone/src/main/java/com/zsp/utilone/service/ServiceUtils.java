@@ -3,6 +3,8 @@ package com.zsp.utilone.service;
 import android.app.ActivityManager;
 import android.content.Context;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 /**
@@ -20,7 +22,7 @@ public class ServiceUtils {
      * @param maxNumber   最大数
      * @return 服务运行否
      */
-    public static boolean isServiceRunning(Context context, String serviceName, int maxNumber) {
+    public static boolean isServiceRunning(@NotNull Context context, String serviceName, int maxNumber) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         // 此处前maxNum个查找（据需设）
         List<ActivityManager.RunningServiceInfo> runningServiceInfoList = activityManager.getRunningServices(maxNumber);

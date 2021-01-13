@@ -3,6 +3,8 @@ package com.zsp.utilone.data;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +30,7 @@ public class StringUtils {
      * @param appoint 指定内容
      * @return 指定部分前内容
      */
-    public static String appointOnlyOneForward(String str, String appoint) {
+    public static String appointOnlyOneForward(@NotNull String str, @NotNull String appoint) {
         String result = null;
         // 指定部分长
         int appointLength = appoint.length();
@@ -48,7 +50,7 @@ public class StringUtils {
      * @param appoint 指定内容
      * @return 指定部分后内容
      */
-    public static String appointOnlyOneBack(String str, String appoint) {
+    public static String appointOnlyOneBack(@NotNull String str, @NotNull String appoint) {
         String result = null;
         // 指定部分长
         int appointLength = appoint.length();
@@ -126,7 +128,7 @@ public class StringUtils {
      * @param twoString 字符串二
      * @return 关联否
      */
-    public static boolean relate(String oneString, String twoString) {
+    public static boolean relate(@NotNull String oneString, String twoString) {
         return oneString.contains(twoString) || twoString.contains(oneString);
     }
 
@@ -202,7 +204,7 @@ public class StringUtils {
      * @param fileName 文件名
      * @return 字符串
      */
-    public static String readFromFile(Context context, String fileName) {
+    public static @NotNull String readFromFile(Context context, String fileName) {
         if (context != null && !isEmpty(fileName)) {
             AssetManager am = context.getAssets();
             InputStream input;
@@ -251,7 +253,7 @@ public class StringUtils {
      * @param i 整型
      * @return ABC
      */
-    public static String convertIntToAbc(int i) {
+    public static @NotNull String convertIntToAbc(int i) {
         int k = i;
         StringBuilder stringBuffer = new StringBuilder();
         if (i == 0) {
@@ -276,7 +278,7 @@ public class StringUtils {
      * @param size  int
      * @return String
      */
-    public static String paddingLeft(String input, int size) {
+    public static @NotNull String paddingLeft(@NotNull String input, int size) {
         if (input.length() > size) {
             throw new IllegalArgumentException("input must be shorter than or equal to the number of spaces: " + size);
         }
@@ -299,7 +301,7 @@ public class StringUtils {
      * @param replaceString  替换字符串
      * @return 字符串
      */
-    public static String replace(String originalString, String searchString, String replaceString) {
+    public static @NotNull String replace(String originalString, String searchString, String replaceString) {
         StringBuilder sb = new StringBuilder(originalString);
         int index = sb.indexOf(searchString);
         while (index != -1) {

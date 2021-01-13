@@ -13,6 +13,8 @@ import com.qw.soul.permission.callbcak.CheckRequestPermissionsListener;
 import com.zsp.utilone.miui.MiuiUtils;
 import com.zsp.utilone.toast.ToastUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +89,7 @@ public class SoulPermissionUtils {
      * @param checkAndRequestPermissionCallBack CheckAndRequestPermissionCallBack
      */
     private void singlePermissionDenied(Context context,
-                                        com.qw.soul.permission.bean.Permission permission,
+                                        com.qw.soul.permission.bean.@NotNull Permission permission,
                                         boolean loopHint,
                                         CheckAndRequestPermissionCallBack checkAndRequestPermissionCallBack) {
         String permissionNameDesc = permission.getPermissionNameDesc();
@@ -211,7 +213,7 @@ public class SoulPermissionUtils {
      * @param permissions 权限
      * @return 权限名
      */
-    private String[] permissionNames(Permission[] permissions) {
+    private String @NotNull [] permissionNames(Permission @NotNull [] permissions) {
         List<String> permissionNames = new ArrayList<>(permissions.length);
         for (Permission permission : permissions) {
             if (!permission.isGranted()) {
@@ -227,7 +229,7 @@ public class SoulPermissionUtils {
      * @param permissions 权限
      * @return 权限名描述
      */
-    private String[] permissionNameDescriptions(Permission[] permissions) {
+    private String @NotNull [] permissionNameDescriptions(Permission @NotNull [] permissions) {
         List<String> permissionNameDescriptions = new ArrayList<>();
         for (Permission permission : permissions) {
             permissionNameDescriptions.add(permission.getPermissionNameDesc());
@@ -241,7 +243,7 @@ public class SoulPermissionUtils {
      * @param refusedPermissions 被拒权限
      * @return 被拒权限
      */
-    private Permission[] refusedPermissions(Permission[] refusedPermissions) {
+    private Permission @NotNull [] refusedPermissions(Permission @NotNull [] refusedPermissions) {
         List<Permission> permissions = new ArrayList<>(refusedPermissions.length);
         for (Permission permission : refusedPermissions) {
             if (!checkSinglePermission(permission.permissionName)) {

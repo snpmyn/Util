@@ -1,5 +1,8 @@
 package com.zsp.utilone.array;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created on 2019/8/27.
  *
@@ -15,7 +18,8 @@ public class ArrayUtils {
      * @param <T>    泛型
      * @return 下标
      */
-    public static <T> int index(T[] array, T object) {
+    @Contract(pure = true)
+    public static <T> int index(T @NotNull [] array, T object) {
         for (int i = 0; i < array.length; i++) {
             if (object.equals(array[i])) {
                 return i;

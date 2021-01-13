@@ -9,6 +9,9 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +46,7 @@ public class NetManager {
      * @param context 上下文
      * @return 可用true
      */
-    public static boolean isNetConnected(Context context) {
+    public static boolean isNetConnected(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         NetworkInfo activeInfo = getActiveNetworkInfo(context);
         return (activeInfo != null && activeInfo.isConnected());
@@ -55,7 +58,7 @@ public class NetManager {
      * @param context 上下文
      * @return 移动数据true
      */
-    public static boolean isMobileConnected(Context context) {
+    public static boolean isMobileConnected(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         NetworkInfo activeInfo = getActiveNetworkInfo(context);
         return (activeInfo != null && activeInfo.isConnected() && activeInfo.getType() == ConnectivityManager.TYPE_MOBILE);
@@ -67,7 +70,7 @@ public class NetManager {
      * @param context 上下文
      * @return 2G true
      */
-    public static boolean is2gConnected(Context context) {
+    public static boolean is2gConnected(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         NetworkInfo activeInfo = getActiveNetworkInfo(context);
         if (activeInfo == null || !activeInfo.isConnected()) {
@@ -93,7 +96,7 @@ public class NetManager {
      * @param context 上下文
      * @return 3G true
      */
-    public static boolean is3gConnected(Context context) {
+    public static boolean is3gConnected(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         NetworkInfo activeInfo = getActiveNetworkInfo(context);
         if (activeInfo == null || !activeInfo.isConnected()) {
@@ -123,7 +126,7 @@ public class NetManager {
      * @param context 上下文
      * @return 4G true
      */
-    public static boolean is4gConnected(Context context) {
+    public static boolean is4gConnected(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         NetworkInfo activeInfo = getActiveNetworkInfo(context);
         if (activeInfo == null || !activeInfo.isConnected()) {
@@ -148,7 +151,7 @@ public class NetManager {
      * @param context 上下文
      * @return 移动网络运营商名
      */
-    public static String getNetworkOperatorName(Context context) {
+    public static @Nullable String getNetworkOperatorName(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         TelephonyManager tm = (TelephonyManager) context.getApplicationContext().getSystemService(TELEPHONY_SERVICE);
         return tm != null ? tm.getNetworkOperatorName() : null;
@@ -166,7 +169,7 @@ public class NetManager {
      * @param context 上下文
      * @return 手机制式
      */
-    public static int getPhoneType(Context context) {
+    public static int getPhoneType(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         TelephonyManager tm = (TelephonyManager) context.getApplicationContext().getSystemService(TELEPHONY_SERVICE);
         return tm != null ? tm.getPhoneType() : 0;
@@ -178,7 +181,7 @@ public class NetManager {
      * @param context 上下文
      * @return wifi连true
      */
-    public static boolean isWifiConnected(Context context) {
+    public static boolean isWifiConnected(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         NetworkInfo activeInfo = getActiveNetworkInfo(context);
         return (activeInfo != null && activeInfo.isConnected() && activeInfo.getType() == ConnectivityManager.TYPE_WIFI);
@@ -189,7 +192,7 @@ public class NetManager {
      *
      * @param context 上下文
      */
-    public static void wifiConnect(Context context) {
+    public static void wifiConnect(@NotNull Context context) {
         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getApplicationContext().getSystemService(WIFI_SERVICE);
         if (wifiManager != null && !wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
@@ -201,7 +204,7 @@ public class NetManager {
      *
      * @param context 上下文
      */
-    public static void registerNetConnChangedReceiver(Context context) {
+    public static void registerNetConnChangedReceiver(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -213,7 +216,7 @@ public class NetManager {
      *
      * @param context 上下文
      */
-    public static void unregisterNetConnChangedReceiver(Context context) {
+    public static void unregisterNetConnChangedReceiver(@NotNull Context context) {
         checkNonNull(context.getApplicationContext(), "context == null");
         context.getApplicationContext().unregisterReceiver(S_NET_CONN_CHANGED_RECEIVER);
         S_NET_CONN_CHANGED_LISTENERS.clear();
@@ -257,7 +260,7 @@ public class NetManager {
      * @param context 上下文
      * @return 网络信息
      */
-    private static NetworkInfo getActiveNetworkInfo(Context context) {
+    private static @Nullable NetworkInfo getActiveNetworkInfo(@NotNull Context context) {
         ConnectivityManager connMgr = (ConnectivityManager) context.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
         return connMgr != null ? connMgr.getActiveNetworkInfo() : null;
     }

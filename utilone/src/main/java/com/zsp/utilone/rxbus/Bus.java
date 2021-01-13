@@ -223,7 +223,7 @@ public class Bus {
         }
     }
 
-    private void dispatchProducerResult(final SubscriberBaseEvent subscriberEvent, ProducerBaseEvent producer) {
+    private void dispatchProducerResult(final SubscriberBaseEvent subscriberEvent, @NotNull ProducerBaseEvent producer) {
         producer.produce().subscribe((Action1<Object>) event -> {
             if (event != null) {
                 dispatch(event, subscriberEvent);
@@ -363,7 +363,7 @@ public class Bus {
      * @param event   Event to dispatch.
      * @param wrapper Wrapper that will call the handle.
      */
-    private void dispatch(Object event, SubscriberBaseEvent wrapper) {
+    private void dispatch(Object event, @NotNull SubscriberBaseEvent wrapper) {
         if (wrapper.isValid()) {
             wrapper.handle(event);
         }
@@ -398,7 +398,7 @@ public class Bus {
      * @param concreteClass Class whose type hierarchy will be retrieved.
      * @return {@code concreteClass}'s complete type hierarchy, flattened and uniqued.
      */
-    private Set<Class<?>> flattenHierarchy(Class<?> concreteClass) {
+    private @NotNull Set<Class<?>> flattenHierarchy(Class<?> concreteClass) {
         Set<Class<?>> classes = flattenHierarchyCache.get(concreteClass);
         if (classes == null) {
             Set<Class<?>> classesCreation = getClassesFor(concreteClass);
@@ -410,7 +410,7 @@ public class Bus {
         return classes;
     }
 
-    private Set<Class<?>> getClassesFor(Class<?> concreteClass) {
+    private @NotNull Set<Class<?>> getClassesFor(Class<?> concreteClass) {
         List<Class<?>> parents = new LinkedList<>();
         Set<Class<?>> classes = new HashSet<>();
         parents.add(concreteClass);

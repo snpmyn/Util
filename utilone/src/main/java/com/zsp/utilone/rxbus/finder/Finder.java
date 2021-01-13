@@ -4,6 +4,8 @@ import com.zsp.utilone.rxbus.entity.EventType;
 import com.zsp.utilone.rxbus.entity.ProducerBaseEvent;
 import com.zsp.utilone.rxbus.entity.SubscriberBaseEvent;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -16,12 +18,12 @@ import java.util.Set;
 public interface Finder {
     Finder ANNOTATED = new Finder() {
         @Override
-        public Map<EventType, ProducerBaseEvent> findAllProducers(Object listener) {
+        public @NotNull Map<EventType, ProducerBaseEvent> findAllProducers(Object listener) {
             return AnnotatedFinder.findAllProducers(listener);
         }
 
         @Override
-        public Map<EventType, Set<SubscriberBaseEvent>> findAllSubscribers(Object listener) {
+        public @NotNull Map<EventType, Set<SubscriberBaseEvent>> findAllSubscribers(Object listener) {
             return AnnotatedFinder.findAllSubscribers(listener);
         }
     };

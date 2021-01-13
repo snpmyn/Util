@@ -3,6 +3,8 @@ package com.zsp.utilone.cache;
 import android.content.Context;
 import android.os.Environment;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.math.BigDecimal;
 
@@ -19,7 +21,7 @@ public class CacheManager {
      * @param context 上下文
      * @return 全缓存大小
      */
-    public static String totalCacheSize(Context context) {
+    public static @NotNull String totalCacheSize(@NotNull Context context) {
         long cacheSize = folderSize(context.getApplicationContext().getCacheDir());
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             cacheSize += folderSize(context.getApplicationContext().getExternalCacheDir());
@@ -32,7 +34,7 @@ public class CacheManager {
      *
      * @param context 上下文
      */
-    public static void clearAllCache(Context context) {
+    public static void clearAllCache(@NotNull Context context) {
         deleteDir(context.getApplicationContext().getCacheDir());
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             deleteDir(context.getApplicationContext().getExternalCacheDir());
@@ -93,7 +95,7 @@ public class CacheManager {
      * @param size 大小
      * @return 格式化大小
      */
-    private static String formatSize(double size) {
+    private static @NotNull String formatSize(double size) {
         double kiloByte = size / 1024;
         if (kiloByte < 1) {
             return "0K";

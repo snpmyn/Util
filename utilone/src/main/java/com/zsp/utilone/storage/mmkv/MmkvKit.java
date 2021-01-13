@@ -2,6 +2,8 @@ package com.zsp.utilone.storage.mmkv;
 
 import com.tencent.mmkv.MMKV;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created on 2019/9/9.
  *
@@ -9,7 +11,7 @@ import com.tencent.mmkv.MMKV;
  * @desc MmkvKit
  */
 public class MmkvKit {
-    public static MMKV defaultMmkv() {
+    public static @NotNull MMKV defaultMmkv() {
         return MMKV.defaultMMKV();
     }
 }

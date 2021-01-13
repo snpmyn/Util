@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created on 2019/1/8.
  *
@@ -56,7 +58,7 @@ public class TextViewUtils {
      * @param tv      控件
      * @return TextView宽
      */
-    public static int textViewWidth(Context context, TextView tv) {
+    public static int textViewWidth(@NotNull Context context, @NotNull TextView tv) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         return dm.widthPixels - tv.getPaddingLeft() - tv.getPaddingRight();
     }
@@ -67,7 +69,7 @@ public class TextViewUtils {
      * @param textView 控件
      * @param color    色
      */
-    public static void setDrawableColor(TextView textView, int color) {
+    public static void setDrawableColor(@NotNull TextView textView, int color) {
         Drawable[] drawables = textView.getCompoundDrawables();
         for (Drawable drawable : drawables) {
             if (null != drawable) {

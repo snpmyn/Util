@@ -1,5 +1,7 @@
 package com.zsp.utilone.validate;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -198,7 +200,7 @@ public class CheckOutUtils {
     /**
      * 中占两字符（英占一）
      */
-    public static int stringLength(String value) {
+    public static int stringLength(@NotNull String value) {
         int valueLength = 0;
         String chinese = "[\u4e00-\u9fa5]";
         for (int i = 0; i < value.length(); i++) {
@@ -215,7 +217,7 @@ public class CheckOutUtils {
     /**
      * 过滤特殊字符
      */
-    public static String stringFilter(String str) {
+    public static @NotNull String stringFilter(String str) {
         String regEx = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
@@ -282,7 +284,7 @@ public class CheckOutUtils {
      *
      * @return 生日
      */
-    public static String getUserBrithdayByCardId(String ids) {
+    public static String getUserBirthdayByCardId(@NotNull String ids) {
         String birthday = "";
         if (ids.length() == UtilOneMagic.INT_EIGHTEEN) {
             // 18位
@@ -307,7 +309,7 @@ public class CheckOutUtils {
      *
      * @return 性别
      */
-    public static String getUserSexByCardId(String ids) {
+    public static String getUserSexByCardId(@NotNull String ids) {
         String sexShow = "";
         if (ids.length() == UtilOneMagic.INT_EIGHTEEN) {
             // 身份证倒数第二位
