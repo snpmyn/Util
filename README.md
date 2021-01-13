@@ -22,10 +22,11 @@
 ### 依赖、权限
 | 模块 | 依赖 |
 |:-:|:-:|
+| 示例app | implementation 'com.google.android.material:material:1.3.0-beta01' |
 | 示例app | implementation project(path: ':utilone') |
 | 示例app | implementation project(path: ':utiltwo') |
+| 一方库UtilOne | implementation 'com.google.android.material:material:1.3.0-beta01' |
 | 一方库UtilOne | api 'com.github.bumptech.glide:glide:4.11.0'（避重）|
-| 一方库UtilOne | api 'com.google.android.material:material:1.3.0-beta01'（避重）|
 | 一方库UtilOne | api 'io.reactivex:rxandroid:1.2.1'（避重）|
 | 一方库UtilOne | api 'io.reactivex:rxjava:1.3.8'（避重）|
 | 一方库UtilOne | api 'com.jakewharton.timber:timber:4.7.1'（避重）|
@@ -96,7 +97,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.snpmyn:Util:v0.0.1x'
+    implementation 'com.github.snpmyn:Util:v0.0.1X'
 }
 ```
 
