@@ -15,6 +15,8 @@ import com.zsp.utilone.activity.ActivitySuperviseManager;
 import com.zsp.utilone.storage.mmkv.MmkvInitConfigure;
 import com.zsp.utilone.timber.configure.TimberInitConfigure;
 
+import org.jetbrains.annotations.NotNull;
+
 import timber.log.Timber;
 
 /**
@@ -103,7 +105,7 @@ public class UtilApp extends Application implements MMKVHandler, MMKVContentChan
     }
 
     @Override
-    public void mmkvLog(MMKVLogLevel mmkvLogLevel, String s, int i, String s1, String s2) {
+    public void mmkvLog(@NotNull MMKVLogLevel mmkvLogLevel, String s, int i, String s1, String s2) {
         String log = "<" + s + ":" + i + "::" + s1 + "> " + s2;
         switch (mmkvLogLevel) {
             case LevelDebug:

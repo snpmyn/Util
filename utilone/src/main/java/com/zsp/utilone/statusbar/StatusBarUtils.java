@@ -669,7 +669,7 @@ public class StatusBarUtils {
      * @param activity 活动
      */
     public static void statusBarLight(Activity activity) {
-        StatusBarUtils.setColorNoTranslucent(activity, ContextCompat.getColor(activity, R.color.background));
+        StatusBarUtils.setColorNoTranslucent(activity, ContextCompat.getColor(activity, R.color.pageBackground));
         StatusBarUtils.statusBarTextColorDark(activity, true);
     }
 

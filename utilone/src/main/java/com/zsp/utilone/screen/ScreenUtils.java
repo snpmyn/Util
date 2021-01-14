@@ -6,6 +6,8 @@ import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.ref.WeakReference;
 
 import static android.content.Context.WINDOW_SERVICE;
@@ -26,7 +28,7 @@ public class ScreenUtils {
      * @return 窗口管理器
      */
     private static WindowManager getWindowManager(Context context) {
-        if (windowManager == null) {
+        if (null == windowManager) {
             windowManager = (WindowManager) context.getApplicationContext().getSystemService(WINDOW_SERVICE);
         }
         return windowManager;
@@ -38,9 +40,9 @@ public class ScreenUtils {
      * @param context 上下文
      * @return 屏宽（像素）
      */
-    public static int screenWidth(Context context) {
+    public static int screenWidth(@NotNull Context context) {
         DisplayMetrics metric = new DisplayMetrics();
-        getWindowManager(context).getDefaultDisplay().getMetrics(metric);
+        context.getDisplay().getMetrics(metric);
         return metric.widthPixels;
     }
 
@@ -50,9 +52,9 @@ public class ScreenUtils {
      * @param context 上下文
      * @return 屏高（像素）
      */
-    public static int screenHeight(Context context) {
+    public static int screenHeight(@NotNull Context context) {
         DisplayMetrics metric = new DisplayMetrics();
-        getWindowManager(context).getDefaultDisplay().getMetrics(metric);
+        context.getDisplay().getMetrics(metric);
         return metric.heightPixels;
     }
 
