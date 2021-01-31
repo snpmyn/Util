@@ -89,7 +89,6 @@ public enum EventThread {
                 scheduler = Schedulers.from(ThreadHandler.DEFAULT.getExecutor());
                 break;
             case HANDLER:
-                /*scheduler = HandlerScheduler.from(ThreadHandler.DEFAULT.getHandler());*/
                 scheduler = AndroidSchedulers.from(ThreadHandler.DEFAULT.getHandler().getLooper());
                 break;
             default:
