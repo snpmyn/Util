@@ -58,7 +58,7 @@ buildscript {
                 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'      
+        classpath 'com.android.tools.build:gradle:4.1.2'     
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -96,7 +96,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.snpmyn:Util:v0.0.1.2X'
+    implementation 'com.github.snpmyn:Util:v0.0.1.3X'
 }
 ```
 
